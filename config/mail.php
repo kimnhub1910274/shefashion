@@ -14,13 +14,6 @@ return [
     */
 
     'default' => env('MAIL_MAILER', 'smtp'),
-    'stream' => [
-        'ssl' => [
-            'allow_self_signed' => true,
-            'verify_peer'       => false,
-            'verify_peer_name'  => false,
-        ],
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -43,13 +36,13 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.googlemail.org'),
-            'port' => env('MAIL_PORT', 465),
-            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => 'smtp.gmail.com',
+            'port' =>587,
+            'encryption' => 'tls',
+            'username' => 'lethikimnhuhb@gmail.com',
+            'password' => 'tqjxpwltkqligbxf',
             'timeout' => null,
-            'local_domain' => env('MAIL_EHLO_DOMAIN'),
+            'local_domain' => null,
         ],
 
         'ses' => [
@@ -99,8 +92,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'lethikimnhuhb@.com'),
-        'name' => env('MAIL_FROM_NAME', 'Kim Nhu'),
+        'address' => 'lethikimnhuhb@gmail.com',
+        'name' => env('Shopping'),
     ],
 
     /*

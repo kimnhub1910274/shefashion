@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Mail;
+use App\Mail\Gmail;
 
 session_start();
 
@@ -82,15 +83,11 @@ class HomeController extends Controller
 
     }
     public function send_mail(){
-        $to_name = "Kim Nhu";
-        $to_email = "kimnhu13.10@gmail.com";
 
-        $data = array("name" => "Mail từ tài khoản khách hàng", "body" => "Mail gửi về đơn hàng");
+            $name = 'test';
+            Mail::send('pages.send_mail', compact('name'), function($email){
+                $email->to('lethikimnhuhb@gmail.com', 'Kim Nhu');
+            });
 
-        Mail::send('pages.send_mail', $data, function($message) use ($to_name, $to_email){
-            $message->to($to_email)->subject('Gui mail google');
-            $message->from($to_email, $to_name);
-        });
-        return redirec('/')->with('message', '');
     }
 }
