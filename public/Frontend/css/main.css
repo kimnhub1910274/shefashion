@@ -1,0 +1,214 @@
+html{
+    scroll-behavior: smooth;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .d-block{
+    height: 510px;
+    width: 100%;
+  }
+  section{
+    width: 100%;
+    background-size: cover;
+  }
+  .header{
+    color:whitesmoke;
+    transition: all ease-in-out 0.3s;
+    margin: 0;
+    width: 100%;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    height: 100px;
+
+  }
+  .she{
+      width: 250px;
+  }
+  .fixed{
+    background-color: whitesmoke;
+  }
+
+  .container{
+      margin-top: 24px;
+  }
+
+  .fa-magnifying-glass:before, .fa-search:before {
+    content: "\f002";
+    margin-left: -50px;
+    color: black;
+  }
+  .cart{
+    margin: 20px 10px;
+    color: black;
+  }
+  #circle {
+    padding: 5px 12px 5px 12px;
+    background: wheat;
+    border-radius: 50%;
+
+  }
+  .banner{
+  margin-top: 120px;
+  }
+  .sp{
+  width: 400px;
+  height: 400px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  }
+  .detail{
+  text-align: center;
+  font-size: medium;
+  }
+  .nav-link{
+     color: black;
+  }
+
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  /* Full-width input fields */
+  .input-search{
+  width: 100%;
+  padding: 10px;
+  height: 40px;
+  display: inline-block;
+
+  border-radius: 30px;
+  margin-top: -10px;
+  }
+  input[type=text]:focus, input[type=password]:focus {
+
+  outline: none;
+  }
+  button:hover {
+  opacity:1;
+  }
+  .center{
+  text-align: justify;
+  }
+  .accordion{
+  width: 300px;
+  }
+
+  label{
+    color: black;
+  }
+  .log{
+    margin-left: 5px;
+  }
+  .gt{
+    margin-left: 150px;
+    margin-right: 150px;
+  }
+
+  footer{
+    padding: 10px 10px;
+    background-color:  whitesmoke;
+    height: 300px;
+    /* position: absolute;
+    top: 60%; */
+    bottom: 0;
+    width: 100%;
+  }
+  .ft .contact{
+    margin-top: 30px;
+  }
+  .comment{
+    margin-top: -10px
+  }
+
+  /* Fonts Form Google Font ::- https://fonts.google.com/  -:: */
+  @import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+  * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+  }
+  /* the header form form */
+  header {
+      margin: 2% auto 10% auto;
+      text-align: center;
+  }
+
+  /*  A welcome message or an explanation of the login form */
+  header p {letter-spacing: 0.05em;}
+
+  .icon-type{
+    height: 40px;
+    width: 40px;
+    margin-right: 35px;
+  }
+
+
+  /*anh trang chu*/
+  @import url(https://fonts.googleapis.com/css?family=Raleway:400,800);
+
+  /*anh san pham*/
+  figure {
+      overflow: hidden;
+  }
+  a:hover {
+      text-decoration: none;
+  }
+  /*Zoom In*/
+  .btt{
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    background-color: wheat;
+    color: #581a14;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+    #myBtn{
+      float: right;
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color: #581a14;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    #myBtn:hover {
+    background-color: #555;
+  }
+
+  .product-details {
+    margin-bottom: 40px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .product-details{
+	overflow:hidden;
+}
+.fa-cart-plus{
+    color: rgb(15, 162, 170);
+    padding: 5px;
+
+  }
+  .price{
+    color: #af2b1f;
+  }
+  a{
+    text-decoration-line: none;
+    color: #000;
+
+  }
+  .col{
+    margin-bottom:20px;}
