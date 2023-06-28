@@ -28,7 +28,6 @@ class GMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Mail from ItSolutionStuff.com')
-                    ->view('pages.send_mail');
+        return $this->view('pages.send_mail');
     }
 }

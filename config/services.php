@@ -30,5 +30,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'facebook' => [
+        'client_id' => '219039587689538',
+        'client_secret' => '74df4c16c847d39da66dff0183a847c5',
+        'redirect' => 'http://localhost/shefashion/admin/callback'
+    ],
 
 ];

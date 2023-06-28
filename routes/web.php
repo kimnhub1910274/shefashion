@@ -116,6 +116,9 @@ Route::get('/view-ordered/{order_id}', [OrderController::class, 'view_ordered'])
 //Send Mail
 Route::get('/send-mail', [HomeController::class, 'send_mail']);
 
+//Login FB
+Route::get('/login-facebook', [AdminController::class, 'login_facebook']);
+Route::get('/admin/callback', [AdminController::class, 'call_back']);
 
 
 
