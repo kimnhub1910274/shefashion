@@ -139,24 +139,23 @@ class OrderController extends Controller
                 font-family:DejaVu Sans;
                 font-size: 15px;
             }
-            .table2 {
+            .table2{
                 position: absolute;
-
-                width: 100%;
-                height: 2.5rem;            /* Footer height */
-              }
+                bottom: 80;
+                height: 2.5rem;
+            }
             .a{
-                margin-right:130px;
-                margin-right: 10px
+                margin-right:10px;
             }
             .c{
                 margin-right: 160px
             }
-            .d{
-                margin-right: 10px
-            }
+
             .b{
-                margin-left:120px;
+                margin-left:170px;
+            }
+            .e{
+                margin-left:220px;
             }
 
         </style>
@@ -166,19 +165,13 @@ class OrderController extends Controller
         <h3><center>HÓA ĐƠN BÁN HÀNG</center></h3>
         <center>----------</center>
         <table class="">
-            <thead >
-                <tr>
-                    <th>
-                        <p class="c">Người đặt hàng</p>
-                    </th>
-                    <th><p class="d">Người nhận hàng</p></th>
-                </tr>
-            </thead>
+
             <tbody>';
     $output.='
                 <tr>
                     <td>
                         <div class="a">
+                            <p class=""><b>Người đặt hàng</b></p>
                             <p class="">Họ tên: '.$customer->customer_name.'</p>
                             <p>Số điện thoại: '.$customer->customer_phone.'</p>
                             <p>Email: '.$customer->customer_email.'</p>
@@ -188,6 +181,7 @@ class OrderController extends Controller
                     </td>
                     <td>
                         <div class="b">
+                            <p class=""><b>Người nhận hàng</b></p>
                             <p>Họ tên: '.$ship->ship_name.'</p>
                             <p>Số điện thoại: '.$ship->ship_phone.'</p>
                             <p>Địa chỉ: '.$ship->ship_address.'</p>
@@ -218,7 +212,7 @@ class OrderController extends Controller
         $output.='
                     <tr>
                         <td>'.$product->product_name.'&nbsp; &nbsp;&nbsp; &nbsp;</td>
-                        <td>'.$product->product_price.'</td>
+                        <td>'.number_format($product->product_price,0,',',',').'đ'.'</td>
                         <td> &nbsp; &nbsp;&nbsp; &nbsp;'.$product->product_quantity.'</td>
                         <td>'.number_format($subtotal,0,',',',').'đ'.'</td>
                     </tr>';
@@ -233,40 +227,60 @@ class OrderController extends Controller
         $output.='
                 </tbody>
             </table>';
+            $output.='
+            <table class="table3">
+                <tbody>';
         $output.='
-            <footer>
-                <table class="table2">
-                    <thead >
-                        <tr>
-                            <th>
-                                <p class="c">THÔNG TIN LIÊN HỆ</p>
-                            </th>
-                            <th><p class="d">CẢM ƠN</p></th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-            $output.='
-                        <tr>
-                            <td>
-                                <div class="a">
-                                    <p>Số điện thoại: '.$customer->customer_phone.'</p>
-                                    <p>Email: '.$customer->customer_email.'</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="b">
-                                    <p></p>
-                                    <p></p>
-                                </div>
-                            </td>
-                        </tr>
-                        ';
-            $output.='
+        <tr>
+            <td>
+                <div class="a">
+                    <p class=""><b>Người lập hóa đơn</b></p>
+                    <small><center>(Ký xác nhận)</center></small>
+                </div>
+            </td>
+            <td>
+                <div class="e">
+                    <p class=""><b>Người nhận hàng</b></p>
+                    <small><center>(Ký xác nhận)</center></small>
 
-                    </tbody>
-                </table>
-            </footer>
-            ';
+                </div>
+            </td>
+        </tr>
+                    ';
+        $output.='
+
+                </tbody>
+            </table>';
+        $output.='
+            <table class="table2">
+                <thead >
+                    <tr>
+                        <th>
+                            <p class="c">THÔNG TIN LIÊN HỆ</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>';
+        $output.='
+                    <tr>
+                        <td>
+                            <div class="a">
+                                <p>Số điện thoại: 0795484345</p>
+                                <p>Email: lethikimnhuhb@gmail.com</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="e font">
+                                <h2>CẢM ƠN!</h2>
+                            </div>
+                        </td>
+                    </tr>
+                    ';
+        $output.='
+
+                </tbody>
+            </table>';
+
         return $output;
     }
 
