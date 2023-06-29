@@ -35,5 +35,10 @@ return [
         'client_secret' => '74df4c16c847d39da66dff0183a847c5',
         'redirect' => 'http://localhost/shefashion/admin/callback'
     ],
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_CALLBACK')
+    ],
 
 ];

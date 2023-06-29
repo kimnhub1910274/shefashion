@@ -182,11 +182,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-
-        /*
+        Barryvdh\DomPDF\ServiceProvider::class,      /*
          * Package Service Providers...
          */
-
 
         /*
          * Application Service Providers...
@@ -220,7 +218,7 @@ return [
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
        // 'Cart' => Darryldecode\Cart\Cart::class
        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
+       'PDF' =>Barryvdh\DomPDF\Facade::class,
 
 
     ])->toArray(),

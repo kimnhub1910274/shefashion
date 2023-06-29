@@ -17,7 +17,7 @@
             <th scope="col">STT</th>
             <th>Mã đơn hàng</th>
             <th>Mã khách hàng</th>
-            <th scope="col">Tổng tiền</th>
+            <th scope="col">Tổng tiền  </th>
             <th scope="col">Trạng thái</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>

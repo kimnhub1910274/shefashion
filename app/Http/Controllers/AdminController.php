@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
-use Login;
-use Social;
+use Socialite;
+use App\Models\Login;
+use App\Models\Social;
 session_start();
 class AdminController extends Controller
 {
@@ -72,7 +73,8 @@ class AdminController extends Controller
         if($account){
             $account_name = Login::where('admin_id', $account->user)->first();
             Session::put('admin_name', $account_name->admin_name);
-            return Redirect::to('/admin/dashboard')->with('message', 'Đăng nhập Admin thành công');
+            Session::put('admin_id', $account_name->admin_id);
+            return Redirect::to('/dashboard')->with('message', 'Đăng nhập Admin thành công');
 
         }else{
             $us = new Social([
@@ -94,8 +96,8 @@ class AdminController extends Controller
 
             $account_name = Login::where('admin_id', $account->user)->first();
             Session::put('admin_name', $account_name->admin_name);
-
-            return redirect('/admin/dashboard')->with('message', 'Đăng nhập Admin thành công');
+            Session::put('admin_id', $account_name->admin_id);
+            return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
         }
     }
 

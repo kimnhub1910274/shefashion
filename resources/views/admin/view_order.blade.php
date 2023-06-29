@@ -173,11 +173,11 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="" colspan="4">Phí vận chuyển</th>
+                                    <th scope="" colspan="3">Phí vận chuyển</th>
                                     <td class="text-end">0</td>
                                 </tr>
                                 <tr class="fw-bold">
-                                    <td colspan="4">Tổng tiền</td>
+                                    <td colspan="3">Tổng tiền</td>
                                     <td class="text-end">
                                         {{ number_format($total)}}</td>
                                 </tr>
@@ -192,7 +192,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                     <h3 class="h6">Phương thức thanh toán</h3>
-                    <p>Thanh toán khi nhận hàng<br>
+                    <p>Thanh toán khi nhận hàng <br>
                     </div>
                     <div class="col-lg-6">
                     <h3 class="h6">Người đặt đơn</h3>
@@ -227,6 +227,15 @@
               </address>
             </div>
           </div>
+          <div class="card mb-4">
+            <!-- Shipping information -->
+            <div class="card-body">
+              <h3 class="h6">Xuất hóa đơn</h3>
+              @foreach ($order as $key => $val)
+              @endforeach
+              <a target="_blank" href="{{url('/print-order/'.$val->order_id)}}">In đơn hàng</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -237,8 +246,6 @@
         }
         .card {
             box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
-        }
-        .card {
             position: relative;
             display: flex;
             flex-direction: column;
