@@ -68,6 +68,9 @@ Route::post('/category-product', [CategoryProduct::class, 'save_category_product
 Route::get('/on-cate/{category_id}', [CategoryProduct::class, 'on_cate']);
 Route::get('/off-cate/{category_id}', [CategoryProduct::class, 'off_cate']);
 
+Route::post('/import-csv', [CategoryProduct::class, 'import_csv']);
+Route::post('/export-csv', [CategoryProduct::class, 'export_csv']);
+
 //product
 Route::get('/add-product', [ProductController::class, 'add_product']);
 Route::get('/list-product', [ProductController::class, 'list_product']);

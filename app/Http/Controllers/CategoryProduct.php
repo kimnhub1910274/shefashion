@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Excel;
+use App\Imports\Import;
+use App\Exports\Export;
+use App\Models\CategoryProducts;
 
 session_start();
 
@@ -101,5 +105,15 @@ class CategoryProduct extends Controller
         ->with('meta_title', $meta_title)->with('meta_url', $meta_url)->with('cate_name', $cate_name);
 
     }
+    public function export_csv(){
+        return Excel::download(new Export, 'category_product.xlsx');
+    }
+    public function import_csv(Request $request){
+        $path = $request->file('file')->getRealPath();
+        Excel::import(new Import, $path);
+        return back();
+    }
+
+
 
 }
