@@ -46,7 +46,8 @@ class HomeController extends Controller
 
         }
 
-        return view('pages.product')->with('category', $cate_product)->with('list_product', $list_product)->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
+        return view('pages.product')->with('category', $cate_product)->with('list_product',
+         $list_product)->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
         ->with('meta_title', $meta_title)->with('meta_url', $meta_url);
     }
     public function login(Request $request)

@@ -22,7 +22,7 @@ class CategoryProduct extends Controller
 
     public function list_category_product()
     {
-        $list = DB::table('tbl_cate_pro')->get();
+        $list = DB::table('tbl_cate_pro')->paginate(5);
         $manager = view('admin.list_category_product')->with('list_category_product', $list);
 
         return view('admin_dashboard')->with('admin.list_category_product', $manager);

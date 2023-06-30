@@ -1,25 +1,17 @@
 <?php
 
-namespace App\Imports;
+namespace App\Exports;
 
 use App\Models\Product;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ExportProduct implements ToModel
+class ExportProduct implements FromCollection
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
+    * @return \Illuminate\Support\Collection
     */
-    public function model(array $row)
+    public function collection()
     {
-        return new CategoryProducts([
-            'cate_name' => $row[0],
-            'meta_keywords' => $row[1],
-            'meta_desc' => $row[2],
-            'cate_quantity' => $row[3],
-            'cate_status' => $row[4],
-        ]);
+        return Product::all();
     }
 }

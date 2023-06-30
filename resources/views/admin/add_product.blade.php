@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-3">
                             <label  class="form-label"><b>Mô tả</b></label>
-                            <textarea class="form-control" id="ckeditor1" style="resize:none;" name="product_desc" rows="5"></textarea>
+                            <textarea class="form-control" style="resize:none;" name="product_desc" rows="5"></textarea>
                         </div>
                         <div class="row">
                             <div class="col">

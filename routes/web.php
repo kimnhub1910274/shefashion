@@ -81,6 +81,9 @@ Route::post('/save-product', [ProductController::class, 'save_product']);
 Route::get('/on-pro/{product_id}', [ProductController::class, 'on_pro']);
 Route::get('/off-pro/{product_id}', [ProductController::class, 'off_pro']);
 
+Route::post('/import-product', [ProductController::class, 'import_product']);
+Route::post('/export-product', [ProductController::class, 'export_product']);
+
 //cart
 Route::post('/save-cart', [CartController::class, 'save_cart']);
 Route::post('/save-cartt', [CartController::class, 'save_cartt']);

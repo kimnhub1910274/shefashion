@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="{{$meta_desc}}">
+    {{-- <meta name="description" content="{{$meta_desc}}">
     <meta name="keywords" content="{{$meta_keywords}}">
     <meta name="robots" content="">
     <meta name="author" content="">
-    <link rel="canonical" href="{{$meta_url}}">
+    <link rel="canonical" href="{{$meta_url}}"> --}}
     <link rel="icon" type="image/x-icon" href="">
 
     {{-- <meta property="og:image" content="{{$meta_image}}"/>
@@ -21,7 +21,6 @@
     <meta property="og:type" content="website"/> --}}
 
 
-    <title>{{$meta_title}}</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -260,13 +259,13 @@
                             </ul>
                         </div>
                     </nav>
-                    <div class="fb-like" data-href="{{$meta_url}}"
+                    {{-- <div class="fb-like" data-href="{{$meta_url}}"
                      data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="false"></div>
                     <div class="fb-share-button" data-href="http://localhost/shefashion"
                         data-layout="button_count" data-size="large"><a target="_blank"
                         href="https://www.facebook.com/sharer/sharer.php?u={{$meta_url}}&amp;src=sdkpreparse"
                         class="fb-xfbml-parse-ignore">Chia sẻ</a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-9">
                     @yield('home')

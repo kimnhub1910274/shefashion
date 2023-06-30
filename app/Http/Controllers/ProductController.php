@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-
+use Excel;
+use App\Imports\ImportProduct;
+use App\Exports\ExportProduct;
+use App\Models\Product;
 session_start();
 
 class ProductController extends Controller
@@ -21,12 +24,11 @@ class ProductController extends Controller
     {
         $list_product = DB::table('tbl_product')
         ->join('tbl_cate_pro', 'tbl_cate_pro.cate_id', '=', 'tbl_product.category_id')
-        ->where('cate_status', 1)
-        ->orderby('tbl_product.product_id')->get();
+
+        ->orderby('tbl_product.product_id')->paginate(5);
 
         $manager = view('admin.list_product')->with('list_product', $list_product);
-
-        return view('admin_dashboard')->with('admin.list_category_product', $manager);
+        return view('admin_dashboard')->with('admin.list_product', $manager);
     }
 
     public function save_product(Request $request)
@@ -145,5 +147,13 @@ class ProductController extends Controller
         ->with('product_details', $detail_product)->with('related', $related_product)
         ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)->with('meta_title', $meta_title)->with('meta_url', $meta_url);
 
+    }
+    public function export_product(){
+        return Excel::download(new ExportProduct, 'product.xlsx');
+    }
+    public function import_product(Request $request){
+        $path = $request->file('files')->getRealPath();
+        Excel::import(new ImportProduct, $path);
+        return back();
     }
 }
