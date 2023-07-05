@@ -81,14 +81,14 @@
     </table>
     <div class="row">
         <div class="col-5">
-            <form action="{{ url('/import-product') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/import-csv') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="file" name="files" accept=".xlsx">
+                <input type="file" name="file" accept=".xlsx">
                 <input type="submit" value="Chèn file excel " name="import_product" class="btn btn-warning">
             </form>
         </div>
         <div class="col-5">
-            <form action="{{ url('/export-product') }}" method="POST" >
+            <form action="{{ url('/export-csv') }}" method="POST" >
                 @csrf
                 <input type="submit" value="Xuất file excel" name="export_product" class="btn btn-success">
             </form>

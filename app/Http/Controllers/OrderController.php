@@ -82,6 +82,8 @@ class OrderController extends Controller
                         $product->product_quantity = $product_remain;
                         $product->product_sold = $product_sold + $qty;
                         $product->save();
+                        //return view('pages.send_mail');
+
                     }
 
                 }

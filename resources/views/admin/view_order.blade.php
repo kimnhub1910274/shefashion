@@ -143,7 +143,7 @@
                                     <td>
 
                                         <input {{ $order_status == 3 ? 'disabled' : '' }}
-                                            type="number" min="1"  class="order_qty_{{ $details->product_id }}"
+                                            type="" min="1"  class="order_qty_{{ $details->product_id }}"
                                             name="product_sale_quantity" style="width:40px"
                                             value="{{ $details->product_quantity}}">
 
@@ -156,11 +156,11 @@
                                         <input type="hidden" name="order_qty_storage"
                                             value="{{$details->product_quantity}}"
                                             class="order_qty_storage_{{ $details->product_id }}">
-                                        @if ($order_status != 3)
+                                        {{-- @if ($order_status != 3)
                                             <button class="btn btn-success update_quantity_order"
                                             name="update_quantity_order"
                                             data-product_id="{{ $details->product_id }}">Cập nhật</button>
-                                        @endif
+                                        @endif --}}
                                     </td>
                                     <td class="text">
                                         {{number_format($details->product_price)}}

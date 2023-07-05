@@ -199,7 +199,7 @@
                 ?>
             </div>
             <div class="cart">
-                <a href="{{URL ::to('/show-cart')}}" style="text-decoration: none; color:black;"><i
+                <a href="{{URL ::to('/add-cart-ajax')}}" style="text-decoration: none; color:black;"><i
                         class="fa-solid fa-cart-shopping"></i>
                     <span id="circle">{{ number_format(Cart::getContent()->count()) }}</span>
                 </a>
@@ -260,7 +260,8 @@
                         </div>
                     </nav>
                     {{-- <div class="fb-like" data-href="{{$meta_url}}"
-                     data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="false"></div>
+                     data-width="" data-layout="button_count" data-action="like"
+                      data-size="large" data-share="false"></div>
                     <div class="fb-share-button" data-href="http://localhost/shefashion"
                         data-layout="button_count" data-size="large"><a target="_blank"
                         href="https://www.facebook.com/sharer/sharer.php?u={{$meta_url}}&amp;src=sdkpreparse"
@@ -360,4 +361,33 @@ $("figure").mouseleave(
 <scrip type="text/javascript">
 </scrip>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0" nonce="bkDS7fsa"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"type="text/javascript"></script>
+<script async defer crossorigin="anonymous"
+src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS7fsa"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-to-cart').click(function(){
+            var id = $(this).data('id_pro');
+            var cart_product_id = $('.cart_product_id_' + id).val();
+            var cart_product_name = $('.cart_product_name_' + id).val();
+            var cart_product_image = $('.cart_product_image_' + id).val();
+            var cart_product_price = $('.cart_product_price_' + id).val();
+            var cart_product_qty = $('.cart_product_qty_' + id).val();
+            var _token = $('input[name="_token"]').val();
+            //alert(cart_product_name);
+            $.ajax({
+                url: '{{url('/add-cart-ajax')}}',
+                method: 'POST',
+                data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token},
+                success:function(data){
+                    //alert(data);
+                }
+
+            });
+        });
+    });
+</script>
+

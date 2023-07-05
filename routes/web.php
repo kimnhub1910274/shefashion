@@ -88,10 +88,14 @@ Route::post('/export-product', [ProductController::class, 'export_product']);
 Route::post('/save-cart', [CartController::class, 'save_cart']);
 Route::post('/save-cartt', [CartController::class, 'save_cartt']);
 
-Route::get('/show-cart', [CartController::class, 'cart']);
+Route::get('/show-cart', [CartController::class, 'show_cart']);
+Route::get('/show-cart-ajax', [CartController::class, 'show_cart_ajax']);
+
 Route::get('/delete-to-cart/{id}', [CartController::class, 'delete_to_cart']);
 Route::post('/increase-to-cart', [CartController::class, 'increase_to_cart']);
 Route::post('/reduce-to-cart', [CartController::class, 'reduce_to_cart']);
+Route::get('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
+
 
 // checkout
 
@@ -115,6 +119,7 @@ Route::get('/view-order/{order_id}', [OrderController::class, 'view_order']);
 Route::post('/update-quantity-order', [OrderController::class, 'update_quantity_order']);
 Route::post('/update-qty-order', [OrderController::class, 'update_qty_order']);
 Route::get('/print-order/{checkout_code}', [OrderController::class, 'print_order']);
+
 
 
 Route::get('/ordered/{customerId}', [OrderController::class, 'ordered']);

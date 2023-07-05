@@ -318,7 +318,10 @@
     <script src="{{asset('public/Backend/js/ckeditor/ckeditor.js')}}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>    <script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"
+    type="text/javascript"></script>
+    <script>
         ClassicEditor
             .create( document.querySelector( '#ckeditor1' ) )
             .catch( error => {
@@ -425,11 +428,21 @@
         });
 
     </script>
-     <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function(){
-
-        });
+            $('send_order').click(function(){
+                swal({
+                    title: "Xác nhận đơn hàng",
+                    text: "Đơn hàng sẽ không được hủy khi đã đặt, bạn có muốn đặt không?",
+                    type: "warning",
+                    showCancalButtons: true,
+                    confirmButtonClass: "btn btn-danger",
+                    confirmButtonText: "Cảm ơn bạn đã mua hàng",
+                })
+            })
+        })
     </script>
+
 
 </body>
 
