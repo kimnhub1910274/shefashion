@@ -2,7 +2,7 @@
 @section('home')
 <title>She - Thời trang</title>
   <div class="container-fluid text-center">
-    <h4 class="text-center title" style="margin-bottom: 20px"><b>SẢN PHẨM MỚI</b></h4>
+    <h4 class="text-center title" style="margin-bottom: 20px; margin-top: 20px"><b>SẢN PHẨM MỚI</b></h4>
     <div class="row">
         @foreach ($list_product as $key => $product )
         <div class="col">

@@ -29,6 +29,8 @@
 
     <link rel="stylesheet" href="{{asset('public/fonts/fontawesome-free-6.0.0/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/Frontend/css/main.css')}}">
+    //<link rel="" href="{{asset('public/Frontend/js/sweatalert.min.js')}}">
+
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -40,8 +42,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
      crossorigin="anonymous"></script>
-    <!-- owl carousel -->
-    <script src="owlcarousel/owl.carousel.min.js"></script>
 </head>
 
 <body>
@@ -199,7 +199,7 @@
                 ?>
             </div>
             <div class="cart">
-                <a href="{{URL ::to('/add-cart-ajax')}}" style="text-decoration: none; color:black;"><i
+                <a href="{{URL ::to('/show-cart-ajax')}}" style="text-decoration: none; color:black;"><i
                         class="fa-solid fa-cart-shopping"></i>
                     <span id="circle">{{ number_format(Cart::getContent()->count()) }}</span>
                 </a>
@@ -366,7 +366,8 @@ $("figure").mouseleave(
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"type="text/javascript"></script>
 <script async defer crossorigin="anonymous"
 src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS7fsa"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+//<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('.add-to-cart').click(function(){
@@ -377,17 +378,55 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             var cart_product_price = $('.cart_product_price_' + id).val();
             var cart_product_qty = $('.cart_product_qty_' + id).val();
             var _token = $('input[name="_token"]').val();
-            //alert(cart_product_name);
+           // alert(cart_product_name);
             $.ajax({
                 url: '{{url('/add-cart-ajax')}}',
                 method: 'POST',
-                data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token},
+                data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image, cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token},
                 success:function(data){
                     //alert(data);
+                    Swal.fire({
+                        //icon: 'warning',
+                        title: "Đã thêm sản phẩm vào giỏ hàng",
+                        text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                        showDenyButton: false,
+                        showCancelButton: true,
+                        confirmButtonText: 'Đến giỏ hàng',
+                        cancelButtonText: "Mua tiếp",
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location.href = "{{url('/show-cart-ajax')}}";
+                        }
+                      });
                 }
 
             });
         });
     });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.order').click(function(){
+            var customer_id = $('.customer_id').val();
+            var ship_name = $('.ship_name' ).val();
+            var ship_phone = $('.ship_phone').val();
+            var ship_address = $('.ship_address').val();
+            var ship_note = $('.ship_note').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/confirm-order')}}',
+                method: 'POST',
+                data:{customer_id:customer_id, ship_name:ship_name, ship_phone:ship_phone, ship_address:ship_address, ship_note:ship_note, _token:_token},
+                success:function(data){
+                    alert("Đặt hàng thành công");
+
+                }
+
+            });
+        });
+    });
+</script>
+
 

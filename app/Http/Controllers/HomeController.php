@@ -66,14 +66,14 @@ class HomeController extends Controller
 
     } else {
         $request->session()->put('message', 'Vui long dang nhap lai!!');
-        return view('welcome');
+        return redirect()->back();
         }
     }
     public function logout(Request $request)
     {
         Session::put('name', null);
         Session::put('id', null);
-    return Redirect::to('/');
+    return redirect()->back();
     }
     public function search (Request $request)
     {

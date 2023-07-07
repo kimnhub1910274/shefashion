@@ -12,39 +12,64 @@
                         <h4>Danh sách sản phẩm</h4>
                     </div>
                     <div class="card-body">
-                        <?php
-                        $content = Cart::getContent();
-                        ?>
-                        <table class="table" >
+                        <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>Mã sản phẩm</th>
                                     <th>Ảnh sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Số lượng</th>
+                                    <th>Giá</th>
                                     <th>Thành tiền</th>
                                     <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($content as $key => $value )
-                                <tr>
-                                    <td>{{ $value->id }}</td>
-                                    <td><a href="{{ URL::to('/product-detail/'.$value->id) }}" >
-                                        <img src="{{ URL::to('public/uploads/product/'.$value->attributes->image) }}"
-                                        width="100" height="100" style="margin-bottom: 5px" alt="">
 
-                                    </a></td>
-                                    <td>{{  $value->name }}</td>
-                                    <td>{{ $value->quantity}} </td>
-                                    <td>{{ number_format($value->price * $value->quantity) }}</td>
-                                    <td>
-                                        <a href="{{ URL::to('/delete-to-checkout/'.$value->id) }}">
-                                            <i class="fa-solid fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
+                                @php
+                                    //print_r(Session::get('cart'));
+                                    $c = Session::get('cart');
+                                    $total = 0;
+
+                                @endphp
+                                @if($c == true)
+                                    @foreach($c as $key => $cart)
+                                    @php
+                                        $subtotal = $cart['product_price'] * $cart['product_quantity'];
+                                        $total = $total + $subtotal;
+                                    @endphp
+                                        <tr>
+                                            <td>{{ $cart['product_id'] }}</td>
+                                            <td><a href="" >
+                                                <img src="{{asset('public/uploads/product/'.$cart['product_image'])}}"
+                                                width="100" height="100" style="margin-bottom: 5px"
+                                                alt="{{ $cart['product_name'] }}">
+                                                {{-- {{ $value->name }} --}}
+                                                </a>
+                                            </td>
+                                            <td>{{ $cart['product_name'] }}</td>
+                                            <td>
+                                                {{ $cart['product_quantity'] }}
+
+                                            <td>{{ number_format($cart['product_price']) }}</td>
+                                            <td>{{ number_format($subtotal) }}</td>
+                                            <td>
+                                                <a href="{{URL::to('/delete-to-cart/'.$cart['session_id'])}}">
+                                                    <i class="fa-solid fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td><b>TỔNG TIỀN:</b></td>
+                                        <td colspan="6" class="text-center"><b>{{ number_format($total) }} VNĐ</b></td>
+                                        <td colspan="2">
+                                        </td>
+                                    </tr>
+                                    @else
+                                    <p class="text-center"><b>Giỏ hàng rỗng hãy mua sắm</b></p>
+                                    @endif
+
+                                </tbody>
                         </table>
 
                     </div>
@@ -64,39 +89,39 @@
                     ?>
                     <div class="card-body">
 
-                        <form action="{{ URL::to('/save-checkout') }}" method="POST">
-                            {{ csrf_field() }}
+                        <form  method="POST">
+
                             <div class="mb-3 input-group">
                                 <input type="hidden" class="form-control" placeholder=""
-                                aria-label="" name="customer_id"
+                                aria-label="" name="customer_id" class="ship_id"
                                 aria-describedby="basic-addon1" value="{{ $customer_id }}">
                             </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Họ tên</span>
                                <input type="text" class="form-control" placeholder="" aria-label="" name="ship_name"
-                               aria-describedby="basic-addon1" value="{{ $customer_name }}">
+                               aria-describedby="basic-addon1" value="{{ $customer_name }}"  class="ship_name">
                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Số điện thoại</span>
                                <input type="text" class="form-control" placeholder="" aria-label="" name="ship_phone"
-                               aria-describedby="basic-addon1" value="{{ $customer_phone }}">
+                               aria-describedby="basic-addon1" value="{{ $customer_phone }}" class="ship_phone">
                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Địa chỉ</span>
                                <input type="text" class="form-control" placeholder="" aria-label=""
-                               name="ship_address"
+                               name="ship_address"  class="ship_address"
                                aria-describedby="basic-addon1" value="{{ $customer_address }}">
                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Ghi chú</span>
-                               <textarea type="text" class="form-control"
+                               <textarea type="text" class="form-control"  class="ship_note"
                                placeholder="" name="ship_note" required></textarea>
                            </div>
                         </div>
                            <?php
-                            if (Cart::getContent()->count() > 0) {
+                            if ($c == true) {
                                 ?>
-                                <input type="submit" value="ĐẶT HÀNG" class="btn btn-success"
+                                <input type="button" value="ĐẶT HÀNG" class="order btn btn-success"
                                 style="float: right" name="order" ></input>
                                 <?php
                             }
@@ -110,7 +135,7 @@
                         <h6>TÓM TẮT ĐƠN HÀNG</h6>
                     </div>
                     <div class="card-body">
-                        <p><b>Giá trị đơn hàng:</b> {{ number_format(Cart::getSubTotal()) }} VNĐ</p>
+                        <p><b>Giá trị đơn hàng:</b> {{ number_format($total) }} VNĐ</p>
                         <p><b>Phí giao hàng:</b> Miễn phí</p>
                         <p><b>Hình thức:</b> Thanh toán khi nhận hàng</p>
                     </div>

@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Session;
 use Cart;
 session_start();
 use App\Ship;
-use App\Order;
+use App\Model\Order;
+use App\Model\OrderDetails;
 
 class CheckoutController extends Controller
 {
@@ -63,7 +64,7 @@ class CheckoutController extends Controller
 
             return Redirect::to('/home');
         } else {
-            return Redirect::to('/login_checkout');
+            return Redirect::to('/login_checkout')->with('message',"Vui lòng đăng nhập lại!!");
         }
     }
 
@@ -90,24 +91,24 @@ class CheckoutController extends Controller
         $data['ship_phone'] = $request->ship_phone;
         $data['ship_address'] = $request->ship_address;
         $data['ship_note'] = $request->ship_note;
-
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $data['created_at'] = now();
         $ship_id = DB::table('tbl_ship')->insertGetId($data);
         Session::put('ship_id', $ship_id);
 
-       // $content = Cart::getContent();
+        $content = Cart::getContent();
        //echo $content;
-
         $order_data = array();
+
         $order_data['customer_id'] = Session::get('customer_id');
         $order_data['ship_id'] = Session::get('ship_id');
-        $order_data['order_total'] = Cart::getTotal();
         $order_data['order_status'] = 0;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $order_data['created_at'] = now();
         $order_id = DB::table('tbl_orders')->insertGetId($order_data);
 
         //insert order_detail
-        $content = Cart::getContent();
+        $content = Session::get('cart');
         foreach ( $content as $value){
             $orders_data = array();
             $orders_data['order_id'] = $order_id;
@@ -115,6 +116,8 @@ class CheckoutController extends Controller
             $orders_data['product_name'] = $value->name;
             $orders_data['product_price'] = $value->price;
             $orders_data['product_quantity'] = $value->quantity;
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $orders_data['created_at'] = now();
              DB::table('tbl_order_details')->insert($orders_data);
         }
         Cart::clear();
@@ -124,10 +127,20 @@ class CheckoutController extends Controller
     {
         return Redirect::to('/cart');
     }
+    public function confirm_order(Request $request){
+        $data = $request->all();
+        $ship = new Ship();
+        $ship->customer_id = $data['customer_id'];
+        $ship->ship_name = $data['ship_name'];
+        $ship->ship_phone = $data['ship_phone'];
+        $ship->ship_address = $data['ship_address'];
+        $ship->ship_note = $data['ship_note'];
+        $ship->save();
+    }
     public function log_out()
     {
         Session::flush();
-        return Redirect::to('/login');
+        return Redirect::to('/');
     }
     public function manage_order()
     {

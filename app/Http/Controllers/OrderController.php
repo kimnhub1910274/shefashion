@@ -50,8 +50,8 @@ class OrderController extends Controller
     }
     public function view_order($order_id)
     {
-        $order_details = OrderDetails::with('product')->where('order_id', $order_id)->get();
-        $order = Order::where('order_id', $order_id)->get();
+        $order_details = OrderDetails::with('product')->where('order_code', $order_id)->get();
+        $order = Order::where('order_code', $order_id)->get();
 
         foreach ($order as $key => $value) {
             $customer_id = $value->customer_id;

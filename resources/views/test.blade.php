@@ -9,8 +9,6 @@
     <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="owlcarousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="owlcarousel/assets/owl.theme.default.min.css">
 
     <link rel="stylesheet" href="{{asset('public/fonts/fontawesome-free-6.0.0/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/Frontend/css/main.css')}}">
@@ -24,8 +22,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
-    <!-- owl carousel -->
-    <script src="owlcarousel/owl.carousel.min.js"></script>
 
 </head>
 
@@ -183,7 +179,7 @@
                     ?>
                 </div>
                 <div class="cart">
-                    <a href="{{URL ::to('/show-cart')}}" style="text-decoration: none; color:black;"><i
+                    <a href="{{URL ::to('/show-cart-ajax')}}" style="text-decoration: none; color:black;"><i
                             class="fa-solid fa-cart-shopping"></i>
                         <span id="circle">{{ number_format(Cart::getContent()->count()) }}</span>
                     </a>
@@ -245,16 +241,10 @@
       </div>
     </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-
 </footer>
-
 <script>
-// Get the button
 let mybutton = document.getElementById("myBtn");
-
-// When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function() {scrollFunction()};
-
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     mybutton.style.display = "block";
@@ -262,14 +252,11 @@ function scrollFunction() {
     mybutton.style.display = "none";
   }
 }
-
-// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
 </script>
-
 </html>
 
 <script>
@@ -279,4 +266,29 @@ $("figure").mouseleave(
         $(this).removeClass("hover");
     }
 );
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.order').click(function(){
+            var customer_id = $('.customer_id').val();
+            var ship_name = $('.ship_name' ).val();
+            var ship_phone = $('.ship_phone').val();
+            var ship_address = $('.ship_address').val();
+            var ship_note = $('.ship_note').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/confirm-order')}}',
+                method: 'POST',
+                data:{customer_id:customer_id, ship_name:ship_name, ship_phone:ship_phone, ship_address:ship_address, ship_note:ship_note, _token:_token},
+                success:function(data){
+                    alert("Đặt hàng thành công");
+
+                }
+
+            });
+        });
+    });
 </script>

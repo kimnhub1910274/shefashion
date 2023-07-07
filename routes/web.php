@@ -43,7 +43,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/product', [HomeController::class, 'product']);
 Route::post('/search', [HomeController::class, 'search']);
 
-// category products - home
+// Category products - home
 Route::get('/category-products/{cate_id}', [CategoryProduct::class, 'show_cate_home']);
 Route::get('/product-detail/{product_id}', [ProductController::class, 'product_detail']);
 
@@ -58,7 +58,7 @@ Route::post('/search_customer', [AdminController::class, 'search_customer']);
 
 
 
-//category product
+//Category product
 Route::get('/add-category-product', [CategoryProduct::class, 'add_category_product']);
 Route::get('/list-category-product', [CategoryProduct::class, 'list_category_product']);
 Route::get('/edit-category-product/{category_id}', [CategoryProduct::class, 'edit_category_product']);
@@ -71,7 +71,7 @@ Route::get('/off-cate/{category_id}', [CategoryProduct::class, 'off_cate']);
 Route::post('/import-csv', [CategoryProduct::class, 'import_csv']);
 Route::post('/export-csv', [CategoryProduct::class, 'export_csv']);
 
-//product
+//Product
 Route::get('/add-product', [ProductController::class, 'add_product']);
 Route::get('/list-product', [ProductController::class, 'list_product']);
 Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product']);
@@ -84,20 +84,20 @@ Route::get('/off-pro/{product_id}', [ProductController::class, 'off_pro']);
 Route::post('/import-product', [ProductController::class, 'import_product']);
 Route::post('/export-product', [ProductController::class, 'export_product']);
 
-//cart
+//Cart
 Route::post('/save-cart', [CartController::class, 'save_cart']);
 Route::post('/save-cartt', [CartController::class, 'save_cartt']);
-
 Route::get('/show-cart', [CartController::class, 'show_cart']);
-Route::get('/show-cart-ajax', [CartController::class, 'show_cart_ajax']);
-
-Route::get('/delete-to-cart/{id}', [CartController::class, 'delete_to_cart']);
-Route::post('/increase-to-cart', [CartController::class, 'increase_to_cart']);
+Route::get('/delete-to-cart/{session_id}', [CartController::class, 'delete_to_cart']);
+Route::post('/update-quantity-cart', [CartController::class, 'update_quantity_cart']);
 Route::post('/reduce-to-cart', [CartController::class, 'reduce_to_cart']);
-Route::get('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
+//ajax
+Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
+Route::get('/show-cart-ajax', [CartController::class, 'show_cart_ajax']);
+Route::get('/delete-all-cart', [CartController::class, 'delete_all_cart']);
 
 
-// checkout
+//Checkout
 
 Route::get('/login-checkout', [CheckoutController::class, 'login_checkout']);
 Route::get('/sign-up', [CheckoutController::class, 'sign_up']);
@@ -111,9 +111,12 @@ Route::post('/save-checkout', [CheckoutController::class, 'save_checkout']);
 Route::get('/payment', [CheckoutController::class, 'payment']);
 Route::post('/order', [CheckoutController::class, 'order']);
 Route::get('/manage-customer', [CheckoutController::class, 'manage_customer']);
+//ajax
+Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
 
 
-//order
+
+//Order
 Route::get('/manage-order', [OrderController::class, 'manage_order']);
 Route::get('/view-order/{order_id}', [OrderController::class, 'view_order']);
 Route::post('/update-quantity-order', [OrderController::class, 'update_quantity_order']);
