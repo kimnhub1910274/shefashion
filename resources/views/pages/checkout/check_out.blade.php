@@ -92,29 +92,29 @@
                         <form  method="POST">
 
                             <div class="mb-3 input-group">
-                                <input type="hidden" class="form-control" placeholder=""
-                                aria-label="" name="customer_id" class="ship_id"
+                                <input type="hidden" class="form-control customer_id" placeholder=""
+                                aria-label="" name="customer_id"
                                 aria-describedby="basic-addon1" value="{{ $customer_id }}">
                             </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Họ tên</span>
-                               <input type="text" class="form-control" placeholder="" aria-label="" name="ship_name"
-                               aria-describedby="basic-addon1" value="{{ $customer_name }}"  class="ship_name">
+                               <input type="text" class="form-control ship_name" placeholder="" aria-label="" name="ship_name"
+                               aria-describedby="basic-addon1" value="{{ $customer_name }}"  >
                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Số điện thoại</span>
-                               <input type="text" class="form-control" placeholder="" aria-label="" name="ship_phone"
-                               aria-describedby="basic-addon1" value="{{ $customer_phone }}" class="ship_phone">
+                               <input type="text" class="form-control ship_phone" placeholder="" aria-label="" name="ship_phone"
+                               aria-describedby="basic-addon1" value="{{ $customer_phone }}" >
                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Địa chỉ</span>
-                               <input type="text" class="form-control" placeholder="" aria-label=""
-                               name="ship_address"  class="ship_address"
+                               <input type="text" class="form-control ship_address" placeholder="" aria-label=""
+                               name="ship_address"
                                aria-describedby="basic-addon1" value="{{ $customer_address }}">
                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Ghi chú</span>
-                               <textarea type="text" class="form-control"  class="ship_note"
+                               <textarea type="text" class="form-control ship_note"
                                placeholder="" name="ship_note" required></textarea>
                            </div>
                         </div>

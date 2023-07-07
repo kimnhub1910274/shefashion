@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Session;
 
 use Cart;
 session_start();
-use App\Ship;
-use App\Model\Order;
-use App\Model\OrderDetails;
+use App\Models\Ship;
+use App\Models\Order;
+use App\Models\OrderDetails;
 
 class CheckoutController extends Controller
 {
