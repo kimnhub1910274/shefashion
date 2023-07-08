@@ -131,7 +131,7 @@ class CartController extends Controller
         $data = $request->all();
         $session_id = substr(md5(microtime()),rand(0,26),5);
         $cart = Session::get('cart');
-        if($cart==true){
+        if($cart == true){
             $is_avaiable = 0;
             foreach($cart as $key => $val){
                 if($val['product_id'] == $data['cart_product_id']){

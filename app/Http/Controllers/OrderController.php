@@ -27,8 +27,8 @@ class OrderController extends Controller
     }
     public function view_ordered($order_id)
     {
-        $order_details = OrderDetails::with('product')->where('order_id', $order_id)->get();
-        $order = Order::where('order_id', $order_id)->get();
+        $order_details = OrderDetails::with('product')->where('order_code', $order_id)->get();
+        $order = Order::where('order_code', $order_id)->get();
 
         foreach ($order as $key => $value) {
             $customer_id = $value->customer_id;
@@ -37,7 +37,7 @@ class OrderController extends Controller
         }
         $customer = Customer::where('customer_id', $customer_id)->first();
         $ship = Ship::where('ship_id', $ship_id)->first();
-        $order_details_product = OrderDetails::with('product')->where('order_id', $order_id)->get();
+        $order_details_product = OrderDetails::with('product')->where('order_code', $order_id)->get();
 
         return view('pages.cart.view_ordered')
         ->with(compact('order_details', 'customer', 'ship', 'order', 'order_status'));
@@ -60,7 +60,7 @@ class OrderController extends Controller
         }
         $customer = Customer::where('customer_id', $customer_id)->first();
         $ship = Ship::where('ship_id', $ship_id)->first();
-        $order_details_product = OrderDetails::where('order_id', $order_id)->get();
+        $order_details_product = OrderDetails::where('order_code', $order_id)->get();
 
         return view('admin.view_order')->with(compact('order_details','order_details_product',
          'customer', 'ship', 'order', 'order_status'));

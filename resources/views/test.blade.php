@@ -270,25 +270,43 @@ $("figure").mouseleave(
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"type="text/javascript"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $('.order').click(function(){
-            var customer_id = $('.customer_id').val();
-            var ship_name = $('.ship_name' ).val();
-            var ship_phone = $('.ship_phone').val();
-            var ship_address = $('.ship_address').val();
-            var ship_note = $('.ship_note').val();
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: '{{url('/confirm-order')}}',
-                method: 'POST',
-                data:{customer_id:customer_id, ship_name:ship_name, ship_phone:ship_phone, ship_address:ship_address, ship_note:ship_note, _token:_token},
-                success:function(data){
-                    alert("Đặt hàng thành công");
+            Swal.fire({
+                title: 'Xác nhận đặt hàng',
+                showDenyButton: true,
+                //showCancelButton: true,
+                confirmButtonText: 'Đặt hàng',
+                denyButtonText: `Không đặt`,
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  var customer_id = $('.customer_id').val();
+                  var ship_name = $('.ship_name' ).val();
+                  var ship_phone = $('.ship_phone').val();
+                  var ship_address = $('.ship_address').val();
+                  var ship_note = $('.ship_note').val();
+                  var _token = $('input[name="_token"]').val();
+                  $.ajax({
+                      url: '{{url('/confirm-order')}}',
+                      method: 'POST',
+                      data:{customer_id:customer_id, ship_name:ship_name, ship_phone:ship_phone, ship_address:ship_address, ship_note:ship_note, _token:_token},
+                      success:function(){
+                        Swal.fire('Đã đặt hàng, xin cảm ơn!', '', 'success')
+                      }
+                  });
+                  //window.setTimeout(function(){
+                   // location.reload();
+                  //}, 3000);
 
+                } else if (result.isDenied) {
+                  Swal.fire('Đặt hàng không thành công!', '', 'info')
                 }
+              })
 
-            });
         });
     });
 </script>

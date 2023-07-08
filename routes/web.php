@@ -123,8 +123,6 @@ Route::post('/update-quantity-order', [OrderController::class, 'update_quantity_
 Route::post('/update-qty-order', [OrderController::class, 'update_qty_order']);
 Route::get('/print-order/{checkout_code}', [OrderController::class, 'print_order']);
 
-
-
 Route::get('/ordered/{customerId}', [OrderController::class, 'ordered']);
 Route::get('/view-ordered/{order_id}', [OrderController::class, 'view_ordered']);
 

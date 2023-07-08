@@ -89,7 +89,7 @@ class HomeController extends Controller
             $to_email = "lethikimnhuhb@gmail.com";
 
             $data = array("name"=>"Mail từ tải khoản khách hàng", "body"=>"Mail về vấn đề đơn hàng");
-            Mail::send('pages.mail.send_mail', $data, function($message) use ($to_name, $to_email){
+            Mail::send('pages.mail.mail_order', $data, function($message) use ($to_name, $to_email){
                 $message->to($to_email)->subject('Thư gửi từ SheFashion');
                 $message->from($to_email, $to_name);
             });

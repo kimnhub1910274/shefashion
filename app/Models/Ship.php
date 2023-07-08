@@ -9,7 +9,7 @@ class Ship extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'customer_id','ship_name', 'ship_address', 'ship_phone', 'ship_email', 'ship_note'
+        'customer_id','ship_name', 'ship_address', 'ship_phone', 'ship_email', 'ship_note', 'created_at', 'updated_at',
     ];
     protected $primaryKey = 'ship_id';
     protected $table = 'tbl_ship';

@@ -12,7 +12,10 @@ session_start();
 use App\Models\Ship;
 use App\Models\Order;
 use App\Models\OrderDetails;
-
+use App\Models\Customer;
+use Carbon\Carbon;
+use Mail;
+use App\Mail\Gmail;
 class CheckoutController extends Controller
 {
     public function login_checkout()
@@ -41,7 +44,7 @@ class CheckoutController extends Controller
         Session::put('customer_phone', $request->customer_phone);
         Session::put('customer_address', $request->customer_address);
 
-        return view('pages.checkout.check_out');
+        return Redirect::to('/home');
     }
     public function login()
     {
@@ -127,16 +130,7 @@ class CheckoutController extends Controller
     {
         return Redirect::to('/cart');
     }
-    public function confirm_order(Request $request){
-        $data = $request->all();
-        $ship = new Ship();
-        $ship->customer_id = $data['customer_id'];
-        $ship->ship_name = $data['ship_name'];
-        $ship->ship_phone = $data['ship_phone'];
-        $ship->ship_address = $data['ship_address'];
-        $ship->ship_note = $data['ship_note'];
-        $ship->save();
-    }
+
     public function log_out()
     {
         Session::flush();
@@ -174,7 +168,74 @@ class CheckoutController extends Controller
 
         return view('admin_dashboard')->with('admin.view_order', $manager_orderId);
     }
+    public function confirm_order(Request $request){
+        $data = $request->all();
+        $ship = new Ship();
+        $ship->customer_id = $data['customer_id'];
+        $ship->ship_name = $data['ship_name'];
+        $ship->ship_phone = $data['ship_phone'];
+        $ship->ship_address = $data['ship_address'];
+        $ship->ship_note = $data['ship_note'];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $ship->created_at = now();
+        //$ship->save();
+        $ship_id = $ship->ship_id;
 
+        $code = substr(md5(microtime()),rand(0,26),5);
+        $order = new Order;
+        $order->customer_id = Session::get('customer_id');
+        $order->ship_id = $ship_id;
+        $order->order_code = $code;
+        $order->order_status = 1;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $order->created_at = now();
+        //$order->save();
+
+        if(Session::get('cart')){
+            foreach(Session::get('cart') as $key => $cart){
+                $order_detail = new OrderDetails;
+                $order_detail->order_code = $code;
+                $order_detail->product_id = $cart['product_id'];
+                $order_detail->product_name = $cart['product_name'];
+                $order_detail->product_price = $cart['product_price'];
+                $order_detail->product_quantity = $cart['product_quantity'];
+                //$order_detail->save();
+            }
+        }
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $title_email = "Đơn hàng xác nhận ngày".' '.$now;
+        $customer = Customer::find(Session::get('customer_id'));
+        $data['email'][] = $customer->customer_email;
+
+        if(Session::get('cart') == true){
+            foreach(Session::get('cart') as $key =>$cart_email){
+                $cart_array[] = array(
+                    'product_name' => $cart_email['product_name'],
+                    'product_price' => $cart_email['product_price'],
+                    'product_quantity' => $cart_email['product_quantity']
+                );
+            }
+        }
+        $ship_array = array(
+            'customer_name' => $customer->customer_name,
+            'ship_name' => $data['ship_name'],
+            'ship_address' => $data['ship_address'],
+            'ship_phone' => $data['ship_phone'],
+            'ship_note' => $data['ship_note'],
+
+        );
+        $ordercode_mail = array(
+            'order_code' => $code
+        );
+
+        Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
+                                             'ordercode_mail' => $ordercode_mail])(
+            function($message) use ($title_email, $data){
+                $message->to($data['email'])->subject($title_email);
+                $message->from($data['email'], $title_email);
+            });
+        Session::forget('cart');
+    }
 
 
 }

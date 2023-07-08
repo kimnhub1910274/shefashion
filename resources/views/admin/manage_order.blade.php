@@ -29,7 +29,7 @@
             @foreach ( $all_order as $key => $order)
                 <tr>
                     <th scope="" ><?php echo $key+1;?></th>
-                    <td>{{$order->order_id}}</td>
+                    <td>{{$order->order_code}}</td>
                     <td>{{$order->customer_id}}</td>
                     <td>{{number_format($order->order_total)}}</td>
                     <td>
@@ -47,7 +47,7 @@
                         </td>
                     <td>{{$order->created_at}}</td>
                     <td>
-                        <a href="{{URL::to('/view-order/'.$order->order_id)}}" style="text-decoration: none">
+                        <a href="{{URL::to('/view-order/'.$order->order_code)}}" style="text-decoration: none">
                             <i class="fa-regular fa-eye"style="color: black;"></i>
                         </a>
                         &nbsp;
