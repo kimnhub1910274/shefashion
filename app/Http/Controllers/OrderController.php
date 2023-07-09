@@ -46,6 +46,7 @@ class OrderController extends Controller
     public function manage_order()
     {
         $all_order = Order::orderBy('created_at', 'DESC')->get();
+
         return view('admin.manage_order')->with(compact('all_order'));
     }
     public function view_order($order_id)
@@ -68,9 +69,59 @@ class OrderController extends Controller
     public function update_quantity_order(Request $request)
     {
         $data = $request->all();
-        $order = Order::find($data['order_id']);
+        $order = Order::find($data['order_code']);
         $order->order_status = $data['order_status'];
         $order->save();
+         //send mail
+         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+         $title_email = "Đơn hàng đã giao hàng thành công".' '.$now;
+         $customer = Customer::find(Session::get('customer_id'));
+         $data['email'][] = $customer->customer_email;
+
+         if(Session::get('cart') == true){
+             foreach(Session::get('cart') as $key =>$cart_email){
+                 $cart_array[] = array(
+                     'product_name' => $cart_email['product_name'],
+                     'product_price' => $cart_email['product_price'],
+                     'product_quantity' => $cart_email['product_quantity']
+                 );
+             }
+         }
+         $ship_array = array(
+             'customer_name' => $customer->customer_name,
+             'ship_name' => $data['ship_name'],
+             'ship_address' => $data['ship_address'],
+             'ship_phone' => $data['ship_phone'],
+             'ship_note' => $data['ship_note'],
+
+         );
+         $ordercode_mail = array(
+             'order_code' => $code,
+             'created_at' => $order->created_at,
+             'customer_email' => $customer->customer_email,
+             'customer_phone' => $customer->customer_phone,
+             'customer_address' => $customer->customer_address,
+         );
+
+         Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
+                                             'ordercode_mail' => $ordercode_mail],
+             function($message) use ($title_email, $data){
+                 $message->to($data['email'])->subject($title_email);
+                 $message->from($data['email'], $title_email);
+             });
+
+        foreach($data['order_product_id'] as $key =>$product){
+            $product_mail = Product::find($product);
+            foreach($data['quantity'] as $key2 => $qty){
+                if($key ==$key2){
+                    $cart_array[] = array(
+                        'product_name' => $cart_email['product_name'],
+                        'product_price' => $cart_email['product_price'],
+                        'product_quantity' => $qty
+                    )
+                }
+            }
+        }
         if ($order->order_status == 3) {
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
@@ -82,7 +133,7 @@ class OrderController extends Controller
                         $product->product_quantity = $product_remain;
                         $product->product_sold = $product_sold + $qty;
                         $product->save();
-                        //return view('pages.send_mail');
+
 
                     }
 
@@ -110,7 +161,7 @@ class OrderController extends Controller
     {
         $data = $request->all();
         $order_details = OrderDetails::where('product_id', $data['order_product_id'])
-        ->where('order_id', $data['order_id'])->first();
+        ->where('order_code', $data['order_code'])->first();
 
         $order_details->product_quantity = $data['order_qty'];
         $order_details->save();
@@ -121,18 +172,21 @@ class OrderController extends Controller
         return $pdf->stream();
     }
     public function print_order_convert($checkout_code){
-        $order_details = OrderDetails::with('product')->where('order_id', $checkout_code)->get();
-        $order = Order::where('order_id', $checkout_code)->get();
+        $order_details = OrderDetails::with('product')->where('order_code', $checkout_code)->get();
+        $order = Order::where('order_code', $checkout_code)->get();
 
         foreach ($order as $key => $value) {
             $customer_id = $value->customer_id;
             $ship_id = $value->ship_id;
             $order_status = $value->order_status;
+
         }
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $create_date = now();
         $ship = Ship::where('ship_id', $ship_id)->first();
         $customer = Customer::where('customer_id', $customer_id)->first();
-        $order_details_product = OrderDetails::with('product')->where('order_id', $checkout_code)->get();
-
+        $order = Order::where('order_code', $checkout_code)->first();
+        $order_details_product = OrderDetails::with('product')->where('order_code', $checkout_code)->get();
         $output = '';
 
         $output.='
@@ -163,7 +217,7 @@ class OrderController extends Controller
         </style>
         <h1><center>SheFashion</center></h1>
         <hr>
-        <p>Ngày: </p>
+        <p>Ngày in hóa đơn: '.$create_date.'</p>
         <h3><center>HÓA ĐƠN BÁN HÀNG</center></h3>
         <center>----------</center>
         <table class="">
@@ -178,6 +232,8 @@ class OrderController extends Controller
                             <p>Số điện thoại: '.$customer->customer_phone.'</p>
                             <p>Email: '.$customer->customer_email.'</p>
                             <p>Địa chỉ: '.$customer->customer_address.'</p>
+                            <p>Ngày đặt: '.$order->created_at.'</p>
+
 
                         </div>
                     </td>

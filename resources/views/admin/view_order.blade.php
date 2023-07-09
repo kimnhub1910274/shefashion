@@ -233,7 +233,7 @@
               <h3 class="h6">Xuất hóa đơn</h3>
               @foreach ($order as $key => $val)
               @endforeach
-              <a target="_blank" href="{{url('/print-order/'.$val->order_id)}}">In đơn hàng</a>
+              <a target="_blank" href="{{url('/print-order/'.$val->order_code)}}">In đơn hàng</a>
             </div>
           </div>
         </div>

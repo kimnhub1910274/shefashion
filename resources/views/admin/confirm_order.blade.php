@@ -28,7 +28,7 @@
                     <p>Chào bạn, <strong>{{ $ship_array['customer_name'] }}</strong></p>
                 </div>
                 <div class="col-md-12">
-                    <p>Bạn đã đặt đơn hàng , hãy truy cập <a href="http://localhost/shefashion/">website</a> để theo dõi tình trạng đơn hàng.</p>
+                    <p>Đơn hàng {{ $ordercode_mail }} đã giao hàng thành công, hãy truy cập <a href="http://localhost/shefashion/">website</a> để tiếp tục mua sắm.</p>
                     <div class="row">
                         <div class="col">
                             <h4>THÔNG TIN NGƯỜI MUA</h4>

@@ -295,15 +295,18 @@ $("figure").mouseleave(
                       method: 'POST',
                       data:{customer_id:customer_id, ship_name:ship_name, ship_phone:ship_phone, ship_address:ship_address, ship_note:ship_note, _token:_token},
                       success:function(){
-                        Swal.fire('Đã đặt hàng, xin cảm ơn!', '', 'success')
+                        Swal.fire('Đã đặt hàng, xin cảm ơn!', '', 'success');
+                        window.setTimeout(function(){
+                            location.reload();
+                          }, 3000);
                       }
                   });
-                  //window.setTimeout(function(){
-                   // location.reload();
-                  //}, 3000);
 
                 } else if (result.isDenied) {
-                  Swal.fire('Đặt hàng không thành công!', '', 'info')
+                  Swal.fire('Đặt hàng không thành công!', '', 'info');
+                  window.setTimeout(function(){
+                    location.reload();
+                  }, 3000);
                 }
               })
 

@@ -17,7 +17,6 @@
             <th scope="col">STT</th>
             <th>Mã đơn hàng</th>
             <th>Mã khách hàng</th>
-            <th scope="col">Tổng tiền  </th>
             <th scope="col">Trạng thái</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>
@@ -31,7 +30,6 @@
                     <th scope="" ><?php echo $key+1;?></th>
                     <td>{{$order->order_code}}</td>
                     <td>{{$order->customer_id}}</td>
-                    <td>{{number_format($order->order_total)}}</td>
                     <td>
                         @if ($order->order_status == 0)
                             Đã đặt hàng

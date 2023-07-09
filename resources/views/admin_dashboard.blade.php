@@ -324,18 +324,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#ckeditor1' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-        ClassicEditor
-            .create( document.querySelector( '#ckeditor2' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
 
     <script>
         $("#add_category").validate({
@@ -361,19 +349,27 @@
         $('.update_quantity_order').click(function () {
             var order_product_id = $(this).data('product_id');
             var order_qty = $('.order_qty_'+order_product_id).val();
-            var order_id = $('.order_id').val();
+            var order_code = $('.order_code').val();
             var _token = $('input[name="_token"]').val();
 
             //alert(order_product_id);
             //alert(order_qty);
-            //alert(order_id);
+            //alert(order_code);
             $.ajax({
                 type:'POST',
                 url:'{{ url('/update-qty-order') }}',
-                data:{_token:_token, order_product_id:order_product_id, order_qty:order_qty, order_id:order_id
+                data:{_token:_token, order_product_id:order_product_id, order_qty:order_qty, order_code:order_code
                        },
                 success:function(data) {
-                    alert('Cập nhật số lượng đơn hàng thành công');
+                    alert("Cập nhật trạng thái đơn hàng thành công");
+                    {{-- Swal.fire({
+                        title: "Cập nhật trạng thái đơn hàng thành công",
+                       // text: "Đơn hàng sẽ không được hủy khi đã đặt, bạn có muốn đặt không?",
+                       // type: "warning",
+                        showCancalButtons: true,
+                        confirmButtonClass: "btn btn-danger",
+                       // confirmButtonText: "Cảm ơn bạn đã mua hàng",
+                    }) --}}
                     location.reload();
                 }
             });
@@ -383,7 +379,7 @@
     <script type="text/javascript">
         $('.order_details').change(function(){
             var order_status = $(this).val();
-            var order_id = $(this).children(":selected").attr("id");
+            var order_code = $(this).children(":selected").attr("id");
             var _token = $('input[name="_token"]').val();
 
             //lay so luong
@@ -417,11 +413,23 @@
                 $.ajax({
                     type:'POST',
                     url:'{{ url('/update-quantity-order') }}',
-                    data:{_token:_token, order_status:order_status, order_id:order_id,
+                    data:{_token:_token, order_status:order_status, order_code:order_code,
                          quantity:quantity, order_product_id:order_product_id },
                     success:function(data) {
-                        alert('Cập nhật số lượng kho thành công');
+                        //alert('Cập nhật trạng thái đơn hàng thành công');
+                         Swal.fire({
+                        title: "Cập nhật trạng thái đơn hàng thành công",
+                       // text: "Đơn hàng sẽ không được hủy khi đã đặt, bạn có muốn đặt không?",
+                       // type: "warning",
+                        showCancalButtons: true,
+                        confirmButtonClass: "btn btn-danger",
+                       // confirmButtonText: "Cảm ơn bạn đã mua hàng",
+                    });
+                    window.setTimeout(function(){
                         location.reload();
+                      }, 3000);
+
+                        //location.reload();
                     }
                 });
             }

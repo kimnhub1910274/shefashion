@@ -178,7 +178,7 @@ class CheckoutController extends Controller
         $ship->ship_note = $data['ship_note'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $ship->created_at = now();
-        //$ship->save();
+        $ship->save();
         $ship_id = $ship->ship_id;
 
         $code = substr(md5(microtime()),rand(0,26),5);
@@ -189,7 +189,7 @@ class CheckoutController extends Controller
         $order->order_status = 1;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $order->created_at = now();
-        //$order->save();
+        $order->save();
 
         if(Session::get('cart')){
             foreach(Session::get('cart') as $key => $cart){
@@ -199,7 +199,8 @@ class CheckoutController extends Controller
                 $order_detail->product_name = $cart['product_name'];
                 $order_detail->product_price = $cart['product_price'];
                 $order_detail->product_quantity = $cart['product_quantity'];
-                //$order_detail->save();
+                $order_detail->created_at = now();
+                $order_detail->save();
             }
         }
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
@@ -225,11 +226,15 @@ class CheckoutController extends Controller
 
         );
         $ordercode_mail = array(
-            'order_code' => $code
+            'order_code' => $code,
+            'created_at' => $order->created_at,
+            'customer_email' => $customer->customer_email,
+            'customer_phone' => $customer->customer_phone,
+            'customer_address' => $customer->customer_address,
         );
 
         Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
-                                             'ordercode_mail' => $ordercode_mail])(
+                                             'ordercode_mail' => $ordercode_mail],
             function($message) use ($title_email, $data){
                 $message->to($data['email'])->subject($title_email);
                 $message->from($data['email'], $title_email);
