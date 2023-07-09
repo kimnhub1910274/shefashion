@@ -302,21 +302,17 @@
     </div> --}}
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    {{-- <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script> --}}
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="{{asset('public/Backend/js/ckeditor/ckeditor.js')}}"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"
@@ -362,14 +358,6 @@
                        },
                 success:function(data) {
                     alert("Cập nhật trạng thái đơn hàng thành công");
-                    {{-- Swal.fire({
-                        title: "Cập nhật trạng thái đơn hàng thành công",
-                       // text: "Đơn hàng sẽ không được hủy khi đã đặt, bạn có muốn đặt không?",
-                       // type: "warning",
-                        showCancalButtons: true,
-                        confirmButtonClass: "btn btn-danger",
-                       // confirmButtonText: "Cảm ơn bạn đã mua hàng",
-                    }) --}}
                     location.reload();
                 }
             });

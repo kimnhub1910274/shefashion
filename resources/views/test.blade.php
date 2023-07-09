@@ -29,7 +29,7 @@
         <header class="fixed header" style="margin-bottom: 100px;">
             <div class="container-fluid d-flex justify-content-between" style=" margin: 10px 30px 20px 3px;">
                 <!-- logo -->
-                <a href="{{URL ::to('/dashboard')}}">
+                <a href="{{URL ::to('/')}}">
                     <img class="she" src="{{asset('public/images/She.png')}}" alt="">
                 </a>
                 <style>
@@ -179,9 +179,19 @@
                     ?>
                 </div>
                 <div class="cart">
+                    @php
+                        $cart = Session::get('cart');
+                    @endphp
                     <a href="{{URL ::to('/show-cart-ajax')}}" style="text-decoration: none; color:black;"><i
                             class="fa-solid fa-cart-shopping"></i>
-                        <span id="circle">{{ number_format(Cart::getContent()->count()) }}</span>
+                        <span id="circle">
+                            @if($cart == true)
+                            {{ count($cart) }}
+                            @elseif($cart == 0)
+                            0
+                            @endif
+
+                            </span>
                     </a>
                 </div>
             </div>

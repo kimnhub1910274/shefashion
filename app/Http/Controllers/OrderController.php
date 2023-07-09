@@ -15,7 +15,9 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Customer;
 use PDF;
-
+use Carbon\Carbon;
+use Mail;
+use App\Mail\Gmail;
 class OrderController extends Controller
 {
     public function ordered($customerId)
@@ -72,57 +74,8 @@ class OrderController extends Controller
         $order = Order::find($data['order_code']);
         $order->order_status = $data['order_status'];
         $order->save();
-         //send mail
-         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-         $title_email = "Đơn hàng đã giao hàng thành công".' '.$now;
-         $customer = Customer::find(Session::get('customer_id'));
-         $data['email'][] = $customer->customer_email;
-
-         if(Session::get('cart') == true){
-             foreach(Session::get('cart') as $key =>$cart_email){
-                 $cart_array[] = array(
-                     'product_name' => $cart_email['product_name'],
-                     'product_price' => $cart_email['product_price'],
-                     'product_quantity' => $cart_email['product_quantity']
-                 );
-             }
-         }
-         $ship_array = array(
-             'customer_name' => $customer->customer_name,
-             'ship_name' => $data['ship_name'],
-             'ship_address' => $data['ship_address'],
-             'ship_phone' => $data['ship_phone'],
-             'ship_note' => $data['ship_note'],
-
-         );
-         $ordercode_mail = array(
-             'order_code' => $code,
-             'created_at' => $order->created_at,
-             'customer_email' => $customer->customer_email,
-             'customer_phone' => $customer->customer_phone,
-             'customer_address' => $customer->customer_address,
-         );
-
-         Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
-                                             'ordercode_mail' => $ordercode_mail],
-             function($message) use ($title_email, $data){
-                 $message->to($data['email'])->subject($title_email);
-                 $message->from($data['email'], $title_email);
-             });
-
-        foreach($data['order_product_id'] as $key =>$product){
-            $product_mail = Product::find($product);
-            foreach($data['quantity'] as $key2 => $qty){
-                if($key ==$key2){
-                    $cart_array[] = array(
-                        'product_name' => $cart_email['product_name'],
-                        'product_price' => $cart_email['product_price'],
-                        'product_quantity' => $qty
-                    )
-                }
-            }
-        }
         if ($order->order_status == 3) {
+
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
                 $product_quantity = $product->product_quantity;
@@ -139,6 +92,48 @@ class OrderController extends Controller
 
                 }
             }
+             //send mail
+             $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+             $title_email = "Đơn hàng đã giao hàng thành công".' '.$now;
+             $customer = Customer::where('customer_id', $order->customer_id)->first();
+             $data['email'][] = $customer->customer_email;
+             $code = substr(md5(microtime()),rand(0,26),5);
+             foreach($data['order_product_id'] as $key =>$product){
+                 $product_mail = Product::find($product);
+                 foreach($data['quantity'] as $key2 => $qty){
+                     if($key ==$key2){
+                         $cart_array[] = array(
+                             'product_name' => $product_mail['product_name'],
+                             'product_price' => $product_mail['product_price'],
+                             'product_quantity' => $qty,
+                        );
+                    }
+                }
+            }
+            $detail = OrderDetails::where('order_code', $order->order_code)->first();
+            $ship = Ship::where('ship_id', $order->ship_id)->first();
+            $ship_array = array(
+                'customer_name' => $customer->customer_name,
+                'ship_name' => $ship['ship_name'],
+                'ship_address' => $ship['ship_address'],
+                'ship_phone' => $ship['ship_phone'],
+                'ship_note' => $ship['ship_note'],
+
+            );
+            $ordercode_mail = array(
+                'order_code' => $code,
+                'created_at' => $order->created_at,
+                'customer_email' => $customer->customer_email,
+                'customer_phone' => $customer->customer_phone,
+                'customer_address' => $customer->customer_address,
+            );
+
+            Mail::send('admin.confirm_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
+                                                'ordercode_mail' => $ordercode_mail],
+                function($message) use ($title_email, $data){
+                    $message->to($data['email'])->subject($title_email);
+                    $message->from($data['email'], $title_email);
+                });
         } elseif ($order->order_status != 2 && $order->order_status != 3 && $order->order_status == 4) {
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);

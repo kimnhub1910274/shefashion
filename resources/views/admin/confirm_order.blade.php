@@ -28,7 +28,7 @@
                     <p>Chào bạn, <strong>{{ $ship_array['customer_name'] }}</strong></p>
                 </div>
                 <div class="col-md-12">
-                    <p>Đơn hàng {{ $ordercode_mail }} đã giao hàng thành công, hãy truy cập <a href="http://localhost/shefashion/">website</a> để tiếp tục mua sắm.</p>
+                    <p>Đơn hàng <b>{{ $ordercode_mail['order_code'] }}</b> được giao thành công , hãy truy cập <a href="http://localhost/shefashion/">website</a> để tiếp tục mua sắm.</p>
                     <div class="row">
                         <div class="col">
                             <h4>THÔNG TIN NGƯỜI MUA</h4>
@@ -105,7 +105,7 @@
                       </table>
                 </div>
                 <div>
-                    <p>Mọi chi tiết thắc mắc xin vui lòng liên hệ:</p>
+                    <p>Mọi chi tiết thắc mắc xin vui lòng liên hệ: 0795484345</p>
                     <p>Xin cảm ơn</p>
                     <p style="margin-left: 20px;">Đây là email tự động. Vui lòng không trả email này.</p>
                 </div>

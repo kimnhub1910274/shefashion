@@ -199,9 +199,19 @@
                 ?>
             </div>
             <div class="cart">
+                @php
+                    $cart = Session::get('cart');
+                @endphp
                 <a href="{{URL ::to('/show-cart-ajax')}}" style="text-decoration: none; color:black;"><i
                         class="fa-solid fa-cart-shopping"></i>
-                    <span id="circle">{{ number_format(Cart::getContent()->count()) }}</span>
+                    <span id="circle">
+                        @if($cart == true)
+                        {{ count($cart) }}
+                        @elseif($cart == 0)
+                        0
+                        @endif
+
+                        </span>
                 </a>
             </div>
         </div>
