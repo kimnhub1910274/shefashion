@@ -4,7 +4,6 @@
 <div class="container" style="margin-top: 220px;">
     <div class="container card" style="margin-top: 120px">
         &nbsp;
-        <h3>DANH SÁCH ĐƠN HÀNG </h3>
         <?php
         $message = Session::get('message');
         if($message){

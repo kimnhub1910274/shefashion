@@ -17,13 +17,15 @@ html{
     margin: 0;
     width: 100%;
     background-color: transparent;
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 2000;
     height: 100px;
 
+  }
+  .position{
+    position: fixed !important;
   }
   .she{
       width: 250px;
@@ -69,6 +71,10 @@ html{
   }
 
   a{
+    text-decoration: none;
+    color: black;
+  }
+  .a{
     text-decoration: none;
     color: black;
   }

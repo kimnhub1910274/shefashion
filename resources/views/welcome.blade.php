@@ -189,7 +189,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li><a class="dropdown-item" href="{{URL ::to('/')}}">Tài khoản</a></li>
-                      <li><a class="dropdown-item" href="{{URL ::to('/')}}">Đơn mua</a></li>
+                      <li><a class="dropdown-item" href="{{URL ::to('/ordered/'.$customer_id)}}">Đơn mua</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/log-out')}}">Đăng xuất</a></li>
 
                     </ul>

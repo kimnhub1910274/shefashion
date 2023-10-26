@@ -5,25 +5,7 @@
     <?php
         $ship_id = Session::get('ship_id');
         $customer_id = Session::get('customer_id');
-        if($customer_id ) {
-        ?>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a  href="{{ URL::to('/ordered/'.$customer_id) }}">
-                        <button class="btn btn-info" style="margin-bottom: 30px;">Xem lịch sử đơn hàng</button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-              </ul>
-        <?php }
+
         ?>
         <br>
         <?php
@@ -35,7 +17,7 @@
     ?>
         <div class="card">
             <div class="card-header">
-                <h4>Danh sách sản phẩm</h4>
+                <h4>GIỎ HÀNG</h4>
             </div>
             <div class="card-body">
                 <table class="table">

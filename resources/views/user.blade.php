@@ -175,7 +175,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                       <li><a class="dropdown-item" href="{{URL ::to('/')}}">Tài khoản</a></li>
-                      <li><a class="dropdown-item" href="{{URL ::to('/')}}">Đơn mua</a></li>
+                      <li><a class="dropdown-item" href="{{URL ::to('/ordered/'.$customer_id)}}">Đơn mua</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/log-out')}}">Đăng xuất</a></li>
                     </ul>
                 </div>
@@ -212,9 +212,9 @@
             </div>
             </div>
         </header>
-    <div class="container header" style="margin-top: 150px; ">
+    <div class="container header" style="margin-top: 110px; ">
         <div class="row">
-            <div class="col-3 container fixed " style="padding:5px">
+            <div class="col-3 container fixed " style="padding:5px; ">
                 <div class="user">
                     <div class="row">
                         <div class="col">
@@ -228,39 +228,34 @@
                                     echo $name;
                                 }
                                 ?></p>
-                            <p style="color: black;">Sửa hồ sơ</p>
                         </div>
                     </div>
 
                 </div>
-                <p>
-                    <a class="nav-link" href="">Đơn mua</a>
-                </p>
-                <p>
-                    <a class="nav-link" href="">Đơn mua</a>
-                </p>
             </div>
-            <div class="col-8 container fixed">
+            <div class="col-8 container fixed" >
                 <?php
                     $ship_id = Session::get('ship_id');
                     $customer_id = Session::get('customer_id');
                     if($customer_id ) {
                     ?>
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ URL::to('/ordered/'.$customer_id) }}">
+                        <ul class="nav" >
+                            <li class="nav-item" >
+                                <a class="nav-link " style="color: black;"
+                                 href="{{ URL::to('/ordered/'.$customer_id) }}">
                                    Tất cả đơn hàng</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" href="#">Chờ thanh toán</a>
+                            <a class="nav-link " style="color: black;" href="#">Chờ thanh toán</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" href="#">Đang giao hàng</a>
+                            <a class="nav-link " style="color: black;" href="#">Đang giao hàng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Giao hàng thành công</a>
+                                <a class="nav-link " style="color: black;" href="#">Giao hàng thành công</a>
                                 </li>
                         </ul>
+
                     <?php }
                     ?>
                     <br>
@@ -273,12 +268,17 @@
             ?>
                     </div>
                 </div>
-
             </div>
-            <div>@yield('ordered')</div>
-            
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-8 container" style="">
+                    <div>@yield('ordered')</div>
+
+                </div>
+            </div>
+
 </body>
-<footer style="position: fixed " >
+<footer style="position: " >
 
     <div class="container ft"  style="">
         <div class="row align-items-start">
