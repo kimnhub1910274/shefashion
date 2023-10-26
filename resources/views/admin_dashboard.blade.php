@@ -65,10 +65,10 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{URL::to('/dashboard')}}">
-                <div class="sidebar-brand-icon rotate-n-15">
+               <!--<div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="mx-3 sidebar-brand-text">Admin</div>
+                </div>-->
+                <div class="mx-3 sidebar-brand-text">SHE - FASHION</div>
             </a>
 
             <!-- Divider -->
@@ -94,7 +94,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Danh mục </span>
+                    <span><b>Danh mục</b> </span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="py-2 rounded collapse-inner bg-light">
@@ -110,7 +110,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Sản phẩm</span>
+                    <span><b>Sản phẩm</b></span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
@@ -135,7 +135,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fa fa-fw fa-folder"></i>
-                    <span>Khách hàng</span>
+                    <span><b>Khách hàng</b></span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="py-2 bg-white rounded collapse-inner">
@@ -153,7 +153,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Đơn hàng </span>
+                    <span><b>Đơn hàng</b> </span>
                 </a>
             </li>
             <hr class="sidebar-divider">
@@ -165,7 +165,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Đánh giá </span>
+                    <span><b>Đánh giá</b> </span>
                 </a>
             </li>
             <hr class="sidebar-divider">
@@ -177,7 +177,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Bình luận</span>
+                    <span><b>Bình luận</b></span>
                 </a>
             </li>
             <!-- Divider -->
@@ -202,7 +202,7 @@
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="mr-3 btn btn-link d-md-none rounded-circle">
-                        <i class="fa fa-bars"></i>
+                        <i class="fa fa-bars" style="color: #0acfcf"></i>
                     </button>
 
                     <!-- Topbar Search -->
@@ -212,9 +212,9 @@
                         <div class="input-group">
                             <input type="text"  class="border-0 form-control bg-light small" placeholder="Tìm kiếm"
                                 aria-label="Search" aria-describedby="basic-addon2" name="key_word">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fa fa-search fa-sm"></i>
+                            <div class="input-group-append" >
+                                <button class="btn btn-primary"  type="submit" >
+                                    <i class="fa fa-search fa-sm" ></i>
                                 </button>
                             </div>
                         </div>
@@ -309,7 +309,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script> --}}
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+   <script src="js/sb-admin-2.min.js"></script>
 
 
     <!-- Page level custom scripts -->

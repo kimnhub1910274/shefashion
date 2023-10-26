@@ -23,6 +23,10 @@
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -208,14 +212,75 @@
             </div>
             </div>
         </header>
-    <main>
+    <div class="container header" style="margin-top: 150px; ">
+        <div class="row">
+            <div class="col-3 container fixed " style="padding:5px">
+                <div class="user">
+                    <div class="row">
+                        <div class="col">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="col">
+                            <p style="color: black;">
+                                <?php
+                                $name = Session::get('customer_name');
+                                if ($name) {
+                                    echo $name;
+                                }
+                                ?></p>
+                            <p style="color: black;">Sửa hồ sơ</p>
+                        </div>
+                    </div>
 
-        @yield('test')
-    </main>
+                </div>
+                <p>
+                    <a class="nav-link" href="">Đơn mua</a>
+                </p>
+                <p>
+                    <a class="nav-link" href="">Đơn mua</a>
+                </p>
+            </div>
+            <div class="col-8 container fixed">
+                <?php
+                    $ship_id = Session::get('ship_id');
+                    $customer_id = Session::get('customer_id');
+                    if($customer_id ) {
+                    ?>
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ URL::to('/ordered/'.$customer_id) }}">
+                                   Tất cả đơn hàng</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Chờ thanh toán</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Đang giao hàng</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Giao hàng thành công</a>
+                                </li>
+                        </ul>
+                    <?php }
+                    ?>
+                    <br>
+                <?php
+                $message = Session::get('message');
+                if($message){
+                    echo $message;
+                    Session::pull('message', null);
+                }
+            ?>
+                    </div>
+                </div>
+
+            </div>
+            <div>@yield('ordered')</div>
+            
 </body>
-<footer >
+<footer style="position: fixed " >
 
-    <div class="container ft">
+    <div class="container ft"  style="">
         <div class="row align-items-start">
             <div class="col">
               <b>DANH MỤC</b>

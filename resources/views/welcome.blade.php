@@ -29,7 +29,6 @@
 
     <link rel="stylesheet" href="{{asset('public/fonts/fontawesome-free-6.0.0/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/Frontend/css/main.css')}}">
-    //<link rel="" href="{{asset('public/Frontend/js/sweatalert.min.js')}}">
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -45,7 +44,6 @@
 </head>
 
 <body>
-
     <header class="fixed header" style="margin-bottom: 100px;">
         <div class="container-fluid d-flex justify-content-between" style=" margin: 10px 30px 20px 3px;">
             <!-- logo -->
@@ -177,27 +175,38 @@
                 $customer_id = Session::get('customer_id');
                 if ($customer_id != null) {
             ?>
-                <div class="login" style="color:black;margin-top: 20px;">
-                    <a href="{{URL ::to('/log-out')}}"><b>Đăng xuất, </b></a>
+                <div class="dropdown login" style="color:black;margin-top: 15px;">
+                    <a class="btn btn-secondary dropdown-toggle"
+                     href="{{URL ::to('/log-out')}}" role="button"
+                      id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      <?php
+                        $name = Session::get('customer_name');
+                        if ($name)
+                        {
+                            echo $name;
+                        }
+                        ?>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <li><a class="dropdown-item" href="{{URL ::to('/')}}">Tài khoản</a></li>
+                      <li><a class="dropdown-item" href="{{URL ::to('/')}}">Đơn mua</a></li>
+                      <li><a class="dropdown-item" href="{{URL ::to('/log-out')}}">Đăng xuất</a></li>
+
+                    </ul>
                 </div>
+
             <?php
                 } else {
             ?>
-                <div class="login" style="color:black;margin-top: 20px;">
-                    <a href="{{URL ::to('/login')}}"><b>Đăng nhập</b></a>
-                </div>
+                <div class="dropdown login" style="color:black;margin-top: 15px;">
+                    <a class="btn btn-secondary dropdown-toggle"
+                     href="{{URL ::to('/login')}}" role="button" >
+                     Đăng nhập
+                    </a>
+                  </div>
             <?php
                 }
             ?>
-            <div style="color: black; margin: 20px 10px 20px ">
-                <?php
-                $name = Session::get('customer_name');
-                if ($name)
-                {
-                    echo $name;
-                }
-                ?>
-            </div>
             <div class="cart">
                 @php
                     $cart = Session::get('cart');
@@ -218,7 +227,7 @@
         </div>
     </header>
     <main>
-        <div class="container-fluid " style="margin-top:100px;" >
+        <div class="" style="margin-top:70px;" >
             <div id="carouselExampleIndicators" class="carousel slide">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleIndicators"
@@ -228,14 +237,19 @@
                     <button type="button" data-bs-target="#carouselExampleIndicators"
                     data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                    <div class="carousel-inner">
+                <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset('public/images/bannerhome.png') }}" class="d-block w-100" alt="...">
-                </div>
-                    <div class="carousel-item">
+                        <img src="{{ asset('public/images/bannerhome3.jpg') }}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item Slide 2">
                         <img src="{{ asset('public/images/bannerhome2.png') }}" class="d-block w-100" alt="...">
                     </div>
+                    <div class="carousel-item Slide 3">
+                        <img src="{{ asset('public/images/banner5.jpg') }}" class="d-block w-100" alt="...">
+                    </div>
                 </div>
+
+            </div>
                 <button class="carousel-control-prev" type="button"
                 data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -376,7 +390,6 @@ $("figure").mouseleave(
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"type="text/javascript"></script>
 <script async defer crossorigin="anonymous"
 src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS7fsa"></script>
-//<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(document).ready(function(){

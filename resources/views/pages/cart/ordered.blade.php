@@ -1,7 +1,7 @@
-@extends('test')
-@section('test')
+@extends('user')
+@section('ordered')
 <title>Lịch sử đơn hàng</title>
-<div class="container">
+<div class="container" style="margin-top: 220px;">
     <div class="container card" style="margin-top: 120px">
         &nbsp;
         <h3>DANH SÁCH ĐƠN HÀNG </h3>

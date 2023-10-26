@@ -7,10 +7,22 @@
         $customer_id = Session::get('customer_id');
         if($customer_id ) {
         ?>
-            <a  href="{{ URL::to('/ordered/'.$customer_id) }}">
-                <button class="btn btn-info" style="margin-bottom: 30px;">Xem lịch sử đơn hàng</button>
-
-            </a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a  href="{{ URL::to('/ordered/'.$customer_id) }}">
+                        <button class="btn btn-info" style="margin-bottom: 30px;">Xem lịch sử đơn hàng</button>
+                    </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+              </ul>
         <?php }
         ?>
         <br>

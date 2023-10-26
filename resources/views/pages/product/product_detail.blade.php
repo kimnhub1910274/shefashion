@@ -23,6 +23,7 @@
         <div class="col-sm-6">
             <div class="product-information"><!--/product-information-->
 
+
                 <h2>{{$value->product_name}}</h2>
                 <span>
                     <p><b>Mô tả:</b> {{$value->product_desc}}</p>
