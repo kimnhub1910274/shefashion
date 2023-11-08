@@ -27,7 +27,7 @@
                                                     <option selected value="0" id="{{$valu->order_id}}">
                                                         Chờ xác nhận</option>
                                                     <option value="1" id="{{$valu->order_id}}">
-                                                        Đơn hàng đã được xác nhận</option>
+                                                        Đã xác nhận đơn hàng</option>
                                                     <option value="2" id="{{$valu->order_id}}">
                                                         Đơn hàng đang được giao</option>
                                                     <option value="3" id="{{$valu->order_id}}">
@@ -42,10 +42,10 @@
                                             <form action="" method="post">
                                                 @csrf
                                                 <select name="order_status" id="" class="form-control order_details">
-                                                    <option selected value="0" id="{{$valu->order_id}}">
+                                                    <option value="0" id="{{$valu->order_id}}">
                                                         Chờ xác nhận</option>
-                                                    <option value="1" id="{{$valu->order_id}}">
-                                                        Đơn hàng đã được xác nhận</option>
+                                                    <option selected value="1" id="{{$valu->order_id}}">
+                                                        Đã xác nhận đơn hàng</option>
                                                     <option value="2" id="{{$valu->order_id}}">
                                                         Đơn hàng đang được giao</option>
                                                     <option value="3" id="{{$valu->order_id}}">
@@ -60,11 +60,11 @@
                                             <form action="" method="post">
                                                 @csrf
                                                 <select name="order_status" id="" class="form-control order_details">
-                                                    <option selected value="0" id="{{$valu->order_id}}">
+                                                    <option value="0" id="{{$valu->order_id}}">
                                                         Chờ xác nhận</option>
                                                     <option value="1" id="{{$valu->order_id}}">
-                                                        Đơn hàng đã được xác nhận</option>
-                                                    <option value="2" id="{{$valu->order_id}}">
+                                                        Đã xác nhận đơn hàng</option>
+                                                    <option selected value="2" id="{{$valu->order_id}}">
                                                         Đơn hàng đang được giao</option>
                                                     <option value="3" id="{{$valu->order_id}}">
                                                         Giao hàng thành công</option>
@@ -78,13 +78,13 @@
                                             <form action="" method="post">
                                                 @csrf
                                                 <select name="order_status" id="" class="form-control order_details">
-                                                    <option selected value="0" id="{{$valu->order_id}}">
+                                                    <option value="0" id="{{$valu->order_id}}">
                                                         Chờ xác nhận</option>
                                                     <option value="1" id="{{$valu->order_id}}">
-                                                        Đơn hàng đã được xác nhận</option>
+                                                        Đã xác nhận đơn hàng</option>
                                                     <option value="2" id="{{$valu->order_id}}">
                                                         Đơn hàng đang được giao</option>
-                                                    <option value="3" id="{{$valu->order_id}}">
+                                                    <option selected value="3" id="{{$valu->order_id}}">
                                                         Giao hàng thành công</option>
                                                     <option value="4" id="{{$valu->order_id}}">
                                                         Đã hủy</option>
@@ -96,15 +96,15 @@
                                             <form action="" method="post">
                                                 @csrf
                                                 <select name="order_status" id="" class="form-control order_details">
-                                                    <option selected value="0" id="{{$valu->order_id}}">
+                                                    <option  value="0" id="{{$valu->order_id}}">
                                                         Chờ xác nhận</option>
                                                     <option value="1" id="{{$valu->order_id}}">
-                                                        Đơn hàng đã được xác nhận</option>
+                                                        Đã xác nhận đơn hàng</option>
                                                     <option value="2" id="{{$valu->order_id}}">
                                                         Đơn hàng đang được giao</option>
                                                     <option value="3" id="{{$valu->order_id}}">
                                                         Giao hàng thành công</option>
-                                                    <option value="4" id="{{$valu->order_id}}">
+                                                    <option selected value="4" id="{{$valu->order_id}}">
                                                         Đã hủy</option>
                                                     <option value="5" id="{{$valu->order_id}}">
                                                         Giao hàng không thành công</option>
@@ -114,17 +114,17 @@
                                             <form action="" method="post">
                                                 @csrf
                                                 <select name="order_status" id="" class="form-control order_details">
-                                                    <option selected value="0" id="{{$valu->order_id}}">
+                                                    <option  value="0" id="{{$valu->order_id}}">
                                                         Chờ xác nhận</option>
                                                     <option value="1" id="{{$valu->order_id}}">
-                                                        Đơn hàng đã được xác nhận</option>
+                                                        Đã xác nhận đơn hàng</option>
                                                     <option value="2" id="{{$valu->order_id}}">
                                                         Đơn hàng đang được giao</option>
                                                     <option value="3" id="{{$valu->order_id}}">
                                                         Giao hàng thành công</option>
                                                     <option value="4" id="{{$valu->order_id}}">
                                                         Đã hủy</option>
-                                                    <option value="5" id="{{$valu->order_id}}">
+                                                    <option selected value="5" id="{{$valu->order_id}}">
                                                         Giao hàng không thành công</option>
                                                 </select>
                                             </form>

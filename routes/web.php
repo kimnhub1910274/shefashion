@@ -139,5 +139,10 @@ Route::get('/send-mail', [HomeController::class, 'send_mail']);
 Route::get('/login-facebook', [AdminController::class, 'login_facebook']);
 Route::get('/admin/callback', [AdminController::class, 'call_back']);
 
+Route::get('/wait-pay', [AdminController::class, 'wait_pay']);
+Route::get('/delivery', [AdminController::class, 'delivery']);
+Route::get('/success-delivery', [AdminController::class, 'success_delivery']);
+Route::get('/cancel', [AdminController::class, 'cancel']);
+Route::get('/delivery-failed', [AdminController::class, 'delivery_failed']);
 
 

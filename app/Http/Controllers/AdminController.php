@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Socialite;
 use App\Models\Login;
 use App\Models\Social;
@@ -100,6 +101,36 @@ class AdminController extends Controller
             Session::put('admin_id', $account_name->admin_id);
             return redirect('/dashboard')->with('message', 'Đăng nhập Admin thành công');
         }
+    }
+    public function wait_pay()
+    {
+        $wait_pay =  Order::where('order_status', '1')
+        ->orderBy('created_at', 'DESC')->get();
+            return view('admin.order.wait_pay')->with(compact('wait_pay'));
+}
+    public function delivery()
+        {
+            $delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '2')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('admin.order.delivery')->with(compact('delivery'));
+    }
+    public function success_delivery()
+        {
+            $success_delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '3')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('admin.order.success_delivery')->with(compact('success_delivery'));
+    }
+    public function cancel()
+        {
+            $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('admin.order.cancel')->with(compact('cancel'));
+    }
+    public function delivery_failed()
+        {
+            $delivery_failed =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '5')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('admin.order.delivery_failed')->with(compact('delivery_failed'));
     }
 
 }

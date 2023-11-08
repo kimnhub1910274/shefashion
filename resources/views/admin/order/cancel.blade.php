@@ -1,6 +1,6 @@
 @extends('all_order')
 @section('all_ordered')
-
+<title>Đã hủy</title>
 <div class="container-fluid card">
     <?php
     $message = Session::get('message');
@@ -24,7 +24,7 @@
         </thead>
         <tbody>
 
-            @foreach ( $all_order as $key => $order)
+            @foreach ( $cancel as $key => $order)
                 <tr>
                     <th scope="" ><?php echo $key+1;?></th>
                     <td>{{$order->order_code}}</td>
