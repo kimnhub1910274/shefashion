@@ -30,7 +30,7 @@
 </head>
 
 <body>
-        <header class="fixed header" style="margin-bottom: 100px;">
+        <header class="fixed header position" style="margin-bottom: 100px;">
             <div class="d-flex justify-content-between " style=" margin: 10px 30px 20px 30px;">
                 <!-- logo -->
                 <a href="{{URL ::to('/')}}">
@@ -212,28 +212,25 @@
             </div>
             </div>
         </header>
-    <div class="container header" style="margin-top: 110px; ">
+    <div class=" header container-fluid" style="margin-top: 110px; ">
         <div class="row">
-            <div class="col-3 container fixed " style="padding:5px; ">
+            <div class="col-3 " style="padding: 10px; ">
                 <div class="user">
-                    <div class="row">
-                        <div class="col">
+                    <span>
+                        <p style="color: black; text-align:center;">
                             <i class="fas fa-user"></i>
-                        </div>
-                        <div class="col">
-                            <p style="color: black;">
-                                <?php
-                                $name = Session::get('customer_name');
-                                if ($name) {
-                                    echo $name;
-                                }
-                                ?></p>
-                        </div>
-                    </div>
-
+                            <?php
+                            $name = Session::get('customer_name');
+                            if ($name) {
+                                echo $name;
+                            }
+                            ?></p>
+                    </span>
+                    <span>
+                    </span>
                 </div>
             </div>
-            <div class="col-8 container fixed" >
+            <div class="col-9 container-fluid  fixed" style="padding:5px; " >
                 <?php
                     $ship_id = Session::get('ship_id');
                     $customer_id = Session::get('customer_id');
@@ -246,13 +243,24 @@
                                    Tất cả đơn hàng</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link " style="color: black;" href="#">Chờ thanh toán</a>
+                            <a class="nav-link " style="color: black;"
+                            href="{{ URL::to('/wait-pay/'.$customer_id) }}">Chờ thanh toán</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link " style="color: black;" href="#">Đang giao hàng</a>
+                            <a class="nav-link " style="color: black;"
+                             href="{{ URL::to('/delivery/'.$customer_id) }}">Đang giao hàng</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " style="color: black;" href="#">Giao hàng thành công</a>
+                                <a class="nav-link " style="color: black;"
+                                 href="{{ URL::to('/success-delivery/'.$customer_id) }}">Giao hàng thành công</a>
+                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link " style="color: black;"
+                                    href="{{ URL::to('/cancel/'.$customer_id) }}">Đã hủy</a>
+                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link " style="color: black;"
+                                    href="{{ URL::to('/delivery-failed/'.$customer_id) }}">Giao hàng không thành công</a>
                                 </li>
                         </ul>
 

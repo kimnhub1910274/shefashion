@@ -1,7 +1,7 @@
 @extends('user')
 @section('ordered')
-<title>Lịch sử đơn hàng</title>
-<div class="" >
+<title>Giao hàng thành công</title>
+<div class="container" >
     <div class="container card" style="">
         &nbsp;
         <?php
@@ -21,13 +21,12 @@
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Ngày đặt</th>
                 <th scope="col">Hiển thị</th>
-                <th scope="col">Hủy</th>
 
               </tr>
             </thead>
             <tbody>
 
-                @foreach ( $get_order as $key => $order)
+                @foreach ( $success_delivery as $key => $order)
                     <tr>
                         <th scope="" ><?php echo $key+1;?></th>
                         <td>{{$order->order_code}}</td>
@@ -35,18 +34,20 @@
 
                         <td>
                             @if ($order->order_status == 0)
-                                Chờ xác nhận
-                            @elseif($order->order_status == 1)
-                                Đơn hàng đã được xác nhận
-                            @elseif($order->order_status == 2)
-                                Đơn hàng đang được giao
-                            @elseif($order->order_status == 3)
-                                Giao hàng thành công
-                            @elseif($order->order_status == 4)
-                                Đã hủy
-                            @elseif($order->order_status == 5)
-                                Giao hàng không thành công
-                            @endif
+                                            Chờ xác nhận
+                                            @elseif($order->order_status == 1)
+                                            Đơn hàng đã được xử lý
+                                            </form>
+                                            @elseif($order->order_status == 2)
+                                            Đang giao hàng
+                                            </form>
+                                            @elseif($order->order_status == 3)
+                                            Giao hàng thành công
+                                            @elseif($order->order_status == 4)
+                                            Đã hủy
+                                            @elseif($order->order_status == 5)
+                                            Giao hàng không thành công
+                                        @endif
                             </td>
                         <td>{{$order->created_at}}</td>
                         <td>
@@ -54,12 +55,11 @@
                                 Xem chi tiết
                             </a>
                             &nbsp;
+
                         </td>
-                        <td>
-                            @if ($order->order_status == 0)
-                                Hủy
-                            @endif
-                        </td>
+
+
+
                     </tr>
                 @endforeach
 

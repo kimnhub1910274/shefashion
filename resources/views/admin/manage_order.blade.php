@@ -20,6 +20,7 @@
             <th scope="col">Trạng thái</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>
+            <th scope="col">Hủy</th>
 
           </tr>
         </thead>
@@ -32,9 +33,9 @@
                     <td>{{$order->customer_id}}</td>
                     <td>
                         @if ($order->order_status == 0)
-                            Đã đặt hàng
+                            Chờ xác nhận
                         @elseif($order->order_status == 1)
-                            Đơn hàng đang xử lý
+                            Đơn hàng đã được xác nhận
                         @elseif($order->order_status == 2)
                             Đơn hàng đang được giao
                         @elseif($order->order_status == 3)
@@ -49,6 +50,11 @@
                             <i class="fa-regular fa-eye"style="color: black;"></i>
                         </a>
                         &nbsp;
+                    </td>
+                    <td>
+                        @if ($order->order_status == 0)
+                                <a href="">Hủy</a>
+                            @endif
                     </td>
 
 

@@ -27,6 +27,37 @@ class OrderController extends Controller
         return view('pages.cart.ordered')->with(compact('get_order'));
 
     }
+    public function wait_pay($customerId)
+    {
+        $wait_pay =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '1')
+        ->orderBy('created_at', 'DESC')->get();
+            return view('pages.cart.wait_pay')->with(compact('wait_pay'));
+}
+    public function delivery($customerId)
+        {
+            $delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '2')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('pages.cart.delivery')->with(compact('delivery'));
+    }
+    public function success_delivery($customerId)
+        {
+            $success_delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '3')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('pages.cart.success_delivery')->with(compact('success_delivery'));
+    }
+    public function cancel($customerId)
+        {
+            $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('pages.cart.success_delivery')->with(compact('cancel'));
+    }
+    public function delivery_failed($customerId)
+        {
+            $delivery_failed =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '5')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('pages.cart.delivery_failed')->with(compact('delivery_failed'));
+    }
+
     public function view_ordered($order_id)
     {
         $order_details = OrderDetails::with('product')->where('order_code', $order_id)->get();

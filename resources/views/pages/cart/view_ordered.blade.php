@@ -3,7 +3,7 @@
 
 <title>Chi tiết đơn hàng</title>
 <div class="container-fluid">
-    <div class="container " style="margin-top: 120px">
+    <div class="container " style="margin-top: 100px">
       <!-- Title -->
       <div class="d-flex justify-content-between align-items-center py-3">
         <h3 class=" mb-0"><a href="#" class="text-muted"></a> CHI TIẾT ĐƠN HÀNG </h3>
@@ -21,17 +21,18 @@
                                 <span class="me-3">
                                      @foreach ($order as $key => $valu)
                                         @if ($valu->order_status == 0)
-                                            Đã đặt hàng
+                                            Chờ xác nhận
                                             @elseif($valu->order_status == 1)
-                                            Đơn hàng đang xử lý
+                                            Đơn hàng đã được xác nhận
                                             </form>
                                             @elseif($valu->order_status == 2)
                                             Đang giao hàng
                                             </form>
                                             @elseif($valu->order_status == 3)
                                             Giao hàng thành công
-
-                                            @elseif($valu->order_status == 4)
+                                            @elseif($order->order_status == 4)
+                                            Đã hủy
+                                            @elseif($order->order_status == 5)
                                             Giao hàng không thành công
                                         @endif
 

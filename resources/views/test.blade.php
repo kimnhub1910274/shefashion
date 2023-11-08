@@ -26,7 +26,7 @@
 </head>
 
 <body>
-        <header class="fixed header" style="margin-bottom: 100px;">
+        <header class="fixed header position" style="margin-bottom: 100px;">
             <div class="d-flex justify-content-between " style=" margin: 10px 30px 20px 30px;">
                 <!-- logo -->
                 <a href="{{URL ::to('/')}}">

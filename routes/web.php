@@ -119,6 +119,12 @@ Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
 //Order
 Route::get('/manage-order', [OrderController::class, 'manage_order']);
 Route::get('/view-order/{order_id}', [OrderController::class, 'view_order']);
+Route::get('/wait-pay/{order_id}', [OrderController::class, 'wait_pay']);
+Route::get('/delivery/{order_id}', [OrderController::class, 'delivery']);
+Route::get('/success-delivery/{order_id}', [OrderController::class, 'success_delivery']);
+Route::get('/cancel/{order_id}', [OrderController::class, 'cancel']);
+Route::get('/delivery-failed/{order_id}', [OrderController::class, 'delivery_failed']);
+
 Route::post('/update-quantity-order', [OrderController::class, 'update_quantity_order']);
 Route::post('/update-qty-order', [OrderController::class, 'update_qty_order']);
 Route::get('/print-order/{checkout_code}', [OrderController::class, 'print_order']);
