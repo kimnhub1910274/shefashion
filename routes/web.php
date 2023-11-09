@@ -132,6 +132,9 @@ Route::get('/print-order/{checkout_code}', [OrderController::class, 'print_order
 Route::get('/ordered/{customerId}', [OrderController::class, 'ordered']);
 Route::get('/view-ordered/{order_id}', [OrderController::class, 'view_ordered']);
 
+Route::post('/cancel-order', [OrderController::class, 'cancel_order']);
+Route::post('/accept-order', [OrderController::class, 'accept_order']);
+
 //Send Mail
 Route::get('/send-mail', [HomeController::class, 'send_mail']);
 

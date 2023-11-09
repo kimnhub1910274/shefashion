@@ -18,7 +18,7 @@
             <th scope="col">Trạng thái</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>
-            <th scope="col">Hủy</th>
+            <th scope="col">Xác nhận</th>
 
           </tr>
         </thead>
@@ -39,6 +39,8 @@
                         @elseif($order->order_status == 3)
                             Giao hàng thành công
                         @elseif($order->order_status == 4)
+                            Đã hủy
+                        @elseif($order->order_status == 5)
                             Giao hàng không thành công
                         @endif
                         </td>
@@ -51,12 +53,13 @@
                     </td>
                     <td>
                         @if ($order->order_status == 0)
-                                <a href="">Hủy</a>
-                            @endif
+                            <a style="text-decoration: none; color: #000;"
+                             href="{{URL::to('/cancel-order/'.$order->order_code)}}">Hủy</a>
+                            <a style="text-decoration: none; color: #000;"
+                             href="{{URL::to('/accept-order/'.$order->order_code)}}">Duyệt</a>
+
+                        @endif
                     </td>
-
-
-
                 </tr>
             @endforeach
 

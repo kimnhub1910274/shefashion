@@ -39,6 +39,8 @@
                         @elseif($order->order_status == 3)
                             Giao hàng thành công
                         @elseif($order->order_status == 4)
+                            Đã hủy
+                        @elseif($order->order_status == 5)
                             Giao hàng không thành công
                         @endif
                         </td>

@@ -399,10 +399,28 @@ $("figure").mouseleave(
                 }
                 window.setTimeout(function(){
                     location.reload();
-                  }, 3000);
+                  }, 1000);
 
               })
 
         });
     });
+</script>
+<script type="text/javascript">
+    function Cancelorder(id){
+        var order_code = id ;
+        var reason = $('.reason_cancel').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: '{{url('/cancel-order')}}',
+            method: 'POST',
+            data:{order_code:order_code, reason:reason, _token:_token},
+            success:function(data){
+              Swal.fire('Hủy đơn hàng thành công!', '', 'success');
+            }
+        });
+        window.setTimeout(function(){
+            location.reload();
+          }, 1000);
+    };
 </script>

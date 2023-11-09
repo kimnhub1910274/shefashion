@@ -21,7 +21,7 @@
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Ngày đặt</th>
                 <th scope="col">Hiển thị</th>
-                <th scope="col">Hủy</th>
+                <th scope="col">Xác nhận</th>
 
               </tr>
             </thead>
@@ -50,14 +50,46 @@
                             </td>
                         <td>{{$order->created_at}}</td>
                         <td>
-                            <a href="{{URL::to('/view-ordered/'.$order->order_code)}}" style="text-decoration: none">
-                                Xem chi tiết
-                            </a>
-                            &nbsp;
+                            <a href="{{URL::to('/view-ordered/'.$order->order_code)}}"
+                                style="text-decoration: none; color: #000;"> Xem</a>
                         </td>
                         <td>
                             @if ($order->order_status == 0)
-                                Hủy
+                                    <button type="button" class="btn btn-danger" onclick=""
+                                    data-bs-toggle="modal" data-bs-target="#myModal">
+                                    Hủy
+                                    </button>
+
+                                    <!-- The Modal -->
+                                    <div class="modal" id="myModal" style="margin-top: 80px">
+                                    <div class="modal-dialog">
+                                        <form action="">
+                                            @csrf
+                                            <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h6 class="modal-title">Lý do hủy đơn hàng</h6>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <textarea class="reason_cancel" name="" id="" cols="45"
+                                                rows="5" placeholder=" Lý do ... (bắt buộc)"></textarea>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" id="{{$order->order_code}}"
+                                                    onclick="Cancelorder(this.id)" class="btn btn-primary">Gửi</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         </td>
                     </tr>

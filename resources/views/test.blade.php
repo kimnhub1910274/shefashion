@@ -325,8 +325,8 @@ $("figure").mouseleave(
                   Swal.fire('Đặt hàng không thành công!', '', 'info');
                 }
                 window.setTimeout(function(){
-                    location.reload();
-                  }, 3000);
+                    location.href = "{{url('/home')}}";
+                  }, 1000);
 
               })
 

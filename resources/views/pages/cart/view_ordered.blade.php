@@ -17,7 +17,6 @@
                     <div class="card-body">
                         <div class="mb-3 d-flex justify-content-between">
                             <div>
-                                <span class="me-3"></span>
                                 <span class="me-3">
                                      @foreach ($order as $key => $valu)
                                         @if ($valu->order_status == 0)
@@ -30,14 +29,19 @@
                                             </form>
                                             @elseif($valu->order_status == 3)
                                             Giao hàng thành công
-                                            @elseif($order->order_status == 4)
+                                            @elseif($valu->order_status == 4)
                                             Đã hủy
-                                            @elseif($order->order_status == 5)
+                                            @elseif($valu->order_status == 5)
                                             Giao hàng không thành công
                                         @endif
-
                                     @endforeach
-
+                                </span>
+                                <span class="me-3">
+                                    @foreach ($order as $key => $valu)
+                                        @if($valu->order_status == 4)
+                                            <p>lý do</p>
+                                        @endif
+                                    @endforeach
                                 </span>
                             </div>
                         </div>

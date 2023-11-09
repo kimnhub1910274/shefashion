@@ -49,7 +49,7 @@ class OrderController extends Controller
         {
             $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
             ->orderBy('created_at', 'DESC')->get();
-                return view('pages.cart.success_delivery')->with(compact('cancel'));
+                return view('pages.cart.cancel')->with(compact('cancel'));
     }
     public function delivery_failed($customerId)
         {
@@ -117,10 +117,7 @@ class OrderController extends Controller
                         $product->product_quantity = $product_remain;
                         $product->product_sold = $product_sold + $qty;
                         $product->save();
-
-
                     }
-
                 }
             }
              //send mail
@@ -367,5 +364,12 @@ class OrderController extends Controller
 
         return $output;
     }
-
+    public function cancel_order(Request $request)
+    {
+        $data = $request->all();
+        $order = Order::where('order_code', $data['order_code'])->first();
+        $order->order_cancel = $data['reason'];
+        $order->order_status = 4;
+        $order->save();
+    }
 }
