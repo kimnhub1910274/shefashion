@@ -39,7 +39,8 @@
                         @elseif($order->order_status == 3)
                             Giao hàng thành công
                         @elseif($order->order_status == 4)
-                            Đã hủy
+                            <span class="text text-danger" >Đã hủy</span>
+                            <p style="font-size:12px;">Lý do: {{ $order->order_cancel }}</p>
                         @elseif($order->order_status == 5)
                             Giao hàng không thành công
                         @endif
@@ -53,10 +54,19 @@
                     </td>
                     <td>
                         @if ($order->order_status == 0)
-                            <a style="text-decoration: none; color: #000;"
-                             href="{{URL::to('/cancel-order/'.$order->order_code)}}">Hủy</a>
-                            <a style="text-decoration: none; color: #000;"
-                             href="{{URL::to('/accept-order/'.$order->order_code)}}">Duyệt</a>
+                            <div style="margin-top: 10px; margin-bottom: -12px;">
+                            <form action="">
+                                @csrf
+                                <button class="btn btn-success" id="{{$order->order_code}}"
+                                style="margin-left: -20px;" onclick="acceptorder(this.id)" >Duyệt</button>
+                            </form>
+                            <form action="">
+                                @csrf
+                                <button class="btn btn-danger" id="{{$order->order_code}}"
+                                    style="margin-left: 50px; margin-top: -67px;"
+                                     onclick="cancelorder(this.id)">Hủy</button>
+                            </form>
+                            </div>
 
                         @endif
                     </td>

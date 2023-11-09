@@ -15,10 +15,9 @@
             <!-- Details -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="mb-3 d-flex justify-content-between">
-                            <div>
-                                <span class="me-3"></span>
-                                <span class="me-3">
+                        <div class="mb-3  justify-content-between">
+                            <div class="row">
+                                <span class="me-3 col text text-red-600">
                                     @foreach ($order as $key => $valu)
                                         @if ($valu->order_status == 0)
                                             <form action="" method="post">
@@ -133,6 +132,14 @@
                                     @endforeach
 
                                 </span>
+                                <span class="me-3 col ">
+                                    @foreach ($order as $key => $valu)
+                                        @if($valu->order_status == 4)
+                                            <p>Lý do: {{ $valu->order_cancel }}</p>
+                                        @endif
+                                    @endforeach
+                                </span>
+
                             </div>
                         </div>
                         <table class="table table-borderless">

@@ -105,8 +105,45 @@ class OrderController extends Controller
         $order = Order::find($data['order_code']);
         $order->order_status = $data['order_status'];
         $order->save();
-        if ($order->order_status == 3) {
+        if($order->order_status == 1){
+            $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+            $title_email = "Đơn hàng xác nhận ngày".' '.$now;
+            $customer = Customer::find(Session::get('customer_id'));
+            $data['email'][] = $customer->customer_email;
 
+            if(Session::get('cart') == true){
+                foreach(Session::get('cart') as $key =>$cart_email){
+                    $cart_array[] = array(
+                        'product_name' => $cart_email['product_name'],
+                        'product_price' => $cart_email['product_price'],
+                        'product_quantity' => $cart_email['product_quantity']
+                    );
+                }
+            }
+            $ship_array = array(
+                'customer_name' => $customer->customer_name,
+                'ship_name' => $data['ship_name'],
+                'ship_address' => $data['ship_address'],
+                'ship_phone' => $data['ship_phone'],
+                'ship_note' => $data['ship_note'],
+
+            );
+            $ordercode_mail = array(
+                'order_code' => $code,
+                'created_at' => $order->created_at,
+                'customer_email' => $customer->customer_email,
+                'customer_phone' => $customer->customer_phone,
+                'customer_address' => $customer->customer_address,
+            );
+
+            Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
+                                                'ordercode_mail' => $ordercode_mail],
+                function($message) use ($title_email, $data){
+                    $message->to($data['email'])->subject($title_email);
+                    $message->from($data['email'], $title_email);
+                });
+            Session::forget('cart');
+        }elseif ($order->order_status == 3) {
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
                 $product_quantity = $product->product_quantity;
@@ -162,7 +199,7 @@ class OrderController extends Controller
                     $message->to($data['email'])->subject($title_email);
                     $message->from($data['email'], $title_email);
                 });
-        } elseif ($order->order_status != 2 && $order->order_status != 3 && $order->order_status == 4) {
+        } elseif ($order->order_status != 2 && $order->order_status != 3 && $order->order_status == 5) {
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
                 $product_quantity = $product->product_quantity;
@@ -188,6 +225,7 @@ class OrderController extends Controller
 
         $order_details->product_quantity = $data['order_qty'];
         $order_details->save();
+
     }
     public function print_order( $checkout_code ){
         $pdf = \App::make('dompdf.wrapper');
@@ -370,6 +408,20 @@ class OrderController extends Controller
         $order = Order::where('order_code', $data['order_code'])->first();
         $order->order_cancel = $data['reason'];
         $order->order_status = 4;
+        $order->save();
+    }
+    public function cancel_order_customer(Request $request)
+    {
+        $data = $request->all();
+        $order = Order::where('order_code', $data['order_code'])->first();
+        $order->order_status = 4;
+        $order->save();
+    }
+    public function accept_order(Request $request)
+    {
+        $data = $request->all();
+        $order = Order::where('order_code', $data['order_code'])->first();
+        $order->order_status = 1;
         $order->save();
     }
 }

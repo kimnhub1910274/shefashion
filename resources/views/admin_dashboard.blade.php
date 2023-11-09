@@ -415,7 +415,7 @@
                     });
                     window.setTimeout(function(){
                         location.reload();
-                      }, 3000);
+                      }, 2000);
 
                         //location.reload();
                     }

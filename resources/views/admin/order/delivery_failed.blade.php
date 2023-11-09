@@ -18,8 +18,6 @@
             <th scope="col">Trạng thái</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>
-            <th scope="col">Hủy</th>
-
           </tr>
         </thead>
         <tbody>
@@ -51,14 +49,6 @@
                         </a>
                         &nbsp;
                     </td>
-                    <td>
-                        @if ($order->order_status == 0)
-                                <a href="">Hủy</a>
-                            @endif
-                    </td>
-
-
-
                 </tr>
             @endforeach
 

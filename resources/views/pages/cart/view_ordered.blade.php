@@ -15,9 +15,9 @@
             <!-- Details -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="mb-3 d-flex justify-content-between">
-                            <div>
-                                <span class="me-3">
+                        <div class="mb-3  justify-content-between">
+                            <div class="row">
+                                <span class=" col-7 " >
                                      @foreach ($order as $key => $valu)
                                         @if ($valu->order_status == 0)
                                             Chờ xác nhận
@@ -30,16 +30,16 @@
                                             @elseif($valu->order_status == 3)
                                             Giao hàng thành công
                                             @elseif($valu->order_status == 4)
-                                            Đã hủy
+                                            <span class="text text-danger">Đã hủy</span>
                                             @elseif($valu->order_status == 5)
                                             Giao hàng không thành công
                                         @endif
                                     @endforeach
                                 </span>
-                                <span class="me-3">
+                                <span class="col-5">
                                     @foreach ($order as $key => $valu)
                                         @if($valu->order_status == 4)
-                                            <p>lý do</p>
+                                            <p>Lý do: {{ $valu->order_cancel }}</p>
                                         @endif
                                     @endforeach
                                 </span>
@@ -68,7 +68,7 @@
                                     <td>
                                         <div class="d-flex mb-2">
                                             <div class="flex-shrink-0">
-                                            <img src="https://www.bootdey.com/image/280x280/87CEFA/000000"
+                                            <img src="{{ URL::to('public/uploads/product/'.$details->product_image) }}"
                                             alt="" width="35" class="img-fluid">
                                             </div>
                                             <div class="flex-lg-grow-1 ms-3">
@@ -84,7 +84,7 @@
                                     <td class="text">
                                         {{number_format($details->product_price)}}
                                     </td>
-                                    <td class="text-end">
+                                    <td class="text">
                                         {{number_format($subtotal)}}
                                     </td>
                                 </tr>

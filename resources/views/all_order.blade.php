@@ -343,7 +343,6 @@
     </a>
     <!-- Bootstrap core JavaScript-->
     <!-- Custom scripts for all pages-->
-   <script src="js/sb-admin-2.min.js"></script>
 
 
     <!-- Page level custom scripts -->
@@ -474,6 +473,40 @@
                 })
             })
         })
+    </script>
+    <script type="text/javascript">
+        function cancelorder(id){
+            var order_code = id ;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/cancel-order-customer')}}',
+                method: 'POST',
+                data:{order_code:order_code,  _token:_token},
+                success:function(data){
+                  Swal.fire('Hủy đơn hàng của khách hàng thành công!', '', 'success');
+                }
+            });
+            window.setTimeout(function(){
+                location.reload();
+              }, 1000);
+        };
+    </script>
+    <script type="text/javascript">
+        function acceptorder(id){
+            var order_code = id ;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/accept-order')}}',
+                method: 'POST',
+                data:{order_code:order_code, _token:_token},
+                success:function(data){
+                  Swal.fire('Duyệt đơn hàng thành công!', '', 'success');
+                }
+            });
+            window.setTimeout(function(){
+                location.reload();
+              }, 1000);
+        };
     </script>
 
 

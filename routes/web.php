@@ -133,6 +133,7 @@ Route::get('/ordered/{customerId}', [OrderController::class, 'ordered']);
 Route::get('/view-ordered/{order_id}', [OrderController::class, 'view_ordered']);
 
 Route::post('/cancel-order', [OrderController::class, 'cancel_order']);
+Route::post('/cancel-order-customer', [OrderController::class, 'cancel_order_customer']);
 Route::post('/accept-order', [OrderController::class, 'accept_order']);
 
 //Send Mail
