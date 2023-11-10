@@ -48,10 +48,10 @@
                             ?>
                            <br><br>
                            <div class="field-set">
-                                <label for=""><b>Email</b></label>
+                                <label for=""><b>Tên đăng nhập</b></label>
                                 <br>
                                     <input class="form-input" id="txt-input"
-                                    type="email" name="email" placeholder="" required><br>
+                                    type="username" name="username" placeholder="" required><br>
                                 <label for=""><b>Mật khẩu</b></label> <br>
                                     <input class="form-input" type="password"
                                     name="password" placeholder="" id="pwd" required>

@@ -30,7 +30,7 @@
 </head>
 
 <body>
-        <header class="fixed header " style="margin-bottom: 100px;">
+        <header class="fixed header position" style="margin-bottom: 100px;">
             <div class="d-flex justify-content-between " style=" margin: 10px 30px 20px 30px;">
                 <!-- logo -->
                 <a href="{{URL ::to('/')}}">
@@ -249,57 +249,14 @@
                     </a>
                 </div>
             </div>
-            <div class="col-9 container-fluid  " style="padding:5px; margin-top: -9px; " >
-                <?php
-                    $ship_id = Session::get('ship_id');
-                    $customer_id = Session::get('customer_id');
-                    if($customer_id ) {
-                    ?>
-                        <ul class="nav fixed" >
-                            <li class="nav-item" >
-                                <a class="nav-link " style="color: black;"
-                                 href="{{ URL::to('/ordered/'.$customer_id) }}">
-                                   Tất cả đơn hàng</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link " style="color: black;"
-                            href="{{ URL::to('/wait-pay/'.$customer_id) }}">Chờ thanh toán</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link " style="color: black;"
-                             href="{{ URL::to('/delivery/'.$customer_id) }}">Đang giao hàng</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " style="color: black;"
-                                 href="{{ URL::to('/success-delivery/'.$customer_id) }}">Giao hàng thành công</a>
-                                </li>
-                            <li class="nav-item">
-                                <a class="nav-link " style="color: black;"
-                                    href="{{ URL::to('/cancel/'.$customer_id) }}">Đã hủy</a>
-                                </li>
-                            <li class="nav-item">
-                                <a class="nav-link " style="color: black;"
-                                    href="{{ URL::to('/delivery-failed/'.$customer_id) }}">Giao hàng không thành công</a>
-                                </li>
-                        </ul>
-
-                    <?php }
-                    ?>
-                    <br>
-                <?php
-                $message = Session::get('message');
-                if($message){
-                    echo $message;
-                    Session::pull('message', null);
-                }
-            ?>
+            <div class="col-9 container-fluid " style="padding:5px; margin-top: -8px; " >
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-3"></div>
                 <div class="col-8 container" style="">
-                    <div>@yield('ordered')</div>
+                    <div>@yield('customer')</div>
 
                 </div>
             </div>

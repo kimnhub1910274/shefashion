@@ -65,7 +65,9 @@
                                             style="color: red;">
                                             **Hãy nhập tên người dùng
                                         </h5>
-
+                                    <label for=""><b>Tên đăng nhập</b></label><br>
+                                    <input class="form-input" id="txt-input"
+                                    type="text" name="username" id="username" placeholder="" required><br>
                                     <label for=""><b>Email</b></label><br>
                                         <input class="form-input" id="email"
                                         type="text" name="customer_email" placeholder="" required><br>

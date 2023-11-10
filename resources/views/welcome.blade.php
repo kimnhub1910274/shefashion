@@ -112,9 +112,9 @@
                                 ?>
                                 <div style="color: black; margin: 10px 10px 20px ">
                                     <?php
-                                    $name = Session::get('customer_name');
-                                    if ($name) {
-                                        echo $name;
+                                    $username = Session::get('customer_name');
+                                    if ($username) {
+                                        echo $username;
                                     }
 
                                     ?>
@@ -180,15 +180,15 @@
                      href="{{URL ::to('/log-out')}}" role="button"
                       id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       <?php
-                        $name = Session::get('customer_name');
-                        if ($name)
+                        $username = Session::get('customer_name');
+                        if ($username)
                         {
-                            echo $name;
+                            echo $username;
                         }
                         ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a class="dropdown-item" href="{{URL ::to('/')}}">Tài khoản</a></li>
+                      <li><a class="dropdown-item" href="{{URL ::to('/customer/'.$customer_id)}}">Tài khoản</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/ordered/'.$customer_id)}}">Đơn mua</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/log-out')}}">Đăng xuất</a></li>
 
@@ -425,6 +425,9 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
                 }
 
             });
+            window.setTimeout(function(){
+                location.reload();
+              }, 1000);
         });
     });
 </script>
@@ -448,6 +451,9 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
                 }
 
             });
+            window.setTimeout(function(){
+                location.reload();
+              }, 1000);
         });
     });
 </script>

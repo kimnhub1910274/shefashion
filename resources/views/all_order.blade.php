@@ -254,23 +254,16 @@
                 <!-- End of Topbar -->
                 <div class=" header container-fluid" style="margin-top: 30px; ">
                     <div class="row">
-
-
                         <style>
-
                             .nav #nav > .active > a {
                                 color: rgb(233, 161, 215);
                             }
                         </style>
                         <div class="col-9 container-fluid  fixed" style="padding:5px; " >
                             <?php
-                                $ship_id = Session::get('ship_id');
-                                $customer_id = Session::get('customer_id');
-                                $order_status = Session::get('order_status');
-
-                                if($customer_id ) {
+                                $admin_id = Session::get('admin_id');
+                                if($admin_id ) {
                                 ?>
-
                                 <div class=" nav-collapse" id="nav-collapse">
                                     <ul class="nav"  id="nav" >
                                         <li class="nav-item " >

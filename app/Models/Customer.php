@@ -9,7 +9,7 @@ class Customer extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'customer_name', 'customer_email', 'customer_phone', 'customer_address', 'customer_password'
+        'customer_name', 'username', 'customer_email', 'customer_phone', 'customer_address', 'customer_password'
     ];
     protected $primaryKey = 'customer_id';
     protected $table = 'tbl_customers';

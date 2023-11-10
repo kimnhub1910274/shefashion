@@ -24,38 +24,38 @@ class OrderController extends Controller
     {
         $get_order = Order::where('customer_id', Session::get('customer_id'))
         ->orderBy('created_at', 'DESC')->get();
-        return view('pages.cart.ordered')->with(compact('get_order'));
+        return view('customer.ordered')->with(compact('get_order'));
 
     }
     public function wait_pay($customerId)
     {
         $wait_pay =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '1')
         ->orderBy('created_at', 'DESC')->get();
-            return view('pages.cart.wait_pay')->with(compact('wait_pay'));
+            return view('customer.wait_pay')->with(compact('wait_pay'));
 }
     public function delivery($customerId)
         {
             $delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '2')
             ->orderBy('created_at', 'DESC')->get();
-                return view('pages.cart.delivery')->with(compact('delivery'));
+                return view('customer.delivery')->with(compact('delivery'));
     }
     public function success_delivery($customerId)
         {
             $success_delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '3')
             ->orderBy('created_at', 'DESC')->get();
-                return view('pages.cart.success_delivery')->with(compact('success_delivery'));
+                return view('customer.success_delivery')->with(compact('success_delivery'));
     }
     public function cancel($customerId)
         {
             $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
             ->orderBy('created_at', 'DESC')->get();
-                return view('pages.cart.cancel')->with(compact('cancel'));
+                return view('customer.cancel')->with(compact('cancel'));
     }
     public function delivery_failed($customerId)
         {
             $delivery_failed =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '5')
             ->orderBy('created_at', 'DESC')->get();
-                return view('pages.cart.delivery_failed')->with(compact('delivery_failed'));
+                return view('customer.delivery_failed')->with(compact('delivery_failed'));
     }
 
     public function view_ordered($order_id)
@@ -72,7 +72,7 @@ class OrderController extends Controller
         $ship = Ship::where('ship_id', $ship_id)->first();
         $order_details_product = OrderDetails::with('product')->where('order_code', $order_id)->get();
 
-        return view('pages.cart.view_ordered')
+        return view('customer.view_ordered')
         ->with(compact('order_details', 'customer', 'ship', 'order', 'order_status'));
 
     }

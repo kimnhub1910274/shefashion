@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 use Cart;
+use App\Models\Product;
 session_start();
 
 
@@ -103,14 +104,7 @@ class CartController extends Controller
             return Redirect()->back()->with('message', "Cập nhật giỏ hàng thành công");
         }else{
             return Redirect()->back()->with('message', "Cập nhật giỏ hàng không thành công!!");
-
         }
-
-        //Cart::update($cart_id, array(
-          //  'quantity' => +1,
-        //));
-       // return Redirect::to('/show-cart-ajax');
-
     }
     public function reduce_to_cart(Request $request)
     {

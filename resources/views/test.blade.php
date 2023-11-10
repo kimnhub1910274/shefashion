@@ -94,7 +94,7 @@
                                     ?>
                                     <div style="color: black; margin: 10px 10px 20px ">
                                         <?php
-                                        $name = Session::get('customer_name');
+                                        $name = Session::get('username');
                                         if ($name) {
                                             echo $name;
                                         }
@@ -162,7 +162,7 @@
                      href="{{URL ::to('/log-out')}}" role="button"
                       id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       <?php
-                        $name = Session::get('customer_name');
+                        $name = Session::get('username');
                         if ($name)
                         {
                             echo $name;

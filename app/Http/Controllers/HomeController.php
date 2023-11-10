@@ -52,10 +52,10 @@ class HomeController extends Controller
     }
     public function login(Request $request)
     {
-        $email = $request->email;
+        $username = $request->username;
         $password = md5($request->password);
 
-        $result = DB::table('users')->where('email', $email)
+        $result = DB::table('users')->where('username', $username)
         ->where('password', $password)->first();
 
         if ($result) {
@@ -95,4 +95,6 @@ class HomeController extends Controller
             });
 
     }
+
+
 }

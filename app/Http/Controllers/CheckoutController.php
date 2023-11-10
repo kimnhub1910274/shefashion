@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 use Cart;
 session_start();
@@ -32,6 +32,7 @@ class CheckoutController extends Controller
     {
         $data = array();
         $data['customer_name'] = $request->customer_name;
+        $data['username'] = $request->username;
         $data['customer_email'] = $request->customer_email;
         $data['customer_phone'] = $request->customer_phone;
         $data['customer_address'] = $request->customer_address;
@@ -41,6 +42,7 @@ class CheckoutController extends Controller
 
         Session::put('customer_id', $customer_id);
         Session::put('customer_name', $request->customer_name);
+        Session::put('username', $request->username);
         Session::put('customer_phone', $request->customer_phone);
         Session::put('customer_address', $request->customer_address);
 
@@ -53,10 +55,10 @@ class CheckoutController extends Controller
     }
     public function login_customer(Request $request)
     {
-        $email = $request->email;
+        $username = $request->username;
         $password = md5($request->password);
 
-        $result = DB::table('tbl_customers')->where('customer_email', $email)
+        $result = DB::table('tbl_customers')->where('username', $username)
         ->where('customer_password', $password)->first();
         if ($result) {
             session()->regenerate();
@@ -133,7 +135,9 @@ class CheckoutController extends Controller
 
     public function log_out()
     {
-        Session::flush();
+        Session::put('customer_name', null);
+        Session::put('customer_id', null);
+        Session::put('cart', null);
         return Redirect::to('/');
     }
     public function manage_order()
@@ -229,6 +233,7 @@ class CheckoutController extends Controller
         $ordercode_mail = array(
             'order_code' => $code,
             'created_at' => $order->created_at,
+            'username' => $customer->username,
             'customer_email' => $customer->customer_email,
             'customer_phone' => $customer->customer_phone,
             'customer_address' => $customer->customer_address,
