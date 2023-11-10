@@ -2,7 +2,7 @@
 @section('ordered')
 <title>Chờ thanh toán</title>
 <div class="" >
-    <div class="container card" style="">
+    <div class="container card" style="margin-top:170px; margin-bottom:100px;">
         &nbsp;
         <?php
         $message = Session::get('message');

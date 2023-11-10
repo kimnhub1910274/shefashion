@@ -115,7 +115,7 @@
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Ghi chú</span>
                                <textarea type="text" class="form-control ship_note"
-                               placeholder="" name="ship_note" required></textarea>
+                               placeholder="" name="ship_note"></textarea>
                            </div>
                         </div>
                            <?php

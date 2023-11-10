@@ -494,11 +494,12 @@
     <script type="text/javascript">
         function acceptorder(id){
             var order_code = id ;
+            var order_status = 1 ;
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: '{{url('/accept-order')}}',
                 method: 'POST',
-                data:{order_code:order_code, _token:_token},
+                data:{order_code:order_code, order_status:order_status, _token:_token},
                 success:function(data){
                   Swal.fire('Duyệt đơn hàng thành công!', '', 'success');
                 }
@@ -507,6 +508,27 @@
                 location.reload();
               }, 1000);
         };
+    </script>
+    <script type="text/javascript">
+        $('.Acceptorder').click(function () {
+            var order_code = $('.order_code').val();
+            var order_status = 1 ;
+            var _token = $('input[name="_token"]').val();
+
+            //alert(order_product_id);
+            //alert(order_qty);
+            //alert(order_code);
+            $.ajax({
+                method:'POST',
+                url: '{{url('/accept-order')}}',
+                data:{order_code:order_code, order_status:order_status, _token:_token
+                       },
+                success:function(data) {
+                    alert("Duyệt đơn hàng thành công");
+                    location.reload();
+                }
+            });
+        })
     </script>
 
 

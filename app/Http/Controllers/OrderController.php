@@ -106,43 +106,49 @@ class OrderController extends Controller
         $order->order_status = $data['order_status'];
         $order->save();
         if($order->order_status == 1){
+            $order->order_status = 1;
+            $order->save();
             $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-            $title_email = "Đơn hàng xác nhận ngày".' '.$now;
-            $customer = Customer::find(Session::get('customer_id'));
+            $title_email = "Đơn hàng đã được xác nhận".' '.$now;
+            $customer = Customer::where('customer_id', $order->customer_id)->first();
             $data['email'][] = $customer->customer_email;
+            $code = substr(md5(microtime()),rand(0,26),5);
+            foreach($data['order_product_id'] as $key =>$product){
+                $product_mail = Product::find($product);
+                foreach($data['quantity'] as $key2 => $qty){
+                    if($key ==$key2){
+                        $cart_array[] = array(
+                            'product_name' => $product_mail['product_name'],
+                            'product_price' => $product_mail['product_price'],
+                            'product_quantity' => $qty,
+                       );
+                   }
+               }
+           }
+           $detail = OrderDetails::where('order_code', $order->order_code)->first();
+           $ship = Ship::where('ship_id', $order->ship_id)->first();
+           $ship_array = array(
+               'customer_name' => $customer->customer_name,
+               'ship_name' => $ship['ship_name'],
+               'ship_address' => $ship['ship_address'],
+               'ship_phone' => $ship['ship_phone'],
+               'ship_note' => $ship['ship_note'],
 
-            if(Session::get('cart') == true){
-                foreach(Session::get('cart') as $key =>$cart_email){
-                    $cart_array[] = array(
-                        'product_name' => $cart_email['product_name'],
-                        'product_price' => $cart_email['product_price'],
-                        'product_quantity' => $cart_email['product_quantity']
-                    );
-                }
-            }
-            $ship_array = array(
-                'customer_name' => $customer->customer_name,
-                'ship_name' => $data['ship_name'],
-                'ship_address' => $data['ship_address'],
-                'ship_phone' => $data['ship_phone'],
-                'ship_note' => $data['ship_note'],
+           );
+           $ordercode_mail = array(
+               'order_code' => $code,
+               'created_at' => $order->created_at,
+               'customer_email' => $customer->customer_email,
+               'customer_phone' => $customer->customer_phone,
+               'customer_address' => $customer->customer_address,
+           );
 
-            );
-            $ordercode_mail = array(
-                'order_code' => $code,
-                'created_at' => $order->created_at,
-                'customer_email' => $customer->customer_email,
-                'customer_phone' => $customer->customer_phone,
-                'customer_address' => $customer->customer_address,
-            );
-
-            Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
-                                                'ordercode_mail' => $ordercode_mail],
-                function($message) use ($title_email, $data){
-                    $message->to($data['email'])->subject($title_email);
-                    $message->from($data['email'], $title_email);
-                });
-            Session::forget('cart');
+           Mail::send('admin.confirm_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
+                                               'ordercode_mail' => $ordercode_mail],
+               function($message) use ($title_email, $data){
+                   $message->to($data['email'])->subject($title_email);
+                   $message->from($data['email'], $title_email);
+               });
         }elseif ($order->order_status == 3) {
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
@@ -423,5 +429,6 @@ class OrderController extends Controller
         $order = Order::where('order_code', $data['order_code'])->first();
         $order->order_status = 1;
         $order->save();
+
     }
 }

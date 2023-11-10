@@ -57,7 +57,7 @@
                             <div style="margin-top: 10px; margin-bottom: -12px;">
                             <form action="">
                                 @csrf
-                                <button class="btn btn-success" id="{{$order->order_code}}"
+                                <button class="btn btn-success " id="{{$order->order_code}}"
                                 style="margin-left: -20px;" onclick="acceptorder(this.id)" >Duyệt</button>
                             </form>
                             <form action="">

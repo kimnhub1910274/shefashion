@@ -404,14 +404,10 @@
                     data:{_token:_token, order_status:order_status, order_code:order_code,
                          quantity:quantity, order_product_id:order_product_id },
                     success:function(data) {
-                        //alert('Cập nhật trạng thái đơn hàng thành công');
                          Swal.fire({
                         title: "Cập nhật trạng thái đơn hàng thành công",
-                       // text: "Đơn hàng sẽ không được hủy khi đã đặt, bạn có muốn đặt không?",
-                       // type: "warning",
                         showCancalButtons: true,
                         confirmButtonClass: "btn btn-danger",
-                       // confirmButtonText: "Cảm ơn bạn đã mua hàng",
                     });
                     window.setTimeout(function(){
                         location.reload();

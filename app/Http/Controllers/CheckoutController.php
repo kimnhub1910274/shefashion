@@ -203,6 +203,7 @@ class CheckoutController extends Controller
                 $order_detail->save();
             }
         }
+
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
         $title_email = "Đơn hàng xác nhận ngày".' '.$now;
         $customer = Customer::find(Session::get('customer_id'));
@@ -241,6 +242,7 @@ class CheckoutController extends Controller
             });
         Session::forget('cart');
     }
+
 
 
 }

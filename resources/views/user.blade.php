@@ -230,7 +230,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col-9 container-fluid  fixed" style="padding:5px; " >
+            <div class="col-9 container-fluid  fixed" style="padding:5px; margin-top: -8px; " >
                 <?php
                     $ship_id = Session::get('ship_id');
                     $customer_id = Session::get('customer_id');
