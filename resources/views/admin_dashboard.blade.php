@@ -241,11 +241,10 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span style="color:black;"><b>
                                     <?php
-                                    $name = Session::get('admin_name');
+                                    $name = Auth::user()->admin_name;
                                    if($name){
                                         echo $name;
                                     }
-
                                 ?>
                                 </b>
                                 </span>

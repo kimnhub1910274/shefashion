@@ -11,6 +11,7 @@ use App\Models\Order;
 use Socialite;
 use App\Models\Login;
 use App\Models\Social;
+use Auth;
 session_start();
 class AdminController extends Controller
 {
@@ -21,7 +22,16 @@ class AdminController extends Controller
 
     public function show_dashboard()
     {
+        $this->AuthLogin();
        return view('admin.dashboard');
+    }
+    public function AuthLogin(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            return Redirect::to('admin')->send();
+        }
     }
     public function dashboard(Request $request)
     {
@@ -43,8 +53,7 @@ class AdminController extends Controller
     }
     public function logout(Request $request)
     {
-        Session::put('admin_name', null);
-        Session::put('admin_id', null);
+        Auth::logout();
      return Redirect::to('/admin');
     }
     public function admin_search (Request $request)

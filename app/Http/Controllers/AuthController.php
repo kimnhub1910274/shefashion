@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Admin;
 use App\Rules\Roles;
 use Auth;
+session_start();
+
 class AuthController extends Controller
 {
     public function register_admin(){
@@ -36,28 +39,18 @@ class AuthController extends Controller
 
     }
     public function login(Request $request){
-        $arr = [
-            'admin_name' => $request->admin_name,
-            'admin_password' => $request->admin_password,
-        ];
-        if ($request->remember == trans('remember.Remember Me')) {
-            $remember = true;
-        } else {
-            $remember = false;
+        $this->validate($request, [
+            'admin_email' =>'required|max:255',
+            'admin_password' =>'required|max:255',
+        ]);
+        $data = $request->all();
+        if(Auth::attempt(['admin_email' => $request->admin_email, 'admin_password' => $request->admin_password]))
+        {
+            return redirect('/dashboard');
+        }else{
+            return redirect('/login-admin')->with('message', 'Đăng nhập không thành công!');
+
         }
-        //kiểm tra trường remember có được chọn hay không
 
-        if (Auth::guard('administrators')->attempt($arr)) {
-
-            dd('đăng nhập thành công');
-            //..code tùy chọn
-            //đăng nhập thành công thì hiển thị thông báo đăng nhập thành công
-        } else {
-
-            dd('tài khoản và mật khẩu chưa chính xác');
-            //...code tùy chọn
-            //đăng nhập thất bại hiển thị đăng nhập thất bại
-        }
     }
-
 }

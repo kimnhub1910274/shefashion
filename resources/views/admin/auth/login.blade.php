@@ -45,7 +45,7 @@
                            <br><br>
                            <div class="field-set" style="margin-left: 0PX;">
                                  <input class="form-input" id="txt-input" type="text"
-                                 name="admin_name" placeholder="Tên" required>
+                                 name="admin_email" placeholder="Email" required>
                               <br>
                               <input class="form-input" type="password"
                                name="admin_password" placeholder="Mật khẩu" id="pwd"  name="password" required>

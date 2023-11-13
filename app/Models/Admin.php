@@ -1,30 +1,25 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    public $timestamps = false;
     protected $fillable = [
         'admin_email','admin_name','admin_phone', 'admin_password',
     ];
+    protected $primaryKey = 'admin_id';
+    protected $table = 'tbl_admin';
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'admin_password'
-    ];
+    public function roles(){
+        return $this->belongsToMany('App\Roles');
+    }
+    public function getAuthPassword(){
+        return $this->admin_password;
+    }
 }
