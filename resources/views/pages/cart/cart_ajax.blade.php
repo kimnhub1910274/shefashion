@@ -43,7 +43,7 @@
                         @if($c == true)
                             @foreach($c as $key => $cart)
                             @php
-                                $subtotal = $cart['product_price'] * $cart['product_quantity'];
+                                $subtotal = $cart['product_price'] * $cart['product_qty'];
                                 $total = $total + $subtotal;
                             @endphp
                                 <tr>
@@ -63,7 +63,7 @@
                                             <input type="hidden" value="{{$cart['product_id']}}">
                                             <input style="width:50px;" type="number"
                                                 name="cart_qty[{{ $cart['session_id'] }}]"
-                                                value="{{ $cart['product_quantity'] }}" min="1" class="cart_quantity">
+                                                value="{{ $cart['product_qty'] }}" min="1" class="cart_quantity">
                                             <button type="submit" class="btt">Cập nhật</button>
                                         </form>
                                     </td>

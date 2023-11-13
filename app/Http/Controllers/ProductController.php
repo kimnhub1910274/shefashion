@@ -17,19 +17,10 @@ class ProductController extends Controller
     public function add_product()
     {
         $cate_product = DB::table('tbl_cate_pro')->orderby('cate_id', 'desc')->get();
+
         return view('admin.add_product')->with('cate_product', $cate_product);
     }
 
-    public function list_product()
-    {
-        $list_product = DB::table('tbl_product')
-        ->join('tbl_cate_pro', 'tbl_cate_pro.cate_id', '=', 'tbl_product.category_id')
-
-        ->orderby('tbl_product.product_id')->paginate(5);
-
-        $manager = view('admin.list_product')->with('list_product', $list_product);
-        return view('admin_dashboard')->with('admin.list_product', $manager);
-    }
 
     public function save_product(Request $request)
     {
@@ -42,6 +33,10 @@ class ProductController extends Controller
         $data['product_status'] = $request->product_status;
         $data['product_quantity'] = $request->product_quantity;
         $data['product_sold'] = $request->product_sold;
+        $data['color'] = $request->color;
+        $data['size'] = $request->size;
+        $data['product_total_import'] = $request->product_total_import;
+
 
         $get_img = $request->file('product_image');
 
@@ -97,6 +92,10 @@ class ProductController extends Controller
         $data['category_id'] = $request->product_cate;
         $data['product_status'] = $request->product_status;
         $data['product_quantity'] = $request->product_quantity;
+        $data['product_sold'] = $request->product_sold;
+        $data['color'] = $request->color;
+        $data['size'] = $request->size;
+        $data['product_total_import'] = $request->product_total_import;
 
         $get_img = $request->file('product_image');
         if ($get_img) {
@@ -124,12 +123,27 @@ class ProductController extends Controller
 
     }
     //end admin
+
+    public function list_product()
+    {
+        $list_product = DB::table('tbl_product')
+        ->join('tbl_cate_pro', 'tbl_cate_pro.cate_id', '=', 'tbl_product.category_id')
+
+        ->orderby('tbl_product.product_id')->paginate(5);
+
+        $manager = view('admin.list_product')->with('list_product', $list_product);
+        return view('admin_dashboard')->with('admin.list_product', $manager);
+    }
     public function product_detail(Request $request, $product_id)
     {
         $cate_product = DB::table('tbl_cate_pro')->where('cate_status', '1')->orderby('cate_id', 'desc')->get();
         $detail_product = DB::table('tbl_product')
         ->join('tbl_cate_pro', 'tbl_cate_pro.cate_id', '=', 'tbl_product.category_id')
         ->where('tbl_product.product_id', $product_id)->get();
+        $color = DB::table('tbl_color')->orderby('color_id', 'desc')->get();
+        $size = DB::table('tbl_size')->orderby('size_id', 'desc')->get();
+
+
         foreach ($detail_product as $key => $val)
         {
             $category_id = $val->category_id;
@@ -145,7 +159,8 @@ class ProductController extends Controller
 
         return view('pages.product.product_detail')->with('category', $cate_product)
         ->with('product_details', $detail_product)->with('related', $related_product)
-        ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)->with('meta_title', $meta_title)->with('meta_url', $meta_url);
+        ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)->with('meta_title', $meta_title)
+        ->with('meta_url', $meta_url)->with('color', $color)->with('size', $size);
 
     }
     public function export_product(){

@@ -10,7 +10,8 @@ class Product extends Model
     public $timestamps = false;
     protected $fillable = [
         'product_name', 'product_image', 'product_price',
-         'product_desc', 'category_id', 'product_status', 'product_quantity', 'product_sold'
+         'product_desc', 'category_id', 'product_status', 'product_quantity', 'product_sold',
+         'color', 'size', 'product_total_import'
     ];
     protected $primaryKey = 'product_id';
     protected $table = 'tbl_product';

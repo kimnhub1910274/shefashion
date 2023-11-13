@@ -22,16 +22,16 @@
                         <div class="mb-3">
                             <label  class="form-label"><b>Tên sản phẩm</b></label>
                             <input type="text" class="form-control" data-validation-error-msg="Vui lòng nhập tên"
-                            name="product_name" placeholder="">
+                            name="product_name" placeholder="" required>
                         </div>
                         <div class="mb-3">
                             <label  class="form-label"><b>Hình ảnh sản phẩm</b></label>
                             <input type="file" class="form-control" data-validation-error-msg="Vui chèn hình ảnh"
-                             name="product_image" placeholder="">
+                             name="product_image" placeholder="" required>
                         </div>
                         <div class="mb-3">
                             <label  class="form-label"><b>Giá sản phẩm</b></label>
-                            <input type="text" class="form-control" name="product_price" placeholder="">
+                            <input type="text" class="form-control" name="product_price" placeholder="" required>
                         </div>
                         <div class="mb-3">
                             <label  class="form-label"><b>Mô tả</b></label>
@@ -43,7 +43,6 @@
                                 <select class="form-select input-sm" name="product_cate">
                                     @foreach ($cate_product as $key => $cate)
                                         <option selected value="{{ $cate->cate_id }}">{{ $cate->cate_name }}</option>
-
                                     @endforeach
                                 </select>
                             </div>
@@ -57,12 +56,35 @@
                             <div class="col">
                                 <label  class="form-label"><b>Số lượng</b></label>
                                 <input class="form-control" style="resize:none;" type="number" min="1"
-                                name="product_quantity" rows="3"></input>
+                                name="product_quantity" rows="3" value="1"></input>
                             </div>
                             <div class="col">
+                                @php
+                                    $product_sol = 1;
+                                @endphp
                                 <label  class="form-label"><b>Số lượng đã bán</b></label>
                                 <input class="form-control" style="resize:none;" type="number" min="0"
-                                name="product_sold" rows="3"></input>
+                                name="product_sold" rows="3" value="1"></input>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row mb">
+                            <div class="col">
+                                <label class="form-label" for=""><b>Size</b></label>
+                                <input type="text" name="size" >
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for=""><b>Màu sắc</b></label>
+                                <input type="text" name="color" >
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for=""><b>Tổng nhập</b></label>
+                                <input class="form-control" style="resize:none;" min="1" type="number"
+                                name="product_sold" rows="3" value="1"></input>
+
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for=""></label>
                             </div>
                         </div>
                         <br>

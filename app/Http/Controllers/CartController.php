@@ -89,21 +89,26 @@ class CartController extends Controller
 
     public function update_quantity_cart(Request $request)
     {
-        $quantity = $request->all();
+        $data = $request->all();
         $cart = Session::get('cart');
         if($cart == true){
-            foreach($quantity['cart_qty'] as $key =>$qty){
-                //echo $key;
+            $message = '';
+            foreach($data['cart_qty'] as $key =>$qty){
+                $i = 0;
                 foreach($cart as $k => $val){
-                    if($val['session_id'] == $key){
-                        $cart[$k]['product_quantity'] = $qty;
+                    $i++;
+                    if($val['session_id'] == $key && $qty < $cart[$k]['product_quantity']){
+                        $cart[$k]['product_qty'] = $qty;
+                        $message = 'Cập nhật số lượng sản phẩm '.$cart[$k]['product_name'].' thành công. Số lượng kho: ' . $cart[$k]['product_quantity'];
+                    }elseif($val['session_id'] == $key && $qty>$cart[$k]['product_quantity']){
+                        $message = 'Cập nhật số lượng sản phẩm ' . $cart[$k]['product_name'] . ' không thành công! Số lượng kho: ' . $cart[$k]['product_quantity'];
                     }
                 }
             }
             Session::put('cart', $cart);
-            return Redirect()->back()->with('message', "Cập nhật giỏ hàng thành công");
+            return Redirect()->back()->with('message', $message);
         }else{
-            return Redirect()->back()->with('message', "Cập nhật giỏ hàng không thành công!!");
+            return Redirect()->back()->with('message', $message);
         }
     }
     public function reduce_to_cart(Request $request)
@@ -138,7 +143,8 @@ class CartController extends Controller
                 'product_name' => $data['cart_product_name'],
                 'product_id' => $data['cart_product_id'],
                 'product_image' => $data['cart_product_image'],
-                'product_quantity' => $data['cart_product_qty'],
+                'product_qty' => $data['cart_product_qty'],
+                'product_quantity' => $data['cart_product_quantity'],
                 'product_price' => $data['cart_product_price'],
                 );
                 Session::put('cart',$cart);
@@ -149,7 +155,8 @@ class CartController extends Controller
                 'product_name' => $data['cart_product_name'],
                 'product_id' => $data['cart_product_id'],
                 'product_image' => $data['cart_product_image'],
-                'product_quantity' => $data['cart_product_qty'],
+                'product_qty' => $data['cart_product_qty'],
+                'product_quantity' => $data['cart_product_quantity'],
                 'product_price' => $data['cart_product_price'],
 
             );

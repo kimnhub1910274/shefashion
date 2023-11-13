@@ -216,7 +216,7 @@
                     <span id="circle">
                         @if($cart == true)
                         {{ count($cart) }}
-                        @elseif($cart == 0)
+                        @elseif(!$cart)
                         0
                         @endif
 
@@ -398,36 +398,56 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             var cart_product_id = $('.cart_product_id_' + id).val();
             var cart_product_name = $('.cart_product_name_' + id).val();
             var cart_product_image = $('.cart_product_image_' + id).val();
+            var cart_product_quantity = $('.cart_product_quantity_' + id).val();
             var cart_product_price = $('.cart_product_price_' + id).val();
             var cart_product_qty = $('.cart_product_qty_' + id).val();
             var _token = $('input[name="_token"]').val();
-           // alert(cart_product_name);
-            $.ajax({
-                url: '{{url('/add-cart-ajax')}}',
-                method: 'POST',
-                data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image, cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token},
-                success:function(data){
-                    //alert(data);
-                    Swal.fire({
-                        //icon: 'warning',
-                        title: "Đã thêm sản phẩm vào giỏ hàng",
-                        text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
-                        showDenyButton: false,
-                        showCancelButton: true,
-                        confirmButtonText: 'Đến giỏ hàng',
-                        cancelButtonText: "Mua tiếp",
-                      }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                            window.location.href = "{{url('/show-cart-ajax')}}";
-                        }
-                      });
-                }
+            //alert(cart_product_qty);
+            //alert(cart_product_quantity);
+           if(parseInt(cart_product_qty) > parseInt(cart_product_quantity) ){
+               // alert('Số lượng sản phẩm không đủ! Số lượng kho:' +  cart_product_quantity);
+                $.ajax({
+                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image, cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity},
+                    success:function(data){
+                        //alert(data);
+                        Swal.fire({
+                            //icon: 'warning',
+                            title: "Số lượng sản phẩm không đủ! Số lượng kho: " + cart_product_quantity,
+                            confirmButtonText: 'Mua lại',
+                        })
+                    }
 
-            });
-            window.setTimeout(function(){
-                location.reload();
-              }, 1000);
+                });
+           }else{
+                $.ajax({
+                    url: '{{url('/add-cart-ajax')}}',
+                    method: 'POST',
+                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image, cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity},
+                    success:function(data){
+                        //alert(data);
+                        Swal.fire({
+                            //icon: 'warning',
+                            title: "Đã thêm sản phẩm vào giỏ hàng",
+                            text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                            showDenyButton: false,
+                            showCancelButton: true,
+                            confirmButtonText: 'Đến giỏ hàng',
+                            cancelButtonText: "Mua tiếp",
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location.href = "{{url('/show-cart-ajax')}}";
+                            }
+                        });
+                    }
+
+                });
+                {{-- window.setTimeout(function(){
+                    location.reload();
+                  }, 3000); --}}
+           }
+
+
         });
     });
 </script>
