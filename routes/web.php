@@ -8,8 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
-
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -155,4 +154,10 @@ Route::get('/delivery-failed', [AdminController::class, 'delivery_failed']);
 //Customer
 Route::get('/customer/{customerId}', [CustomerController::class, 'customer']);
 Route::get('/address/{customerId}', [CustomerController::class, 'address']);
+
+//Authentication role
+Route::get('/register-admin', [AuthController::class, 'register_admin']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login-admin', [AuthController::class, 'login_admin']);
+Route::post('/login', [AuthController::class, 'login']);
 

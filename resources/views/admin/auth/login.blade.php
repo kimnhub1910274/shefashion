@@ -26,14 +26,15 @@
 <body>
     <div class="login">
 
-        <form action="{{URL::to('/admin_dashboard')}}" method="post"  >
+        <form action="{{URL::to('/login')}}" method="post"  >
             {{ csrf_field() }}
             <div class="wrapper">
                 <div class="container">
                   <form class="form">
                     <div class="overlay">
                            <div class="con">
-                           <header class="head-form"><h2>ĐĂNG NHẬP</h2>  </header>
+                           <header class="head-form"><h2>ĐĂNG NHẬP AUTH</h2>  </header>
+                           <br>
                            <?php
                                 $message = Session::get('message');
                                 if ($message){
@@ -42,21 +43,21 @@
                                 }
                             ?>
                            <br><br>
-                           <div class="field-set">
+                           <div class="field-set" style="margin-left: 0PX;">
                                  <input class="form-input" id="txt-input" type="text"
-                                 name="admin_email" placeholder="Email" required>
+                                 name="admin_name" placeholder="Tên" required>
                               <br>
                               <input class="form-input" type="password"
                                name="admin_password" placeholder="Mật khẩu" id="pwd"  name="password" required>
                               <br>
-                              <button class="log-in"> ĐĂNG NHẬP </button>
                            </div>
+                           <button class="log-in" style="margin-left: 70px"> ĐĂNG NHẬP </button>
+                           <br>
                             <div class="other">
                         <!--     Sign Up button -->
-                              <a href="{{URL::to('/register-admin')}}" style="width:170px;"
-                               class="btn submits sign-up">Đăng ký Authentication
+                              <a href="{{URL::to('/register-admin')}}" class="btn submits sign-up"
+                               style="width: 100px">Đăng ký Auth
                         <!--         Sign Up font icon -->
-                              <i class="fa fa-user-plus" aria-hidden="true"></i>
                               </a>
                            </div>
                           </div>

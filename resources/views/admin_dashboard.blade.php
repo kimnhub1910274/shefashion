@@ -86,7 +86,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Sản phẩm
+                Sản phẩm
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -94,7 +94,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span><b>Danh mục</b> </span>
+                    <span><b>Quản lý Danh mục</b> </span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="py-2 rounded collapse-inner bg-light">
@@ -110,7 +110,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Sản phẩm</b></span>
+                    <span><b>Quản lý Sản phẩm</b></span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
@@ -135,7 +135,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fa fa-fw fa-folder"></i>
-                    <span><b>Khách hàng</b></span>
+                    <span><b>Quản lý Khách hàng</b></span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="py-2 bg-white rounded collapse-inner">
@@ -153,7 +153,20 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Đơn hàng</b> </span>
+                    <span><b>Quản lý Đơn hàng</b> </span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Quyền truy cập
+            </div>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span><b>Quản lý Quyền truy cập</b> </span>
                 </a>
             </li>
             <hr class="sidebar-divider">
@@ -165,7 +178,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Đánh giá</b> </span>
+                    <span><b>Quản lý Đánh giá</b> </span>
                 </a>
             </li>
             <hr class="sidebar-divider">
@@ -177,7 +190,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Bình luận</b></span>
+                    <span><b>Quản lý Bình luận</b></span>
                 </a>
             </li>
             <!-- Divider -->

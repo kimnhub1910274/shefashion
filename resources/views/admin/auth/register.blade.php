@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>Admin - Đăng nhập</title>
+        <title>Admin - Đăng ký</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
         rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
          crossorigin="anonymous">
@@ -26,14 +26,15 @@
 <body>
     <div class="login">
 
-        <form action="{{URL::to('/admin_dashboard')}}" method="post"  >
+        <form action="{{URL::to('/register')}}" method="post"  >
             {{ csrf_field() }}
             <div class="wrapper">
                 <div class="container">
                   <form class="form">
                     <div class="overlay">
                            <div class="con">
-                           <header class="head-form"><h2>ĐĂNG NHẬP</h2>  </header>
+                           <header class="head-form"><h2>ĐĂNG KÝ AUTH</h2>  </header>
+                           <br>
                            <?php
                                 $message = Session::get('message');
                                 if ($message){
@@ -42,21 +43,25 @@
                                 }
                             ?>
                            <br><br>
-                           <div class="field-set">
-                                 <input class="form-input" id="txt-input" type="text"
+                           <div class="field-set" style="margin-left: 70PX;">
+                                 <input class="form-input" id="txt-input" type="text" value="{{ old('admin_name') }}"
                                  name="admin_email" placeholder="Email" required>
+                                 <input class="form-input" id="txt-input" type="text" value="{{ old('admin_email') }}"
+                                 name="admin_name" placeholder="Tên" required>
+                                 <input class="form-input" id="txt-input" type="text" value="{{ old('admin_phone') }}"
+                                 name="admin_phone" placeholder="Số điện thoại" required>
                               <br>
                               <input class="form-input" type="password"
                                name="admin_password" placeholder="Mật khẩu" id="pwd"  name="password" required>
                               <br>
-                              <button class="log-in"> ĐĂNG NHẬP </button>
                            </div>
+                           <button class="log-in" style="margin-left: 70px"> ĐĂNG KÝ </button>
+                           <br>
                             <div class="other">
                         <!--     Sign Up button -->
-                              <a href="{{URL::to('/register-admin')}}" style="width:170px;"
-                               class="btn submits sign-up">Đăng ký Authentication
+                              <a href="{{URL::to('/login-admin')}}" class="btn submits sign-up"
+                               style="width: 170px">Đăng nhập Auth
                         <!--         Sign Up font icon -->
-                              <i class="fa fa-user-plus" aria-hidden="true"></i>
                               </a>
                            </div>
                           </div>
