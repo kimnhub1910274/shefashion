@@ -30,37 +30,45 @@
             {{ csrf_field() }}
             <div class="wrapper">
                 <div class="container">
-                  <form class="form">
-                    <div class="overlay">
-                           <div class="con">
-                           <header class="head-form"><h2>ĐĂNG NHẬP</h2>  </header>
-                           <?php
-                                $message = Session::get('message');
-                                if ($message){
-                                    echo $message;
-                                    Session::pull('message', null);
-                                }
-                            ?>
-                           <br><br>
-                           <div class="field-set">
-                                 <input class="form-input" id="txt-input" type="text"
-                                 name="admin_email" placeholder="Email" required>
-                              <br>
-                              <input class="form-input" type="password"
-                               name="admin_password" placeholder="Mật khẩu" id="pwd"  name="password" required>
-                              <br>
-                              <button class="log-in"> ĐĂNG NHẬP </button>
-                           </div>
-                            <div class="other">
-                        <!--     Sign Up button -->
-                              <a href="{{URL::to('/register-admin')}}" style="width:170px;"
-                               class="btn submits sign-up">Đăng ký Authentication
-                        <!--         Sign Up font icon -->
-                              <i class="fa fa-user-plus" aria-hidden="true"></i>
-                              </a>
-                           </div>
-                          </div>
+                    <form class="form">
+                        <div class="overlay">
+                            <div class="con">
+                            <header class="head-form"><h2>ĐĂNG NHẬP</h2>  </header>
+                            <?php
+                                    $message = Session::get('message');
+                                    if ($message){
+                                        echo $message;
+                                        Session::pull('message', null);
+                                    }
+                                ?>
+                            <br><br>
+                            <div class="field-set">
+                                    <input class="form-input" id="txt-input" type="text"
+                                    name="admin_email" placeholder="Email" required>
+                                <br>
+                                <input class="form-input" type="password"
+                                name="admin_password" placeholder="Mật khẩu" id="pwd" required>
+                                <br>
+                                <button type="submit" class="log-in"> ĐĂNG NHẬP </button>
+                            </div>
+                                <div class="row">
+                            <!--     Sign Up button -->
+                                <a href="{{URL::to('/register-admin')}}" style="width:150px; "
+                                class="col btn submits sign-up">Đăng ký Auth
+                            <!--         Sign Up font icon -->
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                </a>
+                                <a href="{{URL::to('/login-admin')}}" class="col btn submits sign-up"
+                                style="width:100px;">
+                                    Đăng nhập Auth</a>
+
+                                <br>
+                                </div>
+                            </div>
                         </div>
+                    </form>
+                </div>
+            </div>
         </form>
     </div>
 </body>

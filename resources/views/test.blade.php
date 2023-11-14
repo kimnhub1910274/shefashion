@@ -94,7 +94,7 @@
                                     ?>
                                     <div style="color: black; margin: 10px 10px 20px ">
                                         <?php
-                                        $name = Session::get('username');
+                                        $name = Session::get('customer_name');
                                         if ($name) {
                                             echo $name;
                                         }
@@ -162,7 +162,7 @@
                      href="{{URL ::to('/log-out')}}" role="button"
                       id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       <?php
-                        $name = Session::get('username');
+                        $name = Session::get('customer_name');
                         if ($name)
                         {
                             echo $name;
@@ -170,7 +170,7 @@
                         ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a class="dropdown-item" href="{{URL ::to('/')}}">Tài khoản</a></li>
+                      <li><a class="dropdown-item" href="{{URL ::to('/customer/'.$customer_id)}}">Tài khoản</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/ordered/'.$customer_id)}}">Đơn mua</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/log-out')}}">Đăng xuất</a></li>
                     </ul>

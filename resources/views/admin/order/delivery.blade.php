@@ -1,6 +1,6 @@
 @extends('all_order')
 @section('all_ordered')
-<title>Đang giao hàng</title>
+<title>Chờ thanh toán</title>
 <div class="container-fluid card">
     <?php
     $message = Session::get('message');
@@ -18,6 +18,7 @@
             <th scope="col">Trạng thái</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>
+
           </tr>
         </thead>
         <tbody>
@@ -36,7 +37,7 @@
                             Đơn hàng đang được giao
                         @elseif($order->order_status == 3)
                             Giao hàng thành công
-                        @elseif($order->order_status == 4)
+                            @elseif($order->order_status == 4)
                             Đã hủy
                         @elseif($order->order_status == 5)
                             Giao hàng không thành công

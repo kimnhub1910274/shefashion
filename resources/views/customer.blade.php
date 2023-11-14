@@ -166,7 +166,7 @@
                      href="{{URL ::to('/log-out')}}" role="button"
                       id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       <?php
-                        $name = Session::get('username');
+                        $name = Session::get('customer_name');
                         if ($name)
                         {
                             echo $name;
@@ -221,7 +221,7 @@
                             <p style="color: black; ">
                                 <i class="fas fa-user"></i>
                                 <?php
-                                $name = Session::get('username');
+                                $name = Session::get('customer_name');
                                 if ($name) {
                                     echo $name;
                                 }

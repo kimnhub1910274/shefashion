@@ -19,12 +19,6 @@ class AdminController extends Controller
     {
        return view('admin_login');
     }
-
-    public function show_dashboard()
-    {
-        $this->AuthLogin();
-       return view('admin.dashboard');
-    }
     public function AuthLogin(){
         $admin_id = Auth::id();
         if($admin_id){
@@ -33,9 +27,16 @@ class AdminController extends Controller
             return Redirect::to('admin')->send();
         }
     }
+    public function show_dashboard()
+    {
+        $this->AuthLogin();
+       return view('admin.dashboard');
+    }
+
     public function dashboard(Request $request)
     {
-        $data = $request->all();
+
+       $data = $request->all();
         $admin_email = $data['admin_email'];
         $admin_password = md5($data['admin_password']);
         $login = Login::where('admin_email', $admin_email)->where('admin_password', $admin_password)->first();
@@ -50,8 +51,18 @@ class AdminController extends Controller
                 Session::put('message', 'Vui long dang nhap lai!!');
                 return Redirect::to('/admin');
         }
+
+
+
+
     }
     public function logout(Request $request)
+    {
+        Session::put('admin_name', null);
+        Session::put('admin_id', null);
+     return Redirect::to('/admin');
+    }
+    public function logout_admin(Request $request)
     {
         Auth::logout();
      return Redirect::to('/admin');
@@ -119,25 +130,25 @@ class AdminController extends Controller
 }
     public function delivery()
         {
-            $delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '2')
+            $delivery =  Order::where('order_status', '2')
             ->orderBy('created_at', 'DESC')->get();
                 return view('admin.order.delivery')->with(compact('delivery'));
     }
     public function success_delivery()
         {
-            $success_delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '3')
+            $success_delivery =  Order::where('order_status', '3')
             ->orderBy('created_at', 'DESC')->get();
                 return view('admin.order.success_delivery')->with(compact('success_delivery'));
     }
     public function cancel()
         {
-            $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
+            $cancel =  Order::where('order_status', '4')
             ->orderBy('created_at', 'DESC')->get();
                 return view('admin.order.cancel')->with(compact('cancel'));
     }
     public function delivery_failed()
         {
-            $delivery_failed =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '5')
+            $delivery_failed =  Order::where('order_status', '5')
             ->orderBy('created_at', 'DESC')->get();
                 return view('admin.order.delivery_failed')->with(compact('delivery_failed'));
     }

@@ -35,7 +35,7 @@
                                 @if($c == true)
                                     @foreach($c as $key => $cart)
                                     @php
-                                        $subtotal = $cart['product_price'] * $cart['product_quantity'];
+                                        $subtotal = $cart['product_price'] * $cart['product_qty'];
                                         $total = $total + $subtotal;
                                     @endphp
                                         <tr>
@@ -49,7 +49,7 @@
                                             </td>
                                             <td>{{ $cart['product_name'] }}</td>
                                             <td>
-                                                {{ $cart['product_quantity'] }}
+                                                {{ $cart['product_qty'] }}
 
                                             <td>{{ number_format($cart['product_price']) }}</td>
                                             <td>{{ number_format($subtotal) }}</td>

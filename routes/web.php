@@ -9,6 +9,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -160,4 +162,11 @@ Route::get('/register-admin', [AuthController::class, 'register_admin']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login-admin', [AuthController::class, 'login_admin']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout-admin', [AuthController::class, 'logout_admin']);
+
+//
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/add-users', [UserController::class, 'add_users']);
+Route::get('/store-users', [UserController::class, 'store_users']);
+Route::get('/assign-roles', [UserController::class, 'assign_roles']);
 

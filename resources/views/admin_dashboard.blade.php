@@ -164,7 +164,7 @@
             </div>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
+                <a class="nav-link collapsed" href="{{URL::to('/users')}}">
                     <i class="fas fa-fw fa-wrench"></i>
                     <span><b>Quản lý Quyền truy cập</b> </span>
                 </a>
@@ -252,7 +252,7 @@
                              <!-- Dropdown - Alerts -->
                             <div class="shadow dropdown-list dropdown-menu animated--grow-in"
                                 aria-labelledby="alertsDropdown">
-                                <a class="dropdown-item d-flex align-items-center" href="{{URL ::to('/logout')}}">
+                                <a class="dropdown-item d-flex align-items-center" href="{{URL ::to('/logout-admin')}}">
                                     Đăng xuất
                                 </a>
                             </div>

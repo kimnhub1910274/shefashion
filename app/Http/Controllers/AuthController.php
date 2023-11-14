@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Admin;
-use App\Rules\Roles;
+use App\Models\Roles;
+use App\Http\Controllers\Redirect;
 use Auth;
 session_start();
 
@@ -43,7 +44,7 @@ class AuthController extends Controller
             'admin_email' =>'required|max:255',
             'admin_password' =>'required|max:255',
         ]);
-        $data = $request->all();
+        //$data = $request->all();
         if(Auth::attempt(['admin_email' => $request->admin_email, 'admin_password' => $request->admin_password]))
         {
             return redirect('/dashboard');
@@ -52,5 +53,10 @@ class AuthController extends Controller
 
         }
 
+    }
+    public function logout_admin(Request $request)
+    {
+        Auth::logout();
+     return Redirect('/admin');
     }
 }

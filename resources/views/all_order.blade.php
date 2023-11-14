@@ -79,107 +79,120 @@
                 <a class="nav-link" href="{{URL::to('/dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Tổng quan</span></a>
-            </li>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Sản phẩm
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span><b>Danh mục</b> </span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="py-2 rounded collapse-inner bg-light">
-                        <h6 class="collapse-header" ></h6>
-                        <a class="collapse-item"  href="{{URL::to('/list-category-product')}}">Danh sách danh mục</a>
-                        <a class="collapse-item" href="{{URL::to('/add-category-product')}}">Thêm danh mục</a>
-                    </div>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Sản phẩm
                 </div>
-            </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Sản phẩm</b></span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="py-2 bg-white rounded collapse-inner">
-                        <h6 class="collapse-header"></h6>
-                        <a class="collapse-item" href="{{URL::to('/list-product')}}">Danh sách sản phẩm</a>
-                        <a class="collapse-item" href="{{URL::to('/add-product')}}">Thêm sản phẩm</a>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span><b>Quản lý Danh mục</b> </span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="py-2 rounded collapse-inner bg-light">
+                            <h6 class="collapse-header" ></h6>
+                            <a class="collapse-item"  href="{{URL::to('/list-category-product')}}">Danh sách danh mục</a>
+                            <a class="collapse-item" href="{{URL::to('/add-category-product')}}">Thêm danh mục</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Người dùng
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fa fa-fw fa-folder"></i>
-                    <span><b>Khách hàng</b></span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="py-2 bg-white rounded collapse-inner">
-                        <a class="collapse-item" href="{{URL::to('/manage-customer')}}">Danh sách</a>
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                        aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span><b>Quản lý Sản phẩm</b></span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="py-2 bg-white rounded collapse-inner">
+                            <h6 class="collapse-header"></h6>
+                            <a class="collapse-item" href="{{URL::to('/list-product')}}">Danh sách sản phẩm</a>
+                            <a class="collapse-item" href="{{URL::to('/add-product')}}">Thêm sản phẩm</a>
+                        </div>
                     </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Người dùng
                 </div>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Đơn hàng
-            </div>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Đơn hàng</b> </span>
-                </a>
-            </li>
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Đánh giá
-            </div>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Đánh giá</b> </span>
-                </a>
-            </li>
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Bình luận
-            </div>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span><b>Bình luận</b></span>
-                </a>
-            </li>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                        aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fa fa-fw fa-folder"></i>
+                        <span><b>Quản lý Khách hàng</b></span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="py-2 bg-white rounded collapse-inner">
+                            <a class="collapse-item" href="{{URL::to('/manage-customer')}}">Danh sách</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Đơn hàng
+                </div>
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span><b>Quản lý Đơn hàng</b> </span>
+                    </a>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Quyền truy cập
+                </div>
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{URL::to('/users')}}">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span><b>Quản lý Quyền truy cập</b> </span>
+                    </a>
+                </li>
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Đánh giá
+                </div>
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span><b>Quản lý Đánh giá</b> </span>
+                    </a>
+                </li>
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Bình luận
+                </div>
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span><b>Quản lý Bình luận</b></span>
+                    </a>
+                </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -228,7 +241,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span style="color:black;"><b>
                                     <?php
-                                    $name = Session::get('admin_name');
+                                    $name =  Auth::user()->admin_name;
                                    if($name){
                                         echo $name;
                                     }
@@ -261,7 +274,7 @@
                         </style>
                         <div class="col-9 container-fluid  fixed" style="padding:5px; " >
                             <?php
-                                $admin_id = Session::get('admin_id');
+                                $admin_id = Auth::user()->admin_id;
                                 if($admin_id ) {
                                 ?>
                                 <div class=" nav-collapse" id="nav-collapse">
