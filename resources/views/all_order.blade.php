@@ -53,6 +53,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"></script>
+
+      <link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
+
+      <!-- jquery -->
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 <body id="page-top">
@@ -168,16 +177,27 @@
                 @hasrole(['admin'])
                 <!-- Divider -->
                 <hr class="sidebar-divider">
+
                 <!-- Heading -->
                 <div class="sidebar-heading">
                     Quyền truy cập
                 </div>
-                <!-- Nav Item - Tables -->
+
+                <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="{{URL::to('/all-permission')}}">
-                        <i class="fas fa-fw fa-universal-access"></i>
-                        <span><b>Quản lý Quyền truy cập</b> </span>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiess"
+                        aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span><b>Quản lý Quyền truy cập</b></span>
                     </a>
+                    <div id="collapseUtilitiess" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="py-2 bg-white rounded collapse-inner">
+                            <h6 class="collapse-header"></h6>
+                            <a class="collapse-item" href="{{URL::to('/all-permission')}}">Danh sách </a>
+                            <a class="collapse-item" href="{{URL::to('/add-permission')}}">Thêm </a>
+                        </div>
+                    </div>
                 </li>
                 @endhasrole
                 <hr class="sidebar-divider">

@@ -223,6 +223,8 @@ return [
        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
        'PDF' =>Barryvdh\DomPDF\Facade::class,
        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+       'date_format' => 'YYYY-MM-DD',
+       'date_format_js' => 'YYYY-MM-DD',
     ])->toArray(),
 
 ];

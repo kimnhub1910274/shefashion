@@ -1,44 +1,31 @@
-@extends('all_order')
-@section('all_ordered')
+@extends('admin_dashboard')
+@section('admin_content')
 
-<div>
-    <form action="{{URL::to('/search_order')}}" method="POST" style="float: right; "
-        class="my-2 mr-auto d-none d-sm-inline-block form-inline ml-md-3 my-md-0 mw-100 navbar-search">
-        {{ csrf_field() }}
-        <div class="input-group">
-            <input type="text"  class="border-0 form-control bg-light small" placeholder="Tìm kiếm"
-                aria-label="Search" aria-describedby="basic-addon2" name="key_word">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fa fa-search fa-sm"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="container-fluid card" style="margin-top: 20px">
+<div class="container-fluid">
+    <h3>KẾT QUẢ TÌM KIẾM </h3>
     <?php
     $message = Session::get('message');
     if($message){
         echo $message;
         Session::pull('message', null);
     }
-    ?>
+?>
+
     <table class="table">
         <thead>
           <tr>
             <th scope="col">STT</th>
-            <th>Mã đơn hàng</th>
-            <th>Mã khách hàng</th>
+            <th scope="col">Mã đơn hàng</th>
+            <th scope="col">Mã khách hàng</th>
             <th scope="col">Trạng thái</th>
-            <th scope="col">Ngày đặt</th>
-            <th scope="col">Hiển thị</th>
+            <th scope="col">Ngày đặt</th>
+            <th scope="col">Xem chi tiết</th>
             <th scope="col">Xác nhận</th>
           </tr>
         </thead>
         <tbody>
 
-            @foreach ( $all_order as $key => $order)
+            @foreach ( $search_order as $key => $order)
                 <tr>
                     <th scope="" ><?php echo $key+1;?></th>
                     <td>{{$order->order_code}}</td>
@@ -89,9 +76,6 @@
         </tbody>
       </table>
       <div class="" style="margin-left:85%;">
-        {{ $all_order->links() }}
       </div>
-
 </div>
-
 @endsection

@@ -1,17 +1,7 @@
 @extends('admin_dashboard')
 @section('admin_content')
-
-<div class="container-fluid card">
-    &nbsp;
-    <h3>DANH SÁCH PHÂN QUYỀN </h3>
-    <?php
-    $message = Session::get('message');
-    if($message){
-        echo $message;
-        Session::pull('message', null);
-    }
-    ?>
-    <form action="{{URL::to('/search_admin')}}" method="POST"
+<div>
+    <form action="{{URL::to('/search_access')}}" method="POST" style="float: right"
         class="my-2 mr-auto d-none d-sm-inline-block form-inline ml-md-3 my-md-0 mw-100 navbar-search">
         {{ csrf_field() }}
         <div class="input-group">
@@ -24,8 +14,18 @@
             </div>
         </div>
     </form>
-    <br>
-    <table class="table">
+</div>
+<div class="container-fluid card">
+    &nbsp;
+    <h3>DANH SÁCH PHÂN QUYỀN </h3>
+    <?php
+    $message = Session::get('message');
+    if($message){
+        echo $message;
+        Session::pull('message', null);
+    }
+    ?>
+    <table class="table" style="margin-top: 20px">
         <thead>
           <tr>
             <th scope="col">STT</th>
@@ -37,6 +37,7 @@
             <th scope="col">Biên tập viên</th>
             <th scope="col">Người kiểm duyệt</th>
             <th scope="col">Cấp quyền</th>
+
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,7 @@
                     <td>{{ $value->admin_phone }}</td>
                     <td>{{ $value->admin_email }}
                         <input type="hidden" name="admin_email" value="{{ $value->admin_email }}">
+                        <input type="hidden" name="admin_id" value="{{ $value->admin_id }}">
                     </td>
                     <td>
                         <input type="checkbox" name="admin_role" {{ $value->hasRole('admin') ? 'checked' : '' }}>
@@ -63,6 +65,7 @@
                     </td>
                     <td>
                         <input type="submit" value="Phân quyền" class="btn btn-success">
+                        <a href="{{ url('/delete-roles/'.$value->admin_id) }}" class="btn btn-danger">Xóa</a>
                     </td>
                 </tr>
             </form>

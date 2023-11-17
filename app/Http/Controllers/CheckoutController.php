@@ -200,7 +200,7 @@ class CheckoutController extends Controller
                 $order_detail->product_id = $cart['product_id'];
                 $order_detail->product_name = $cart['product_name'];
                 $order_detail->product_price = $cart['product_price'];
-                $order_detail->product_quantity = $cart['product_quantity'];
+                $order_detail->product_quantity = $cart['product_qty'];
                 $order_detail->created_at = now();
                 $order_detail->save();
             }

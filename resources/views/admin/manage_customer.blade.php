@@ -1,17 +1,8 @@
 @extends('admin_dashboard')
 @section('admin_content')
 
-<div class="container-fluid card">
-    &nbsp;
-    <h3>DANH SÁCH KHÁCH HÀNG </h3>
-    <?php
-    $message = Session::get('message');
-    if($message){
-        echo $message;
-        Session::pull('message', null);
-    }
-    ?>
-    <form action="{{URL::to('/search_customer')}}" method="POST"
+<dir>
+    <form action="{{URL::to('/search_customer')}}" method="POST" style="float: right"
         class="my-2 mr-auto d-none d-sm-inline-block form-inline ml-md-3 my-md-0 mw-100 navbar-search">
         {{ csrf_field() }}
         <div class="input-group">
@@ -24,6 +15,17 @@
             </div>
         </div>
     </form>
+</dir>
+<div class="container-fluid card">
+    &nbsp;
+    <h3>DANH SÁCH KHÁCH HÀNG </h3>
+    <?php
+    $message = Session::get('message');
+    if($message){
+        echo $message;
+        Session::pull('message', null);
+    }
+    ?>
     <table class="table">
         <thead>
           <tr>

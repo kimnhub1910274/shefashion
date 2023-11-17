@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use App\Models\Admin;
 use App\Models\Roles;
+use Auth;
 use Illuminate\Support\Facades\Redirect;
 class UserController extends Controller
 {
@@ -14,10 +15,14 @@ class UserController extends Controller
         $admin = Admin::with('roles')->orderBy('admin_id', 'DESC')->paginate(5);
         return view('admin.users.all_permission')->with(compact('admin'));
     }
-    public function add_user(){
-        return view('admin.users.add_user');
+    public function add_permission(){
+        return view('admin.users.add_permission');
     }
     public function assign_roles(Request $request){
+        if(Auth::id() == $request->admin_id){
+            return Redirect()->back()->with('message', 'Không thể phân quyền cho Người quản trị!');
+
+        }
         $data = $request->all();
         $user = Admin::where('admin_email', $data['admin_email'])->first();
         if(!$user){
@@ -36,7 +41,7 @@ class UserController extends Controller
         }
         return redirect()->back();
     }
-    public function store_user(Request $request){
+    public function store_users(Request $request){
         $data = $request->all();
         $admin = new Admin();
         $admin->admin_name = $data['admin_name'];
@@ -44,10 +49,22 @@ class UserController extends Controller
         $admin->admin_phone = $data['admin_phone'];
         $admin->admin_password = $data['admin_password'];
         $admin->save();
-        $admin->roles()->attach(Roles::where('role_name', 'user')->first());
+        $admin->roles()->attach(Roles::where('role_name', 'censor')->first());
         Session::put('message', 'Thêm thành công');
 
         return Redirect::to('all-permission');
+
+    }
+    public function delete_roles($admin_id){
+        if(Auth::id() == $admin_id){
+            return Redirect()->back()->with('message', 'Không thể xóa khi đang đăng nhập!');
+        }
+            $admin = Admin::find($admin_id);
+            if($admin){
+                $admin->roles()->detach();
+                $admin->delete();
+            }
+            return Redirect()->back()->with('message', 'Xóa thành công');
 
     }
 }

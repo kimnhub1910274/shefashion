@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use Socialite;
 use App\Models\Login;
 use App\Models\Social;
+use App\Models\Statistic;
 use Auth;
 session_start();
 class AdminController extends Controller
@@ -35,7 +37,6 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
-
        $data = $request->all();
         $admin_email = $data['admin_email'];
         $admin_password = md5($data['admin_password']);
@@ -51,10 +52,6 @@ class AdminController extends Controller
                 Session::put('message', 'Vui long dang nhap lai!!');
                 return Redirect::to('/admin');
         }
-
-
-
-
     }
     public function logout(Request $request)
     {
@@ -71,11 +68,9 @@ class AdminController extends Controller
     {
         $key = $request->key_word;
         $cate_product = DB::table('tbl_cate_pro')->where('cate_status', '1')->orderby('cate_id', 'desc')->get();
-        $customer = DB::table('tbl_customers')->orderby('customer_id', 'desc')->get();
         $search_product = DB::table('tbl_product')->where('product_name', 'like', '%'.$key.'%')->get();
-        $search_customer = DB::table('tbl_customers')->where('customer_name', 'like', '%'.$key.'%')->get();
-        return view('admin.search')->with('category', $cate_product)
-        ->with('search_product', $search_product)->with('search_customer', $search_customer);
+        return view('admin.search.search')->with('category', $cate_product)
+        ->with('search_product', $search_product);
 
     }
     public function search_customer (Request $request)
@@ -83,9 +78,21 @@ class AdminController extends Controller
         $key = $request->key_word;
         $customer = DB::table('tbl_customers')->orderby('customer_id', 'desc')->get();
         $search_customer = DB::table('tbl_customers')->where('customer_name', 'like', '%'.$key.'%')->get();
-        return view('admin.search_customer')->with('search_customer', $search_customer);
-
+        return view('admin.search.search_customer')->with('customer', $customer)->with('search_customer', $search_customer);
     }
+    public function search_order (Request $request)
+    {
+        $key = $request->key_word;
+        $all_order = Order::where('order_code', 'desc')->get();
+        $search_order = Order::where('order_code', 'like', '%'.$key.'%')->get();
+      //  $search_order = OrderDetails::where('order_code', 'like', '%'.$key.'%')->get();
+        return view('admin.search.search_order')->with('all_order', $all_order)->with('search_order', $search_order);
+    }
+    public function search_review ()
+    {
+        return view('admin.search.search_review');
+    }
+
     public function login_facebook(){
         return Socialite::driver('facebook')->redirect();
     }
@@ -151,6 +158,29 @@ class AdminController extends Controller
             $delivery_failed =  Order::where('order_status', '5')
             ->orderBy('created_at', 'DESC')->get();
                 return view('admin.order.delivery_failed')->with(compact('delivery_failed'));
+    }
+    public function filter_by_date(Request $request){
+        $data = $request->all();
+        $from_date = $data['from_date'];
+        $to_date = $data['to_date'];
+
+        $get = Statistic::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date', 'ASC')->get();
+
+        foreach($get as $key => $value){
+            $chart_data[] = array(
+                'period' => $value->order_date,
+                'order' => $value->total_order,
+                'sale' => $value->sale,
+                'profit' => $value->profit,
+                'quantity' => $value->quantity
+            );
+        }
+        echo $data = json_encode($chart_data);
+    }
+    public function order_date(Request $request){
+        $order_date = $_GET['date'];
+        $order = Order::where('order_date', $order_date)->orderBy('created_at', 'DESC')->get();
+        return view('admin.order_date')->with(compact('order'));
     }
 
 }
