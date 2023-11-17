@@ -17,11 +17,8 @@ class ProductController extends Controller
     public function add_product()
     {
         $cate_product = DB::table('tbl_cate_pro')->orderby('cate_id', 'desc')->get();
-
         return view('admin.add_product')->with('cate_product', $cate_product);
     }
-
-
     public function save_product(Request $request)
     {
         $data = array();
@@ -36,8 +33,6 @@ class ProductController extends Controller
         $data['color'] = $request->color;
         $data['size'] = $request->size;
         $data['product_total_import'] = $request->product_total_import;
-
-
         $get_img = $request->file('product_image');
 
         if ($get_img) {

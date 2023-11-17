@@ -80,13 +80,13 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Tổng quan</span></a>
             </li>
-
+            @hasrole(['editor', 'admin'])
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Sản phẩm
+                Danh mục
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -104,6 +104,13 @@
                     </div>
                 </div>
             </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Sản phẩm
+            </div>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -121,7 +128,7 @@
                     </div>
                 </div>
             </li>
-
+            @endhasrole
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -134,7 +141,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fa fa-fw fa-folder"></i>
+                    <i class="fa fa-fw fa-user"></i>
                     <span><b>Quản lý Khách hàng</b></span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -143,6 +150,7 @@
                     </div>
                 </div>
             </li>
+            @hasrole(['editor', 'admin'])
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Heading -->
@@ -152,10 +160,12 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-box"></i>
                     <span><b>Quản lý Đơn hàng</b> </span>
                 </a>
             </li>
+            @endhasrole
+            @hasrole(['admin'])
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Heading -->
@@ -164,11 +174,12 @@
             </div>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{URL::to('/users')}}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                <a class="nav-link collapsed" href="{{URL::to('/all-permission')}}">
+                    <i class="fas fa-fw fa-universal-access"></i>
                     <span><b>Quản lý Quyền truy cập</b> </span>
                 </a>
             </li>
+            @endhasrole
             <hr class="sidebar-divider">
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -177,7 +188,7 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-check-to-slot"></i>
                     <span><b>Quản lý Đánh giá</b> </span>
                 </a>
             </li>
@@ -189,7 +200,7 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fas fa-fw fa-comment"></i>
                     <span><b>Quản lý Bình luận</b></span>
                 </a>
             </li>

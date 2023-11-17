@@ -75,9 +75,7 @@ Route::post('/import-csv', [CategoryProduct::class, 'import_csv']);
 Route::post('/export-csv', [CategoryProduct::class, 'export_csv']);
 
 //Product
-Route::get('/add-product', [ProductController::class, 'add_product']);
 Route::get('/list-product', [ProductController::class, 'list_product']);
-Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product']);
 Route::get('/delete-product/{product_id}', [ProductController::class, 'delete_product']);
 Route::post('/update-product/{product_id}', [ProductController::class, 'update_product']);
 Route::post('/save-product', [ProductController::class, 'save_product']);
@@ -120,8 +118,8 @@ Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
 
 
 //Order
-Route::get('/manage-order', [OrderController::class, 'manage_order']);
-Route::get('/view-order/{order_id}', [OrderController::class, 'view_order']);
+Route::get('/manage-order', [OrderController::class, 'manage_order'])->middleware('auth.role');
+Route::get('/view-order/{order_id}', [OrderController::class, 'view_order'])->middleware('auth.role');
 Route::get('/wait-pay/{order_id}', [OrderController::class, 'wait_pay']);
 Route::get('/delivery/{order_id}', [OrderController::class, 'delivery']);
 Route::get('/success-delivery/{order_id}', [OrderController::class, 'success_delivery']);
@@ -165,8 +163,15 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout-admin', [AuthController::class, 'logout_admin']);
 
 //
-Route::get('/users', [UserController::class, 'index']);
+Route::get('/all-permission', [UserController::class, 'index'])->middleware('auth.role');
 Route::get('/add-users', [UserController::class, 'add_users']);
-Route::get('/store-users', [UserController::class, 'store_users']);
-Route::get('/assign-roles', [UserController::class, 'assign_roles']);
+Route::post('/store-users', [UserController::class, 'store_users']);
+Route::post('/assign-roles', [UserController::class, 'assign_roles'])->middleware('auth.role');
+
+Route::group(['middleware' => 'auth.role' ], function(){
+    Route::get('/add-product', [ProductController::class, 'add_product']);
+    Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product']);
+
+});
+//Route::get('/edit-product/{product_id}', [ProductController::class, 'edit_product'])->middleware('auth.role');
 

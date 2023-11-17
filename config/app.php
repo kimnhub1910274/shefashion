@@ -199,6 +199,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         //Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
+
 
 
 
@@ -217,10 +219,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-        //'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
-       // 'Cart' => Darryldecode\Cart\Cart::class
        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
        'PDF' =>Barryvdh\DomPDF\Facade::class,
        'Excel' => Maatwebsite\Excel\Facades\Excel::class,

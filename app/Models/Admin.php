@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 class Admin extends Authenticatable
 {
     public $timestamps = false;
@@ -23,9 +22,9 @@ class Admin extends Authenticatable
         return $this->admin_password;
     }
     public function hasAnyRoles($roles){
-        return null !== $this->roles->whereIn('role_name', $roles)->first();
+        return null !== $this->roles()->whereIn('role_name', $roles)->first();
     }
-    public function hasRole($roles){
-        return null !== $this->roles->where('role_name', $roles)->first();
+    public function hasRole($role){
+        return null !== $this->roles()->where('role_name', $role)->first();
     }
 }

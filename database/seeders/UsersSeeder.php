@@ -17,10 +17,9 @@ class UsersSeeder extends Seeder
     public function run()
     {
         Admin::truncate();
-
         $adminRoles = Roles::where('role_name', 'admin')->first();
-        $admin2Roles = Roles::where('role_name', 'admin2')->first();
-        $admin3Roles = Roles::where('role_name', 'admin3')->first();
+        $editorRoles = Roles::where('role_name', 'editor')->first();
+        $censorRoles = Roles::where('role_name', 'censor')->first();
 
         $admin = Admin::create([
             'admin_name' => 'Admin',
@@ -29,14 +28,14 @@ class UsersSeeder extends Seeder
             'admin_password' => md5('123456')
         ]);
 
-        $admin2 = Admin::create([
+        $editor = Admin::create([
             'admin_name' => 'Admin2',
             'admin_email' => 'Admin2@gmail.com',
             'admin_phone' => '0764574352',
             'admin_password' => md5('123456')
         ]);
 
-        $admin3 = Admin::create([
+        $censor = Admin::create([
             'admin_name' => 'Admin3',
             'admin_email' => 'Admin3@gmail.com',
             'admin_phone' => '097362536',
@@ -44,8 +43,8 @@ class UsersSeeder extends Seeder
         ]);
 
         $admin->roles()->attach($adminRoles);
-        $admin2->roles()->attach($admin2Roles);
-        $admin3->roles()->attach($admin3Roles);
+        $editor->roles()->attach($editorRoles);
+        $censor->roles()->attach($censorRoles);
 
 
     }

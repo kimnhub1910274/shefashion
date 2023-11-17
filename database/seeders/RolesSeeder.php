@@ -18,8 +18,8 @@ class RolesSeeder extends Seeder
         Roles::truncate();
 
         Roles::create(['role_name' => 'admin']);
-        Roles::create(['role_name' => 'admin2']);
-        Roles::create(['role_name' => 'admin3']);
+        Roles::create(['role_name' => 'editor']);
+        Roles::create(['role_name' => 'censor']);
 
     }
 }
