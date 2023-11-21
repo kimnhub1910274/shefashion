@@ -8,17 +8,22 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product;
+use App\Models\Customer;
+
 use App\Models\OrderDetails;
 use Socialite;
 use App\Models\Login;
 use App\Models\Social;
 use App\Models\Statistic;
 use Auth;
+use Carbon\Carbon;
 session_start();
 class AdminController extends Controller
 {
     public function index()
     {
+
        return view('admin_login');
     }
     public function AuthLogin(){
@@ -32,7 +37,10 @@ class AdminController extends Controller
     public function show_dashboard()
     {
         $this->AuthLogin();
-       return view('admin.dashboard');
+        $product_count = Product::count();
+        $order_count = Order::where('order_status','0')->get();
+        $customer_count = Customer::count();
+       return view('admin.dashboard', compact('product_count', 'order_count', 'customer_count'));
     }
 
     public function dashboard(Request $request)
@@ -165,8 +173,50 @@ class AdminController extends Controller
         $to_date = $data['to_date'];
 
         $get = Statistic::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date', 'ASC')->get();
-
+        $chart = [];
         foreach($get as $key => $value){
+            $chart[] = array(
+                'period' => $value->order_date,
+                'order' => $value->total_order,
+                'sale' => $value->sale,
+                'profit' => $value->profit,
+                'quantity' => $value->quantity
+            );
+        }
+        echo $data = json_encode($chart);
+    }
+    public function order_date(Request $request){
+        $order_date = $_GET['date'];
+        $order = Order::where('order_date', $order_date)->orderBy('created_at', 'DESC')->get();
+        return view('admin.order_date')->with(compact('order'));
+    }
+    public function dashboard_filter(Request $request){
+        $data = $request->all();
+        //echo $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $start_of_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $early_of_lastmonth = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+        $late_of_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+
+        $sub7days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(7)->toDateString();
+        $sub365days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
+        if($data['dashboard_value'] == '7days'){
+
+            $get = Statistic::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date', 'ASC')->get();
+
+        }elseif($data['dashboard_value'] == 'lastmonth'){
+
+            $get = Statistic::whereBetween('order_date',[$early_of_lastmonth,$late_of_month])->orderBy('order_date', 'ASC')->get();
+
+        }elseif($data['dashboard_value'] == 'thismonth'){
+            $get = Statistic::whereBetween('order_date',[$start_of_month,$now])->orderBy('order_date', 'ASC')->get();
+        }else{
+            $get = Statistic::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date', 'ASC')->get();
+
+        }
+        foreach($get as $k =>$val){
             $chart_data[] = array(
                 'period' => $value->order_date,
                 'order' => $value->total_order,
@@ -176,11 +226,22 @@ class AdminController extends Controller
             );
         }
         echo $data = json_encode($chart_data);
+
     }
-    public function order_date(Request $request){
-        $order_date = $_GET['date'];
-        $order = Order::where('order_date', $order_date)->orderBy('created_at', 'DESC')->get();
-        return view('admin.order_date')->with(compact('order'));
+    public function days_order(){
+        $sub30days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(30)->toDateString();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $get = Statistic::whereBetween('order_date',[$sub30days,$now])->orderBy('order_date', 'ASC')->get();
+        foreach($get as $k =>$val){
+            $chart_data[] = array(
+                'period' => $value->order_date,
+                'order' => $value->total_order,
+                'sale' => $value->sale,
+                'profit' => $value->profit,
+                'quantity' => $value->quantity
+            );
+        }
+        echo $data = json_encode($chart_data);
     }
 
 }

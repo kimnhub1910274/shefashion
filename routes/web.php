@@ -63,9 +63,8 @@ Route::post('/search-access', [AdminController::class, 'search_access']);
 Route::post('/search-comment', [AdminController::class, 'search_comment']);
 Route::post('/search-review', [AdminController::class, 'search_review']);
 Route::post('/filter-by-date', [AdminController::class, 'filter_by_date']);
-
-
-
+Route::post('/dashboard-filter', [AdminController::class, 'dashboard_filter']);
+Route::post('/days-order', [AdminController::class, 'days_order']);
 
 
 //Category product

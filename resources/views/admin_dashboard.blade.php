@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Admin</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">    <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css
@@ -19,14 +19,13 @@
     <link href="{{asset('public/Backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="{{asset('public/Backend/css/alert.css')}}" rel="stylesheet">
 
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
      <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
     rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
     crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{asset('public/fonts/fontawesome-free-6.0.0/css/all.min.css')}}">
-
 
 </head>
 
@@ -326,8 +325,6 @@
     type="text/javascript"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
     <script>
         $("#add_category").val({
             rules:{
@@ -373,7 +370,7 @@
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
       integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
        crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
         $('.update_quantity_order').click(function () {
             var order_product_id = $(this).data('product_id');
@@ -461,7 +458,7 @@
             $('send_order').click(function(){
                 swal({
                     title: "Xác nhận đơn hàng",
-                    text: "Đơn hàng sẽ không được hủy khi đã đặt, bạn có muốn đặt không?",
+                    text: "Đơn hàng sẽ được đặt, bạn có muốn đặt không?",
                     type: "warning",
                     showCancalButtons: true,
                     confirmButtonClass: "btn btn-danger",
@@ -473,7 +470,7 @@
     <!-- jquery -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script>
+    <script type="text/javascript">
     $( function() {
         $( "#datepicker" ).datepicker({
         changeMonth: true,
@@ -485,30 +482,81 @@
         changeYear: true,
         dateFormat: "yy-mm-dd"
         });
-    } );
+
+
+    }
+    );
 
     </script>
-    <script type="text/javascript">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+   <script>
     $(document).ready(function(){
-        $('#btn-dasboard-filter').click(function(){
+        //chart30daysorder();
+        var data = [
+        { period: '2014', order: 50, sale: 90},
+        {period: '2015', order: 65,  sale: 75},
+        { period: '2016', order: 50,  sale: 50},]
+
+        chart =  new Morris.Area({
+            element: 'area-chart',
+            data: data,
+            fillOpacity: 0.6,
+            hideHover: 'auto',
+            behaveLikeLine: true,
+            resize: true,
+            pointFillColors:['#ffffff'],
+            pointStrokeColors: ['black'],
+            lineColors:['gray','red'],
+            xkey: 'period',
+            ykeys: ['order', 'sale'],
+            labels: ['Đơn hàng', 'Doanh số', 'Lợi nhuân', 'Số lượng'],
+        });
+        $('#btn-dashboard-filter').click(function(){
             var _token = $('input[name="_token"]').val();
             var from_date = $('#datepicker').val();
             var to_date = $('#datepicker2').val();
-          //  alert(from_date);
-           // alert(to_date);
+
             $.ajax({
-                url: "{{url('/filter-by-date')}}",
-                type: "post",
-                dataType: "JSON",
-                data: { from_date:from_date, to_date:to_date, _token:_token},
-                success: function(data){
-                   // chart.setData(data);
+                url:"{{ url('/filter-by-date') }}",
+                method: "POST",
+                dataType: "json",
+                data:{_token:_token, from_date:from_date, to_date:to_date},
+                success: function (data) {
+                    chart.setData(data);
                 }
             });
         });
+        $('.dashboard-filter').change(function(){
+            var dashboard_value = $(this).val();
+            var _token = $('input[name="_token"]').val();
+           // alert(dashboard_value);
+            $.ajax({
+                url:"{{ url('/dashboard-filter') }}",
+                method:"post",
+                dataType: "json",
+                data:{dashboard_value:dashboard_value, _token:_token},
+                success: function(data){
+                    chart.setData(data);
+                }
+            });
+        });
+        function chart30daysorder(){
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{ url('/days-order') }}",
+                method:"post",
+                dataType: "json",
+                data:{ _token:_token},
+                success: function(data){
+                    chart.setData(data);
+                }
+            });
+        }
     });
-    </script>
 
+
+</script>
 
 </body>
 
