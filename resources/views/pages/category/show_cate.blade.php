@@ -2,10 +2,28 @@
 @section('home')
 
 <title>Sản phẩm theo danh mục</title>
+
   <div class="container text-center">
-    @foreach ($cate_name as $key => $name)
-        <h4 class="text-center title">{{ $name->cate_name }}</h4>
-    @endforeach
+    <div class="row">
+      @foreach ($cate_name as $key => $name)
+      <h4 class="text-center title col"><b>{{ $name->cate_name }}</b></h4>
+      @endforeach
+        <div class="col-md-4">
+            <label for="amount">Sắp xếp theo</label>
+            <form action="">
+                @csrf
+                <select name="sort" id="sort" >
+                    <option  value="{{ Request::url() }}?sort_by=none">Lọc</option>
+                    <option value="{{ Request::url() }}?sort_by=increase">Giá tăng dần</option>
+                    <option value="{{ Request::url() }}?sort_by=reduce">Giá giảm dần</option>
+                    <option value="{{ Request::url() }}?sort_by=a_z">A đến Z</option>
+                    <option value="{{ Request::url() }}?sort_by=z_a">Z đến A</option>
+
+                </select>
+            </form>
+        </div>
+    </div>
+    <br>
     <div class="row">
         @foreach ($cate_by_id as $key => $product )
         <div class="col">
@@ -17,8 +35,9 @@
                 <span><i class="fa-solid fa-cart-plus"></i></span>
             </a>
         </div>
-    @endforeach
+        @endforeach
     </div>
+
   </div>
   <div>
     <div class="fb-comments" data-href="{{$meta_url}}" data-width="" data-numposts="20"></div>

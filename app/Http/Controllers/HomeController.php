@@ -36,6 +36,28 @@ class HomeController extends Controller
     {
         $cate_product = DB::table('tbl_cate_pro')->where('cate_status', '1')->orderby('cate_id', 'desc')->get();
         $list_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id', 'desc')->get();
+       if(isset($_GET['sort_by'])){
+        $sort_by = $_GET['sort_by'];
+        if($sort_by == 'increase'){
+            $list_product =  DB::table('tbl_product')->orderBy('product_price', 'ASC')->paginate(6)
+            ->appends(request()->query());
+        }elseif($sort_by == 'reduce'){
+            $list_product =  DB::table('tbl_product')
+           ->orderBy('product_price', 'DESC')->paginate(6)
+            ->appends(request()->query());
+        }elseif($sort_by == 'a_z'){
+            $list_product =  DB::table('tbl_product')
+            ->orderBy('product_name', 'ASC')->paginate(6)
+            ->appends(request()->query());
+        }elseif($sort_by == 'z_a'){
+            $list_product =  DB::table('tbl_product')
+            ->orderBy('product_name', 'DESC')->paginate(6)
+            ->appends(request()->query());
+        }
+    }else{
+        $list_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id', 'desc')->get();
+
+    }
         foreach ($list_product as $key => $val)
         {
 

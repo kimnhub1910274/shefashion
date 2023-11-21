@@ -493,6 +493,7 @@
    <script>
     $(document).ready(function(){
         //chart30daysorder();
+        $chart = [];
         var data = [
         { period: '2014', order: 50, sale: 90},
         {period: '2015', order: 65,  sale: 75},

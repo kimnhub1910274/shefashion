@@ -13,4 +13,8 @@ class CategoryProducts extends Model
     ];
     protected $primaryKey = 'cate_id';
     protected $table = 'tbl_cate_pro';
+
+    public function product(){
+        return $this->hasMany('App\Models\Product');
+    }
 }

@@ -123,7 +123,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{ $visitor_total }}</h3>
 
                 <p>Số lượng khách truy cập</p>
               </div>
@@ -135,9 +135,32 @@
           </div>
           <!-- ./col -->
         </div>
+        <div class="row">
+            <p class="title">THỐNG KÊ SỐ LƯỢNG TRUY CẬP</p>
+            <table class="table">
+                <thead>
+                    <th scope="col">Đang online</th>
+                    <th scope="col">Tổng tháng trước</th>
+                    <th scope="col">Tổng tháng này</th>
+                    <th scope="col">Một năm</th>
+                    <th scope="col">Tổng truy cập</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ $visitor_count }}</td>
+                        <td>{{  $visitor_of_lastmonth_count }}</td>
+                        <td>{{ $visitor_of_thismonth_count }}</td>
+                        <td>{{ $visitor_of_year_count }}</td>
+                        <td>{{ $visitor_total }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
         <!-- /.row -->
         <!-- Main row -->
-        <div class="row">
+        {{-- <div class="row">
           <!-- Left col -->
           <section class="col-lg-7 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
@@ -171,7 +194,7 @@
                 </div>
               </div><!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <!-- /.card --> --}}
 
             {{-- <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-primary">

@@ -10,6 +10,7 @@ use Excel;
 use App\Imports\Import;
 use App\Exports\Export;
 use App\Models\CategoryProducts;
+use App\Models\Product;
 
 session_start();
 
@@ -90,9 +91,54 @@ class CategoryProduct extends Controller
     {
 
         $cate_product = DB::table('tbl_cate_pro')->where('cate_status', '1')->orderby('cate_id', 'desc')->get();
-        $cate_by_id = DB::table('tbl_product')
+        //{{-- $cate_by_id = DB::table('tbl_product')
+         //   ->join('tbl_cate_pro', 'tbl_product.category_id', '=', 'tbl_cate_pro.cate_id')
+          //  ->where('tbl_cate_pro.cate_id', $cate_id)->get(); --}}
+        //$cate_quantity = DB::table('tbl_cate_pro')->where('cate_quantity', $cate_quantity)->get();
+        //foreach($cate_quantity as $k => $v){
+          //  $cate_quantity = $v->category_id;
+        //}
+
+        if(isset($_GET['sort_by'])){
+            $sort_by = $_GET['sort_by'];
+            if($sort_by == 'increase'){
+                $cate_by_id =  DB::table('tbl_product')
+                ->join('tbl_cate_pro', 'tbl_product.category_id', '=', 'tbl_cate_pro.cate_id')
+                ->where('tbl_cate_pro.cate_id', $cate_id)->orderBy('product_price', 'ASC')->paginate(6)
+               // $cate_by_id = Product::with('category_id')->where('category_id', $category_id)
+                //->orderBy('product_price', 'ASC')->paginate(6);
+                ->appends(request()->query());
+            }elseif($sort_by == 'reduce'){
+                $cate_by_id =  DB::table('tbl_product')
+                ->join('tbl_cate_pro', 'tbl_product.category_id', '=', 'tbl_cate_pro.cate_id')
+                ->where('tbl_cate_pro.cate_id', $cate_id)->orderBy('product_price', 'DESC')->paginate(6)
+                //$cate_by_id = Product::with('category_id')->where('category_id', $category_id)
+               //  ->orderBy('product_price', 'DESC')->paginate(6);
+                ->appends(request()->query());
+            }elseif($sort_by == 'a_z'){
+                $cate_by_id =  DB::table('tbl_product')
+            ->join('tbl_cate_pro', 'tbl_product.category_id', '=', 'tbl_cate_pro.cate_id')
+            ->where('tbl_cate_pro.cate_id', $cate_id)->orderBy('product_name', 'ASC')->paginate(6)
+               // $cate_by_id = Product::with('category_id')->where('category_id', $category_id)
+               // ->orderBy('product_name', 'ASC')->paginate(6);
+                ->appends(request()->query());
+            }elseif($sort_by == 'z_a'){
+                $cate_by_id =  DB::table('tbl_product')
+            ->join('tbl_cate_pro', 'tbl_product.category_id', '=', 'tbl_cate_pro.cate_id')
+            ->where('tbl_cate_pro.cate_id', $cate_id)->orderBy('product_name', 'DESC')->paginate(6)
+             // $cate_by_id = Product::with('category_id')->where('category_id', $category_id)
+             // ->orderBy('product_name', 'DESC')->paginate(6);
+                ->appends(request()->query());
+            }
+        }else{
+            $cate_by_id =  DB::table('tbl_product')
             ->join('tbl_cate_pro', 'tbl_product.category_id', '=', 'tbl_cate_pro.cate_id')
             ->where('tbl_cate_pro.cate_id', $cate_id)->get();
+        }
+
+     //   {{-- $cate_by_id = DB::table('tbl_product')
+        //    ->join('tbl_cate_pro', 'tbl_product.category_id', '=', 'tbl_cate_pro.cate_id')
+          //  ->where('tbl_cate_pro.cate_id', $cate_id)->get(); --}}
         foreach ($cate_by_id as $key => $val) {
             $meta_desc = $val->meta_desc;
             $meta_keywords = $val->meta_keywords;
@@ -113,6 +159,7 @@ class CategoryProduct extends Controller
         Excel::import(new Import, $path);
         return back();
     }
+
 
 
 

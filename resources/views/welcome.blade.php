@@ -477,5 +477,19 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
         });
     });
 </script>
+<script>
+    $(document).ready(function(){
+        $('#sort').on('change', function(){
+            var url = $(this).val();
+           // alert(url);
+            if(url){
+                window.location = url;
+            }
+            return false;
+        })
+    })
+
+
+</script>
 
 

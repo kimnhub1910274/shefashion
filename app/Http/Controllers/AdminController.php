@@ -16,6 +16,7 @@ use Socialite;
 use App\Models\Login;
 use App\Models\Social;
 use App\Models\Statistic;
+use App\Models\Visitor;
 use Auth;
 use Carbon\Carbon;
 session_start();
@@ -34,13 +35,48 @@ class AdminController extends Controller
             return Redirect::to('admin')->send();
         }
     }
-    public function show_dashboard()
+    public function show_dashboard(Request $request)
     {
         $this->AuthLogin();
-        $product_count = Product::count();
+
+
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $user_ip_address = $request->ip();
+        $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
+        $end_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
+        $early_this_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $one_year = Carbon::now('Asia/Ho_Chi_Minh')->subdays(365)->toDateString();
+
+        $visitor_of_lastmonth = Visitor::whereBetween('date_visit',array($early_last_month, $end_last_month))->get();
+        $visitor_of_lastmonth_count = $visitor_of_lastmonth->count();
+
+        $visitor_of_thismonth = Visitor::whereBetween('date_visit',array($early_this_month, $now))->get();
+        $visitor_of_thismonth_count = $visitor_of_thismonth->count();
+
+        $visitor_of_year = Visitor::whereBetween('date_visit',array($one_year, $now))->get();
+        $visitor_of_year_count = $visitor_of_year->count();
+
+        $visitor_current = Visitor::where('ip_address',array($user_ip_address))->get();
+        $visitor_count = $visitor_current->count();
+
+        if($visitor_count < 1){
+            $visitor = new Visitor();
+            $visitor->ip_address = $user_ip_address;
+            $visitor->date_visit = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+            $visitor->save();
+        }
+        $visitor = Visitor::all();
+        $visitor_total = $visitor->count();
+
+        //$product_views = Product::orderBy('product_views', 'desc')->take(20)->get();
+        $product_count = Product::all()->count();
         $order_count = Order::where('order_status','0')->get();
-        $customer_count = Customer::count();
-       return view('admin.dashboard', compact('product_count', 'order_count', 'customer_count'));
+        $customer_count = Customer::all()->count();
+
+
+
+       return view('admin.dashboard')->with(compact('product_count', 'order_count', 'customer_count',
+      'visitor_of_lastmonth_count', 'visitor_of_thismonth_count', 'visitor_count', 'visitor_of_year_count', 'visitor_total'));
     }
 
     public function dashboard(Request $request)
@@ -172,7 +208,7 @@ class AdminController extends Controller
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
 
-        $get = Statistic::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date', 'ASC')->get();
+        $get = Statistic::whereBetween('order_date',array($from_date,$to_date))->orderBy('order_date', 'ASC')->get();
         $chart = [];
         foreach($get as $key => $value){
             $chart[] = array(
@@ -204,25 +240,25 @@ class AdminController extends Controller
 
         if($data['dashboard_value'] == '7days'){
 
-            $get = Statistic::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date', 'ASC')->get();
+            $get = Statistic::whereBetween('order_date',array($sub7days,$now))->orderBy('order_date', 'ASC')->get();
 
         }elseif($data['dashboard_value'] == 'lastmonth'){
 
-            $get = Statistic::whereBetween('order_date',[$early_of_lastmonth,$late_of_month])->orderBy('order_date', 'ASC')->get();
+            $get = Statistic::whereBetween('order_date',array($early_of_lastmonth,$late_of_month))->orderBy('order_date', 'ASC')->get();
 
         }elseif($data['dashboard_value'] == 'thismonth'){
-            $get = Statistic::whereBetween('order_date',[$start_of_month,$now])->orderBy('order_date', 'ASC')->get();
+            $get = Statistic::whereBetween('order_date',array($start_of_month,$now))->orderBy('order_date', 'ASC')->get();
         }else{
-            $get = Statistic::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date', 'ASC')->get();
+            $get = Statistic::whereBetween('order_date',array($sub365days,$now))->orderBy('order_date', 'ASC')->get();
 
         }
         foreach($get as $k =>$val){
             $chart_data[] = array(
-                'period' => $value->order_date,
-                'order' => $value->total_order,
-                'sale' => $value->sale,
-                'profit' => $value->profit,
-                'quantity' => $value->quantity
+                'period' => $val->order_date,
+                'order' => $val->total_order,
+                'sale' => $val->sale,
+                'profit' => $val->profit,
+                'quantity' => $val->quantity
             );
         }
         echo $data = json_encode($chart_data);
@@ -231,17 +267,18 @@ class AdminController extends Controller
     public function days_order(){
         $sub30days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(30)->toDateString();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        $get = Statistic::whereBetween('order_date',[$sub30days,$now])->orderBy('order_date', 'ASC')->get();
+        $get = Statistic::whereBetween('order_date',array($sub30days,$now))->orderBy('order_date', 'ASC')->get();
         foreach($get as $k =>$val){
             $chart_data[] = array(
-                'period' => $value->order_date,
-                'order' => $value->total_order,
-                'sale' => $value->sale,
-                'profit' => $value->profit,
-                'quantity' => $value->quantity
+                'period' => $val->order_date,
+                'order' => $val->total_order,
+                'sale' => $val->sale,
+                'profit' => $val->profit,
+                'quantity' => $val->quantity
             );
         }
         echo $data = json_encode($chart_data);
     }
+
 
 }

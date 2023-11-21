@@ -2,7 +2,25 @@
 @section('home')
 <title>Sản phẩm</title>
 <div class="container-fluid text-center">
-    <h4 class="text-center title" style="margin-bottom: 20px; margin-top: 20px"><b>SẢN PHẨM MỚI</b></h4>
+    <div class="row">
+        <h4 class="text-center title col-8" style="margin-bottom: 20px; margin-top: 30px"><b>SẢN PHẨM MỚI</b></h4>
+        <div class="col-md-4">
+            <h6 class="text-center title col" style="margin-bottom: 10px; margin-top: 20px">Sắp xếp theo</h6>
+            <form action="">
+                @csrf
+                <select name="sort" id="sort" >
+                    <option  value="{{ Request::url() }}?sort_by=none">Lọc</option>
+                    <option value="{{ Request::url() }}?sort_by=increase">Giá tăng dần</option>
+                    <option value="{{ Request::url() }}?sort_by=reduce">Giá giảm dần</option>
+                    <option value="{{ Request::url() }}?sort_by=a_z">A đến Z</option>
+                    <option value="{{ Request::url() }}?sort_by=z_a">Z đến A</option>
+
+                </select>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
     <div class="row">
         @foreach ($list_product as $key => $product )
         <div class="col">
