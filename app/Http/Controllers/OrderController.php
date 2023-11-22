@@ -322,6 +322,8 @@ class OrderController extends Controller
                 <thead>
                     <tr>
                         <th><p class="c">Tên sản phẩm</p></th>
+                        <th><p class="c">Màu sản phẩm</p></th>
+                        <th><p class="c">Kích cỡ sản phẩm</p></th>
                         <th>Giá &nbsp;</th>
                         <th>Số lượng  &nbsp;</th>
                         <th>Thành tiền  &nbsp;</th>
@@ -335,6 +337,8 @@ class OrderController extends Controller
         $output.='
                     <tr>
                         <td>'.$product->product_name.'&nbsp; &nbsp;&nbsp; &nbsp;</td>
+                        <td>'.$product->product_color.'&nbsp; &nbsp;&nbsp; &nbsp;</td>
+                        <td>'.$product->product_size.'&nbsp; &nbsp;&nbsp; &nbsp;</td>
                         <td>'.number_format($product->product_price,0,',',',').'đ'.'</td>
                         <td> &nbsp; &nbsp;&nbsp; &nbsp;'.$product->product_quantity.'</td>
                         <td>'.number_format($subtotal,0,',',',').'đ'.'</td>

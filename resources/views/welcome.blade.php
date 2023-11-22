@@ -29,7 +29,9 @@
 
     <link rel="stylesheet" href="{{asset('public/fonts/fontawesome-free-6.0.0/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/Frontend/css/main.css')}}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
+     integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -391,6 +393,7 @@ $("figure").mouseleave(
 <script async defer crossorigin="anonymous"
 src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS7fsa"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('.add-to-cart').click(function(){
@@ -401,13 +404,15 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             var cart_product_quantity = $('.cart_product_quantity_' + id).val();
             var cart_product_price = $('.cart_product_price_' + id).val();
             var cart_product_qty = $('.cart_product_qty_' + id).val();
+            var cart_product_size = $('.cart_product_size_' + id).val();
+            var cart_product_color = $('.cart_product_color_' + id).val();
             var _token = $('input[name="_token"]').val();
             //alert(cart_product_qty);
             //alert(cart_product_quantity);
            if(parseInt(cart_product_qty) > parseInt(cart_product_quantity) ){
                // alert('Số lượng sản phẩm không đủ! Số lượng kho:' +  cart_product_quantity);
                 $.ajax({
-                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image, cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity},
+                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image,cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity, cart_product_size:cart_product_size, cart_product_color:cart_product_color},
                     success:function(data){
                         //alert(data);
                         Swal.fire({
@@ -422,7 +427,7 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
                 $.ajax({
                     url: '{{url('/add-cart-ajax')}}',
                     method: 'POST',
-                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image, cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity},
+                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image,cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity, cart_product_size:cart_product_size, cart_product_color:cart_product_color},
                     success:function(data){
                         //alert(data);
                         Swal.fire({
@@ -487,9 +492,27 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             }
             return false;
         })
-    })
-
+    });
 
 </script>
+<script>
+    $( function() {
+      $( "#range-slider" ).slider({
+        orientation:"horizontal",
+        range: true,
+        min: 100000,
+        max: 500000,
+        step: 10000,
+        values: [100000, 500000],
+        slide: function(event, ui){
+            $("#amount").val(ui.values[0] + "đ" + " - " + ui.values[1] + "đ");
+            $("#min_price").val(ui.values[0]);
+            $("#max_price").val(ui.values[1]);
+
+        }
+      });
+      $("#amount").val($("#range-slider").slider("values", 0) + "đ" + " - " + $("#range-slider").slider("values", 1) + "đ");
+    } );
+    </script>
 
 

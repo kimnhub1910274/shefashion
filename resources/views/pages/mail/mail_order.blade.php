@@ -75,6 +75,8 @@
                           <tr>
                             <th scope="">Tên sản phẩm</th>
                             <th scope="col">Số lượng</th>
+                            <th scope="col">Kích thước</th>
+                            <th scope="col">Màu sắc</th>
                             <th scope="col">Giá</th>
                             <th scope="col">Thành tiền</th>
 
@@ -87,13 +89,36 @@
                             @endphp
                             @foreach($cart_array as $key => $cart)
                                 @php
-                                    $sub = $cart['product_quantity'] * $cart['product_price'];
+                                    $sub = $cart['product_qty'] * $cart['product_price'];
                                     $total = $total + $sub;
                                 @endphp
 
                                 <tr>
                                     <td>{{ $cart['product_name'] }}</td>
-                                    <td>{{ $cart['product_quantity'] }}</td>
+                                    <td>{{ $cart['product_qty'] }}</td>
+                                        @if($cart['product_size'] == 1)
+                                            S
+                                        @elseif($cart['product_size'] == 2)
+                                            M
+                                        @elseif($cart['product_size'] == 3)
+                                            L
+                                        @elseif($cart['product_size'] == 4)
+                                            XL
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        @if($cart['product_color'] == 1)
+                                            Vàng
+                                        @elseif($cart['product_color'] == 2)
+                                            Trắng
+                                        @elseif($cart['product_color'] == 3)
+                                            Hồng
+                                        @elseif($cart['product_color'] == 4)
+                                            Xanh
+                                        @endif
+
+                                    </td>
                                     <td>{{ number_format( $cart['product_price'],0,',','.') }}</td>
                                     <td>{{ number_format( $sub,0,',','.') }} VNĐ</td>
                                 </tr>

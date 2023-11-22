@@ -4,8 +4,8 @@
 <div class="container-fluid text-center">
     <div class="row">
         <h4 class="text-center title col-8" style="margin-bottom: 20px; margin-top: 30px"><b>SẢN PHẨM MỚI</b></h4>
-        <div class="col-md-4">
-            <h6 class="text-center title col" style="margin-bottom: 10px; margin-top: 20px">Sắp xếp theo</h6>
+        <div class="col" style="margin-left:-100px;">
+            <h6 class="text-center title col" style="margin-bottom: 10px; margin-top: 20px; ">Sắp xếp theo</h6>
             <form action="">
                 @csrf
                 <select name="sort" id="sort" >
@@ -18,8 +18,19 @@
                 </select>
             </form>
         </div>
+        {{-- <div class="col" style="width:30px; margin-left:-10px;" >
+            <label for="amount"  class="text-center title col" style="margin-bottom: 10px; margin-top: 20px">Lọc theo giá</label>
+            <form action="" class="row">
+                    <div id="range-slider" class="" ></div>
+                    <input type="text" id="amount" readonly style="border: 0; width:200px; background-color:whitesmoke;">
+
+                    <input type="hidden" name="min_price" id="min_price" >
+                    <input type="hidden" name="max_price" id="max_price" >
+
+                    <input  type="submit" class="col" name="filter_price" id="" value="Lọc giá">
+            </form>
+        </div> --}}
     </div>
-    <br>
     <br>
     <div class="row">
         @foreach ($list_product as $key => $product )

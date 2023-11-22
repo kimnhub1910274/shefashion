@@ -201,6 +201,9 @@ class CheckoutController extends Controller
                 $order_detail->product_name = $cart['product_name'];
                 $order_detail->product_price = $cart['product_price'];
                 $order_detail->product_quantity = $cart['product_qty'];
+                $order_detail->product_color = $cart['product_color'];
+                $order_detail->product_size = $cart['product_size'];
+                $order_detail->total = $cart['product_price'] * $cart['product_qty'];
                 $order_detail->created_at = now();
                 $order_detail->save();
             }
@@ -216,7 +219,9 @@ class CheckoutController extends Controller
                 $cart_array[] = array(
                     'product_name' => $cart_email['product_name'],
                     'product_price' => $cart_email['product_price'],
-                    'product_quantity' => $cart_email['product_quantity']
+                    'product_qty' => $cart_email['product_qty'],
+                    'product_color' => $cart_email['product_color'],
+                    'product_size' => $cart_email['product_size'],
                 );
             }
         }

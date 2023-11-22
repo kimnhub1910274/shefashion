@@ -147,6 +147,8 @@
                                 <tr>
                                     <th>Sản phẩm</th>
                                     <th>Số lượng </th>
+                                    <th>Kích cỡ </th>
+                                    <th>Màu sắc </th>
                                     <th>Giá</th>
                                     <th>Thành tiền</th>
 
@@ -197,11 +199,33 @@
                                             data-product_id="{{ $details->product_id }}">Cập nhật</button>
                                         @endif --}}
                                     </td>
+                                    <td>
+                                        @if($details->product_size == 1)
+                                            S
+                                        @elseif($details->product_size == 2)
+                                            M
+                                        @elseif($details->product_size == 3)
+                                            L
+                                        @elseif($details->product_size == 4)
+                                            XL
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($details->product_size == 1)
+                                            Vàng
+                                        @elseif($details->product_size == 2)
+                                            Trắng
+                                        @elseif($details->product_size == 3)
+                                            Hồng
+                                        @elseif($details->product_size == 4)
+                                            Xanh
+                                        @endif
+                                    </td>
                                     <td class="text">
                                         {{number_format($details->product_price)}}
                                     </td>
                                     <td class="text-end">
-                                        {{number_format($subtotal)}}
+                                        {{number_format($details->total)}}
                                     </td>
                                 </tr>
                                 @endforeach

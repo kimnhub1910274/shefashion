@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}">    <title>Admin</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+     <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css
@@ -26,6 +27,9 @@
     crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{asset('public/fonts/fontawesome-free-6.0.0/css/all.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
+     integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -470,6 +474,8 @@
     <!-- jquery -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  //  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
     <script type="text/javascript">
     $( function() {
         $( "#datepicker" ).datepicker({
@@ -492,16 +498,16 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
    <script>
     $(document).ready(function(){
-        //chart30daysorder();
-        $chart = [];
-        var data = [
-        { period: '2014', order: 50, sale: 90},
-        {period: '2015', order: 65,  sale: 75},
-        { period: '2016', order: 50,  sale: 50},]
+        chart30daysorder();
+        //$chart = [];
+        {{-- var data = [
+        { period: '2014', order: 50, sale: 90, profit:30, quantity:10},
+        {period: '2015', order: 65,  sale: 75, profit:40, quantity:10}
+        { period: '2016', order: 50,  sale: 50, profit:30, quantity:10}] --}}
 
         chart =  new Morris.Area({
             element: 'area-chart',
-            data: data,
+           // data: data,
             fillOpacity: 0.6,
             hideHover: 'auto',
             behaveLikeLine: true,
@@ -510,21 +516,22 @@
             pointStrokeColors: ['black'],
             lineColors:['gray','red'],
             xkey: 'period',
-            ykeys: ['order', 'sale'],
+            ykeys: ['order', 'sale', 'profit', 'quantity'],
             labels: ['Đơn hàng', 'Doanh số', 'Lợi nhuân', 'Số lượng'],
         });
         $('#btn-dashboard-filter').click(function(){
             var _token = $('input[name="_token"]').val();
             var from_date = $('#datepicker').val();
             var to_date = $('#datepicker2').val();
-
+           // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url:"{{ url('/filter-by-date') }}",
-                method: "POST",
-                dataType: "json",
+                url:'{{ url('/filter-by-date') }}',
+                type: 'POST',
+                dataType: 'json',
                 data:{_token:_token, from_date:from_date, to_date:to_date},
                 success: function (data) {
                     chart.setData(data);
+                   // console.log(data);
                 }
             });
         });

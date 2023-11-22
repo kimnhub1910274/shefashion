@@ -19,6 +19,8 @@
                                     <th>Ảnh sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Số lượng</th>
+                                    <th>Kích cỡ</th>
+                                    <th>Màu sắc</th>
                                     <th>Giá</th>
                                     <th>Thành tiền</th>
                                     <th>Xóa</th>
@@ -49,7 +51,31 @@
                                             </td>
                                             <td>{{ $cart['product_name'] }}</td>
                                             <td>
-                                                {{ $cart['product_qty'] }}
+                                                {{ $cart['product_qty'] }}</td>
+                                                <td>
+                                                    @if($cart['product_size'] == 1)
+                                                       S
+                                                    @elseif($cart['product_size'] == 2)
+                                                        M
+                                                    @elseif($cart['product_size'] == 3)
+                                                        L
+                                                    @elseif($cart['product_size'] == 4)
+                                                       XL
+                                                    @endif
+
+                                                </td>
+                                                <td>
+                                                    @if($cart['product_color'] == 1)
+                                                        Vàng
+                                                    @elseif($cart['product_color'] == 2)
+                                                        Trắng
+                                                    @elseif($cart['product_color'] == 3)
+                                                        Hồng
+                                                    @elseif($cart['product_color'] == 4)
+                                                        Xanh
+                                                    @endif
+
+                                                </td>
 
                                             <td>{{ number_format($cart['product_price']) }}</td>
                                             <td>{{ number_format($subtotal) }}</td>

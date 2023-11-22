@@ -146,6 +146,9 @@ class CartController extends Controller
                 'product_qty' => $data['cart_product_qty'],
                 'product_quantity' => $data['cart_product_quantity'],
                 'product_price' => $data['cart_product_price'],
+                'product_color' => $data['cart_product_color'],
+                'product_size' => $data['cart_product_size'],
+
                 );
                 Session::put('cart',$cart);
             }
@@ -158,7 +161,8 @@ class CartController extends Controller
                 'product_qty' => $data['cart_product_qty'],
                 'product_quantity' => $data['cart_product_quantity'],
                 'product_price' => $data['cart_product_price'],
-
+                'product_color' => $data['cart_product_color'],
+                'product_size' => $data['cart_product_size'],
             );
             Session::put('cart',$cart);
         }

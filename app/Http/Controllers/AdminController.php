@@ -208,7 +208,7 @@ class AdminController extends Controller
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
 
-        $get = Statistic::whereBetween('order_date',array($from_date,$to_date))->orderBy('order_date', 'ASC')->get();
+        $get = DB::table('tbl_statistical')->whereBetween('order_date',array($from_date,$to_date))->orderBy('order_date', 'ASC')->get();
         $chart = [];
         foreach($get as $key => $value){
             $chart[] = array(
@@ -220,6 +220,7 @@ class AdminController extends Controller
             );
         }
         echo $data = json_encode($chart);
+      //  return $data;
     }
     public function order_date(Request $request){
         $order_date = $_GET['date'];
@@ -238,18 +239,23 @@ class AdminController extends Controller
 
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
-        if($data['dashboard_value'] == '7days'){
+        $dashboard_value = $data['dashboard_value'];
 
-            $get = Statistic::whereBetween('order_date',array($sub7days,$now))->orderBy('order_date', 'ASC')->get();
+        if($dashboard_value == '7days'){
 
-        }elseif($data['dashboard_value'] == 'lastmonth'){
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub7days,$now))->orderBy('order_date', 'ASC')->get();
 
-            $get = Statistic::whereBetween('order_date',array($early_of_lastmonth,$late_of_month))->orderBy('order_date', 'ASC')->get();
+        }elseif($dashboard_value == 'lastmonth'){
 
-        }elseif($data['dashboard_value'] == 'thismonth'){
-            $get = Statistic::whereBetween('order_date',array($start_of_month,$now))->orderBy('order_date', 'ASC')->get();
-        }else{
-            $get = Statistic::whereBetween('order_date',array($sub365days,$now))->orderBy('order_date', 'ASC')->get();
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($early_of_lastmonth,$late_of_month))->orderBy('order_date', 'ASC')->get();
+
+        }elseif($dashboard_value == 'thismonth'){
+
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($start_of_month,$now))->orderBy('order_date', 'ASC')->get();
+
+        }elseif($dashboard_value == 'thisyear'){
+
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub365days,$now))->orderBy('order_date', 'ASC')->get();
 
         }
         foreach($get as $k =>$val){
@@ -262,12 +268,12 @@ class AdminController extends Controller
             );
         }
         echo $data = json_encode($chart_data);
-
+       // return $data;
     }
     public function days_order(){
         $sub30days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(30)->toDateString();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        $get = Statistic::whereBetween('order_date',array($sub30days,$now))->orderBy('order_date', 'ASC')->get();
+        $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub30days,$now))->orderBy('order_date', 'ASC')->get();
         foreach($get as $k =>$val){
             $chart_data[] = array(
                 'period' => $val->order_date,
@@ -278,6 +284,7 @@ class AdminController extends Controller
             );
         }
         echo $data = json_encode($chart_data);
+       // return $data;
     }
 
 

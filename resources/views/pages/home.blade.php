@@ -23,6 +23,8 @@
                 <input type="hidden" value="{{$product->product_price}}"
                     class="cart_product_price_{{$product->product_id}}">
                 <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
+                <input type="hidden" value="1" class="cart_product_color_{{$product->product_id}}">
+                <input type="hidden" value="1" class="cart_product_size_{{$product->product_id}}">
 
                 <a href="{{ URL::to('/product-detail/'.$product->product_id) }}" >
                     <img src="{{ URL::to('public/uploads/product/'.$product->product_image) }}"

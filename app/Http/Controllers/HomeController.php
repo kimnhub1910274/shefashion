@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Mail;
 use App\Mail\Gmail;
+use App\Models\Product;
 
 session_start();
 
@@ -36,28 +37,46 @@ class HomeController extends Controller
     {
         $cate_product = DB::table('tbl_cate_pro')->where('cate_status', '1')->orderby('cate_id', 'desc')->get();
         $list_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id', 'desc')->get();
-       if(isset($_GET['sort_by'])){
+
+        //$min_product = DB::table('tbl_product')->min('product_price');
+        //$max_product = DB::table('tbl_product')->max('product_price');
+
+
+        if(isset($_GET['sort_by'])){
         $sort_by = $_GET['sort_by'];
         if($sort_by == 'increase'){
             $list_product =  DB::table('tbl_product')->orderBy('product_price', 'ASC')->paginate(6)
             ->appends(request()->query());
+
         }elseif($sort_by == 'reduce'){
+
             $list_product =  DB::table('tbl_product')
            ->orderBy('product_price', 'DESC')->paginate(6)
             ->appends(request()->query());
+
         }elseif($sort_by == 'a_z'){
             $list_product =  DB::table('tbl_product')
             ->orderBy('product_name', 'ASC')->paginate(6)
             ->appends(request()->query());
+
         }elseif($sort_by == 'z_a'){
+
             $list_product =  DB::table('tbl_product')
             ->orderBy('product_name', 'DESC')->paginate(6)
             ->appends(request()->query());
-        }
-    }else{
-        $list_product = DB::table('tbl_product')->where('product_status', '1')->orderby('product_id', 'desc')->get();
 
+        }elseif(isset($_GET['min_price']) && isset($_GET['max_price']) ){
+
+            $min_price = $_GET['min_price'];
+            $max_price = $_GET['max_price'];
+
+            $list_product = DB::table('tbl_product')->whereBetween('product_price', array($min_price, $max_price))
+            ->orderby('product_price', 'asc')->paginate(6)
+            ->appends(request()->query());
+
+        }
     }
+
         foreach ($list_product as $key => $val)
         {
 
@@ -71,6 +90,8 @@ class HomeController extends Controller
         return view('pages.product')->with('category', $cate_product)->with('list_product',
          $list_product)->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
         ->with('meta_title', $meta_title)->with('meta_url', $meta_url);
+        //->with('min_product', $min_product)->with('max_product', $max_product);
+
     }
     public function login(Request $request)
     {

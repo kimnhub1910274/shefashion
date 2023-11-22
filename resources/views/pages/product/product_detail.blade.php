@@ -56,19 +56,25 @@
                                 </div>
                                 <div class="col">
                                     <label for=""><b>Kích cỡ:</b></label>
-                                    <select class="form-select input-sm" name="size">
-                                        @foreach ($size as $key => $si)
-                                        <option selected value="{{ $si->size_id }}">{{ $si->size }}</option>
-                                        @endforeach
-                                    </select>
+                                    <select class="form-select cart_size cart_product_size_{{$value->product_id}}" name="size" >
+                                        <option selected value="0" id="{{$value->product_id}}">Chọn</option>
+                                        <option value="1">S</option>
+                                        <option value="2">M</option>
+                                        <option value="3">L</option>
+                                        <option value="4">XL</option>
+
+                                      </select>
                                 </div>
                                 <div class="col">
                                     <label for=""><b>Màu sắc:</b></label>
-                                    <select class="form-select input-sm" name="color">
-                                        @foreach ($color as $key => $col)
-                                        <option selected value="{{ $col->color_id }}">{{ $col->color }}</option>
-                                        @endforeach
-                                    </select>
+                                    <select class="form-select cart_color cart_product_color_{{$value->product_id}}" name="color" >
+                                        <option selected value="0" id="{{$value->product_id}}">Chọn</option>
+                                        <option value="1">Vàng</option>
+                                        <option value="2">Trắng</option>
+                                        <option value="3">Hồng</option>
+                                        <option value="4">Xanh</option>
+
+                                      </select>
                                 </div>
                             </div>
                             <br>
