@@ -551,7 +551,8 @@
             var comment_status = $(this).data('comment_status');
             var comment_id = $(this).data('comment_id');
             var comment_product_id = $(this).attr('id');
-           // alert(comment_status);
+            var comment_user = $(this).data('comment_user');
+            //alert(comment_user);
            // alert(comment_id);
            // alert(comment_product_id);
            if(comment_status ==0 ){
@@ -565,7 +566,7 @@
             headers:{
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data:{comment_status:comment_status, comment_id:comment_id, comment_product_id:comment_product_id
+            data:{comment_status:comment_status, comment_id:comment_id, comment_product_id:comment_product_id,
                    },
             success:function(data) {
                 $('#notify_comment').html('<p>'+alert+'</p>').fadeOut(2000);
@@ -579,7 +580,8 @@
             var comment = $('.reply_comment_'+ comment_id ).val();
 
             var comment_product_id = $(this).data('product_id');
-
+           // var comment_user = $(this).attr('id');
+           // alert(comment_user);
            // var alert = 'Đã trả lời bình luận';
              {{-- alert(comment);
           alert(comment_id);
@@ -593,7 +595,8 @@
                 data:{comment:comment, comment_id:comment_id, comment_product_id:comment_product_id
                     },
                 success:function(data) {
-                    $('#notify_comment').html('<p>Đã trả lời bình luận</p>').fadeOut(2000);
+                    $('#notify_comment').html('<p>Đã trả lời bình luận</p>').fadeOut(5000);
+                    var comment = $('.reply_comment_'+ comment_id ).val('');
                   location.reload();
                 }
             });

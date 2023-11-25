@@ -77,7 +77,8 @@ class AdminController extends Controller
 
 
        return view('admin.dashboard')->with(compact('product_count', 'order_count', 'customer_count',
-      'visitor_of_lastmonth_count', 'visitor_of_thismonth_count', 'visitor_count', 'visitor_of_year_count', 'visitor_total'));
+      'visitor_of_lastmonth_count', 'visitor_of_thismonth_count', 'visitor_count',
+       'visitor_of_year_count', 'visitor_total'));
     }
 
     public function dashboard(Request $request)
@@ -209,7 +210,8 @@ class AdminController extends Controller
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
 
-        $get = DB::table('tbl_statistical')->whereBetween('order_date',array($from_date,$to_date))->orderBy('order_date', 'ASC')->get();
+        $get = DB::table('tbl_statistical')->whereBetween('order_date',array($from_date,$to_date))
+        ->orderBy('order_date', 'ASC')->get();
         $chart = [];
         foreach($get as $key => $value){
             $chart[] = array(
@@ -230,7 +232,6 @@ class AdminController extends Controller
     }
     public function dashboard_filter(Request $request){
         $data = $request->all();
-        //echo $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
         $start_of_month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
         $early_of_lastmonth = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
         $late_of_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
@@ -244,19 +245,23 @@ class AdminController extends Controller
 
         if($dashboard_value == '7days'){
 
-            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub7days,$now))->orderBy('order_date', 'ASC')->get();
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub7days,$now))
+            ->orderBy('order_date', 'ASC')->get();
 
         }elseif($dashboard_value == 'lastmonth'){
 
-            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($early_of_lastmonth,$late_of_month))->orderBy('order_date', 'ASC')->get();
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($early_of_lastmonth,$late_of_month))
+            ->orderBy('order_date', 'ASC')->get();
 
         }elseif($dashboard_value == 'thismonth'){
 
-            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($start_of_month,$now))->orderBy('order_date', 'ASC')->get();
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($start_of_month,$now))
+            ->orderBy('order_date', 'ASC')->get();
 
         }elseif($dashboard_value == 'thisyear'){
 
-            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub365days,$now))->orderBy('order_date', 'ASC')->get();
+            $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub365days,$now))
+            ->orderBy('order_date', 'ASC')->get();
 
         }
         foreach($get as $k =>$val){
@@ -269,7 +274,6 @@ class AdminController extends Controller
             );
         }
         echo $data = json_encode($chart_data);
-       // return $data;
     }
     public function days_order(){
         $sub30days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(30)->toDateString();
@@ -285,12 +289,14 @@ class AdminController extends Controller
             );
         }
         echo $data = json_encode($chart_data);
-       // return $data;
     }
 
     public function manage_comment(){
-        $comment = Comment::with('product')->orderBy('comment_status', 'asc')->paginate(10);
-        return view('admin.comment.manage_comment')->with(compact('comment'));
+        $comment = Comment::with('product')->where('comment_parent_comment', '=', 0)
+        ->orderBy('comment_id', 'desc')->paginate(10);
+        $comment_rpl = Comment::with('product')
+        ->where('comment_parent_comment', '>', 0)->orderBy('comment_id', 'asc')->paginate(10);
+        return view('admin.comment.manage_comment')->with(compact('comment', 'comment_rpl' ));
     }
     public function approve_comment(Request $request){
         $data = $request->all();

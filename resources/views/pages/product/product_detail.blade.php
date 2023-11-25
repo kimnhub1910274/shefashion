@@ -1,5 +1,5 @@
-@extends('welcome')
-@section('home')
+@extends('test')
+@section('test')
 <title>Chi tiết sản phẩm</title>
 @foreach ($product_details as $key => $value )
 <div class="container product-details" style="margin-top: 50px;"><!--product-details-->
@@ -79,7 +79,7 @@
                             </div>
                             <br>
                             <br>
-                            <button type="button" class="add-to-cart marker:btn btn  cart"
+                            <button type="button" class="add-to-cart marker:btn btn cart"
                             style="background-color: rgb(143, 10, 10); color:white;"
                             data-id_pro="{{$value->product_id}}" name="add-to-cart">
                                 <i class="fa fa-shopping-cart"></i>
@@ -90,40 +90,46 @@
             </div>
         </div>
     </form>
+    <hr>
     <div class="product-detail-tab">
-        <div class="col-sm-12">
-            <ul class="nav ">
-                <li><b>BÌNH LUẬN</b></li>
-            </ul>
-            <br>
-            <form action="" method="post">
-                @csrf
-                <input type="hidden" class="comment_product_id"
-                 name="comment_product_id" id="" value="{{$value->product_id}}">
-                <div id="comment"></div>
-            </form>
-            <br>
-            <ul class="nav ">
-                <b>VIẾT BÌNH LUẬN</b></li>
-            </ul>
-            <br>
-            <form action="" >
-                @csrf
-                <div class="row g-3 align-items-center" >
-                    <div class="col-auto">
-                      <input type="text" name="comment_user"
-                       class="form-control comment_user" placeholder="Tên của bạn">
-                    </div>
-                    <div>
-                        <textarea class="form-control comment_content" name="comment" id=""
-                         cols="30" rows="3" placeholder="Viết bình luận"></textarea>
-                    </div>
-                    <div>Đánh giá:</div>
-                    <div id="notify_comment"></div>
+        <div class="row" style="background-color: white">
+            <div class="col">
+                <ul class="nav ">
+                    <li><b>BÌNH LUẬN</b></li>
+                </ul>
+                <form action="" method="post">
+                    @csrf
+                    <input type="hidden" class="comment_product_id"
+                     name="comment_product_id" id="" value="{{$value->product_id}}">
 
-                </div>
-                <button type="button" class="send-comment btn" style="background-color: rgb(143, 10, 10); color:white;">Gửi</button>
-            </form>
+                    <div class="container" id="comment"  ></div>
+                </form>
+                <br>
+            </div>
+            <div class="col">
+                <ul class="nav ">
+                    <b>VIẾT BÌNH LUẬN</b></li>
+                </ul>
+                <br>
+                <form action="" >
+                    @csrf
+                    <div class="row g-3 align-items-center" >
+                        <div class="col-auto">
+                          <input type="text" name="comment_user"
+                           class="form-control comment_user" placeholder="Tên của bạn">
+                        </div>
+                        <div>
+                            <textarea class="form-control comment_content" name="comment" id=""
+                             cols="30" rows="3" placeholder="Viết bình luận"></textarea>
+                        </div>
+                        <div>Đánh giá:</div>
+                        <div id="notify_comment"></div>
+
+                    </div>
+                    <button type="button" class="send-comment btn"
+                     style="background-color: rgb(143, 10, 10); color:white;">Gửi</button>
+                </form>
+            </div>
 
         </div>
     </div>

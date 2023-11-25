@@ -169,21 +169,43 @@ class ProductController extends Controller
     }
     public function load_comment(Request $request){
         $product_id = $request->product_id;
-        $comment = Comment::where('comment_product_id', $product_id)->where('comment_status', 1)->get();
+        $comment = Comment::where('comment_product_id',$product_id)
+        ->where('comment_parent_comment', '=', 0)->where('comment_status', 1)->get();
+        $comment_rpl = Comment::with('product')->where('comment_parent_comment', '>', 0)->get();
         $output = '';
         foreach($comment as $k =>$comm){
             $output.= '
-                <div class="row" style="border: 1px solid #ddd; border-radius:5px; margin-bottom:5px;">
-                    <div class="col-md-2">
-                        <img>
+                <div class="" style="font-size:15px">
+                    <div class="row"  height:100px;" >
+                        <div class="col-md-2">
+                            <img>
+                        </div>
+                        <div class="col-md-10" style="margin-top: 5px">
+                            <p style="color: green">@'.$comm->comment_user.'</p>
+                            <p style="font-size: 10px; margin-top:-8px; color:gray;">'.$comm->comment_date.'</p>
+                            <p style="margin-top:-8px;">'.$comm->comment.'</p>
+                        </div>
                     </div>
-                    <div class="col-md-10">
-                        <p style="color: green">@'.$comm->comment_user.'</p>
-                        <p style="font-size: 15px; margin-top:-8px; color:gray;">'.$comm->comment_date.'</p>
-                        <p>'.$comm->comment.'</p>
-                    </div>
+                    ';
+                    foreach($comment_rpl as $k =>$com_rpl){
+                        if($com_rpl->comment_parent_comment == $comm->comment_id){
+
+            $output.= '
+                        <div class="row"  >
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-9" style="margin-top: 5px">
+                                <p style="color: blue">@'.$com_rpl->comment_user.'</p>
+                                <p style="font-size: 10px; margin-top:-8px; color:gray;">'.$comm->comment_date.'</p>
+                                <p style="margin-top:-8px;">'.$com_rpl->comment.'</p>
+                            </div>
+                        </div>
                 </div>
-            ';
+                <hr />
+                ';
+                    }
+                }
+
         }
         echo $output;
     }
@@ -196,6 +218,8 @@ class ProductController extends Controller
         $comment->comment = $comment_content;
         $comment->comment_user = $comment_user;
         $comment->comment_status = 0;
+        $comment->comment_parent_comment = 0;
+
         $comment->save();
     }
 }
