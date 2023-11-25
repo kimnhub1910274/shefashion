@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 use Cart;
+use App\Models\OrderDetails;
 use App\Models\Product;
 session_start();
 
@@ -130,7 +131,7 @@ class CartController extends Controller
         $data = $request->all();
         $session_id = substr(md5(microtime()),rand(0,26),5);
         $cart = Session::get('cart');
-        if($cart == true){
+        if($cart ){
             $is_avaiable = 0;
             foreach($cart as $key => $val){
                 if($val['product_id'] == $data['cart_product_id']){
@@ -177,10 +178,35 @@ class CartController extends Controller
         $meta_keywords = $request->product_name;
         $meta_title = $request->product_name;
         $meta_url = $request->url();
+        $cart = Session::get('cart');
 
     return view('pages.cart.cart_ajax')->with('category', $cate_product)
     ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
     ->with('meta_title', $meta_title)->with('meta_url', $meta_url);
 
+    }
+    public function update_size_cart(Request $request){
+        $data = $request->all();
+        $cart = Session::get('cart');
+        $cart_size = $data['cart_size'];
+        if($cart == true){
+            $message = '';
+            foreach($cart_size as $key =>$qty){
+                $i = 0;
+                foreach($cart as $k => $val){
+                    $i++;
+                    if($val['session_id'] == $key){
+                        $cart[$k]['product_size'] = $qty;
+                        $message = 'Cập nhật số lượng sản phẩm '.$cart[$k]['product_name'].' thành công. Số lượng kho: ' . $cart[$k]['product_quantity'];
+                    }elseif($val['session_id'] == $key && $qty>$cart[$k]['product_quantity']){
+                        $message = 'Cập nhật số lượng sản phẩm ' . $cart[$k]['product_name'] . ' không thành công! Số lượng kho: ' . $cart[$k]['product_quantity'];
+                    }
+                }
+            }
+            Session::put('cart', $cart);
+            return Redirect()->back()->with('message', $message);
+        }else{
+            return Redirect()->back()->with('message', $message);
+        }
     }
 }

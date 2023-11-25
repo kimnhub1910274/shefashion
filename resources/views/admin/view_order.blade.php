@@ -248,33 +248,32 @@
             <!-- Payment -->
             <div class="card mb-4">
                 <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                    <h3 class="h6">Phương thức thanh toán</h3>
-                    <p>Thanh toán khi nhận hàng <br>
+                    <div class="row">
+                        <div class="col-lg-4">
+                        <h3 class="h6">Phương thức thanh toán</h3>
+                        <p>Thanh toán khi nhận hàng <br>
+                        </div>
+                        <div class="col-lg-4">
+                        <h3 class="h6">Người đặt đơn</h3>
+                        <address>
+                            <strong>{{ $customer->customer_name}}</strong><br>
+                            {{ $customer->customer_address}}
+                        <br>
+                        {{ $customer->customer_email}} <br>
+                            <abbr title="Phone">{{ $customer->customer_phone}}</abbr>
+                        </address>
+                        </div>
+                        <div class="col-lg-4">
+                            <h3 class="h6">Ghi chú của khách hàng</h3>
+                            <p>{{ $ship->ship_note}}</p>
+                        </div>
                     </div>
-                    <div class="col-lg-6">
-                    <h3 class="h6">Người đặt đơn</h3>
-                    <address>
-                        <strong>{{ $customer->customer_name}}</strong><br>
-                        {{ $customer->customer_address}}
-                       <br>
-                       {{ $customer->customer_email}} <br>
-                        <abbr title="Phone">{{ $customer->customer_phone}}</abbr>
-                    </address>
-                    </div>
-                </div>
                 </div>
             </div>
             </div>
         <div class="col-lg-4">
           <!-- Customer Notes -->
-          <div class="card mb-4">
-            <div class="card-body">
-              <h3 class="h6">Ghi chú của khách hàng</h3>
-              <p>{{ $ship->ship_note}}</p>
-            </div>
-          </div>
+
           <div class="card mb-4">
             <!-- Shipping information -->
             <div class="card-body">
@@ -286,6 +285,23 @@
               </address>
             </div>
           </div>
+          <div class="card mb-4">
+            <div class="card-body">
+            <h3 class="h6">Chat với khách hàng</h3>
+            <p></p>
+            </div>
+        </div>
+          @foreach ($order as $key => $valu)
+            @if ($valu->order_status == 3)
+            <div class="card mb-4">
+                <!-- Shipping information -->
+                <div class="card-body">
+                  <h3 class="h6">Đánh giá đơn hàng</h3>
+
+                </div>
+              </div>
+            @endif
+          @endforeach
           <div class="card mb-4">
             <!-- Shipping information -->
             <div class="card-body">

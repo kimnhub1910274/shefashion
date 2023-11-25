@@ -331,5 +331,27 @@ $("figure").mouseleave(
               })
 
         });
+        $('.sgehetj').change(function(){
+            var cart_session_id = $(this).attr("id");
+            var cart_size = $(this).val();
+            var product_size = $(this).children(":selected").attr("id");
+            var _token = $('input[name="_token"]').val();
+          //  alert(cart_session_id);
+            $.ajax({
+                type: 'POST',
+                url:'{{ url('/update-size-cart') }}',
+                data: {product_size:product_size, cart_size:cart_size, _token:_token, cart_session_id:cart_session_id},
+                success: function(data){
+                  //  alert('Cập nhật thành công');
+                }
+            });
+            {{-- window.setTimeout(function(){
+                location.reload();
+              }, 1000); --}}
+
+        });
     });
+</script>
+<script type="text/javascript">
+
 </script>

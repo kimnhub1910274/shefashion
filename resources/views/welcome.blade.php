@@ -514,5 +514,45 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
       $("#amount").val($("#range-slider").slider("values", 0) + "đ" + " - " + $("#range-slider").slider("values", 1) + "đ");
     } );
     </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        load_comment();
+        //alert(product_id);
+        function load_comment(){
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: '{{url('/load-comment')}}',
+                method: 'POST',
+                data:{product_id:product_id, _token:_token},
+                success:function(data){
+                    $('#comment').html(data);
+                }
+            });
+        }
+        $('.send-comment').click(function(){
+            var product_id = $('.comment_product_id').val();
+            var comment_user = $('.comment_user').val();
+            var comment_content = $('.comment_content').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/send-comment')}}',
+                method: 'POST',
+                data:{product_id:product_id, _token:_token, comment_user:comment_user, comment_content:comment_content},
+                success:function(data){
+                    $('#notify_comment').html('<p>Thêm thành công! Đang chờ duyệt.</p>').fadeOut(5000);
+                    load_comment();
+                    var comment_user = $('.comment_user').val('');
+                    var comment_content = $('.comment_content').val('');
+                }
+            });
+
+
+
+        });
+
+    });
+</script>
 
 

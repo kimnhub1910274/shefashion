@@ -2,11 +2,11 @@
 @section('home')
 <title>Chi tiết sản phẩm</title>
 @foreach ($product_details as $key => $value )
-<div class="container product-details"><!--product-details-->
+<div class="container product-details" style="margin-top: 50px;"><!--product-details-->
     <form action="">
         {{csrf_field() }}
         <div class="row">
-            <div class="col" style="margin-top: 30px;">
+            <div class="col" style="margin-top: 50px;">
                 <div class="view-product">
                     <input type="hidden" value="{{$value->product_id}}"
                     class="cart_product_id_{{$value->product_id}}">
@@ -79,18 +79,55 @@
                             </div>
                             <br>
                             <br>
-                            <button type="button" class="add-to-cart marker:btn btn btn-primary cart"
+                            <button type="button" class="add-to-cart marker:btn btn  cart"
+                            style="background-color: rgb(143, 10, 10); color:white;"
                             data-id_pro="{{$value->product_id}}" name="add-to-cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 Thêm vào giỏ hàng
                             </button>
-          </span>
-
+                    </span>
                 </div><!--/product-information-->
             </div>
         </div>
     </form>
-    <style>
+    <div class="product-detail-tab">
+        <div class="col-sm-12">
+            <ul class="nav ">
+                <li><b>BÌNH LUẬN</b></li>
+            </ul>
+            <br>
+            <form action="" method="post">
+                @csrf
+                <input type="hidden" class="comment_product_id"
+                 name="comment_product_id" id="" value="{{$value->product_id}}">
+                <div id="comment"></div>
+            </form>
+            <br>
+            <ul class="nav ">
+                <b>VIẾT BÌNH LUẬN</b></li>
+            </ul>
+            <br>
+            <form action="" >
+                @csrf
+                <div class="row g-3 align-items-center" >
+                    <div class="col-auto">
+                      <input type="text" name="comment_user"
+                       class="form-control comment_user" placeholder="Tên của bạn">
+                    </div>
+                    <div>
+                        <textarea class="form-control comment_content" name="comment" id=""
+                         cols="30" rows="3" placeholder="Viết bình luận"></textarea>
+                    </div>
+                    <div>Đánh giá:</div>
+                    <div id="notify_comment"></div>
+
+                </div>
+                <button type="button" class="send-comment btn" style="background-color: rgb(143, 10, 10); color:white;">Gửi</button>
+            </form>
+
+        </div>
+    </div>
+        <style>
         .product-details {
           margin-bottom: 40px;
           overflow: hidden;

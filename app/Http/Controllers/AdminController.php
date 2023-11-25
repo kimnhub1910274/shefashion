@@ -17,6 +17,7 @@ use App\Models\Login;
 use App\Models\Social;
 use App\Models\Statistic;
 use App\Models\Visitor;
+use App\Models\Comment;
 use Auth;
 use Carbon\Carbon;
 session_start();
@@ -285,6 +286,28 @@ class AdminController extends Controller
         }
         echo $data = json_encode($chart_data);
        // return $data;
+    }
+
+    public function manage_comment(){
+        $comment = Comment::with('product')->orderBy('comment_status', 'asc')->paginate(10);
+        return view('admin.comment.manage_comment')->with(compact('comment'));
+    }
+    public function approve_comment(Request $request){
+        $data = $request->all();
+        $comment = Comment::find($data['comment_id']);
+        $comment->comment_status = $data['comment_status'];
+        $comment->save();
+    }
+    public function reply_comment(Request $request){
+        $data = $request->all();
+        $comment = new Comment();
+        $comment->comment = $data['comment'];
+        $comment->comment_product_id = $data['comment_product_id'];
+        $comment->comment_parent_comment = $data['comment_id'];
+        $comment->comment_status = 1;
+        $comment->comment_user = 'Admin';
+        $comment->save();
+
     }
 
 

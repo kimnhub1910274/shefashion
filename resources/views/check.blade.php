@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -57,10 +59,6 @@
       <link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
 
       <!-- jquery -->
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
-        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 
@@ -303,37 +301,29 @@
                                 color: rgb(233, 161, 215);
                             }
                         </style>
-                        <div class="col-9 container-fluid  fixed" style="padding:5px; " >
+                        <div class="fixed col-9 container-fluid" style="padding:5px; " >
                             <?php
                                 $admin_id = Auth::user()->admin_id;
                                 if($admin_id ) {
                                 ?>
-                                <div class=" nav-collapse" id="nav-collapse">
+                                <div class=" nav-collapse" id="nav-collapse" >
                                     <ul class="nav"  id="nav" >
-                                        <li class="nav-item " >
+                                        <li class="nav-item " style="border: solid 1px;" >
                                             <a class="nav-link " style="color: black;"
-                                             href="{{ URL::to('/manage-order') }}">
-                                               Tất cả đơn hàng</a>
+                                             href="{{ URL::to('/manage-comment') }}">
+                                               Tất cả bình luận</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                         <a class="nav-link " style="color: black;"
-                                        href="{{ URL::to('/wait-pay/') }}">Chờ thanh toán</a>
+                                        href="{{ URL::to('/comment-not-approved') }}">Chưa duyệt</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                         <a class="nav-link " style="color: black;"
-                                         href="{{ URL::to('/delivery/') }}">Đang giao hàng</a>
+                                         href="{{ URL::to('/comment-approved') }}">Đã duyệt</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
-                                             href="{{ URL::to('/success-delivery/') }}">Giao hàng thành công</a>
-                                            </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " style="color: black;"
-                                                href="{{ URL::to('/cancel/') }}">Đã hủy</a>
-                                            </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " style="color: black;"
-                                                href="{{ URL::to('/delivery-failed/') }}">Giao hàng không thành công</a>
+                                             href="{{ URL::to('/comment-delete') }}">Đã xóa</a>
                                             </li>
                                     </ul>
                                 </div>
@@ -353,7 +343,7 @@
                         </div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @yield('all_ordered')
+                    @yield('check_content')
                 </div>
                 <!-- /.container-fluid -->
 
@@ -391,19 +381,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    <script>
-        $("#add_category").validate({
-            rules:{
-                cate_pro_name: "required",
-            },
-            messages:{
-                cate_pro_name: "Tên danh mục là bắt buộc",
-            },
-            submitHandler: function(form) {
-                form.submit();
-              }
+    <script type="text/javascript">
 
-        });
     </script>
 
     {{-- <script>
@@ -566,6 +545,64 @@
                 }
             });
         })
+    </script>
+    <script type="text/javascript">
+        $('.btn_comment_status').click(function(){
+            var comment_status = $(this).data('comment_status');
+            var comment_id = $(this).data('comment_id');
+            var comment_product_id = $(this).attr('id');
+           // alert(comment_status);
+           // alert(comment_id);
+           // alert(comment_product_id);
+           if(comment_status ==0 ){
+                var alert = 'Bỏ duyệt thành công';
+           }else{
+                 var alert = 'Duyệt thành công';
+           }
+           $.ajax({
+            method:'POST',
+            url: '{{url('/approve-comment')}}',
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{comment_status:comment_status, comment_id:comment_id, comment_product_id:comment_product_id
+                   },
+            success:function(data) {
+                $('#notify_comment').html('<p>'+alert+'</p>').fadeOut(2000);
+                location.reload();
+            }
+        });
+
+        });
+        $(".btn_reply_comment").click(function(){
+            var comment_id = $(this).data('comment_id');
+            var comment = $('.reply_comment_'+ comment_id ).val();
+
+            var comment_product_id = $(this).data('product_id');
+
+           // var alert = 'Đã trả lời bình luận';
+             {{-- alert(comment);
+          alert(comment_id);
+           alert(comment_product_id); --}}
+           $.ajax({
+                method:'POST',
+                url: '{{url('/reply-comment')}}',
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{comment:comment, comment_id:comment_id, comment_product_id:comment_product_id
+                    },
+                success:function(data) {
+                    $('#notify_comment').html('<p>Đã trả lời bình luận</p>').fadeOut(2000);
+                  location.reload();
+                }
+            });
+
+        });
+
+    </script>
+    <script>
+
     </script>
 
 

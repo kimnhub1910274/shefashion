@@ -147,8 +147,8 @@
                            <?php
                             if ($c == true) {
                                 ?>
-                                <input type="button" value="ĐẶT HÀNG" class="order btn btn-success"
-                                style="float: right" name="order" ></input>
+                                <input type="button" value="ĐẶT HÀNG" class="order btn"
+                                style="float: right; background-color: rgb(143, 10, 10); color:white;" name="order" ></input>
                                 <?php
                             }
                            ?>

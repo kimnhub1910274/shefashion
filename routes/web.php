@@ -66,6 +66,10 @@ Route::post('/filter-by-date', [AdminController::class, 'filter_by_date']);
 Route::post('/dashboard-filter', [AdminController::class, 'dashboard_filter']);
 Route::post('/days-order', [AdminController::class, 'days_order']);
 
+Route::get('/manage-comment', [AdminController::class, 'manage_comment']);
+Route::post('/approve-comment', [AdminController::class, 'approve_comment']);
+Route::post('/reply-comment', [AdminController::class, 'reply_comment']);
+
 
 //Category product
 Route::get('/add-category-product', [CategoryProduct::class, 'add_category_product']);
@@ -93,6 +97,9 @@ Route::get('/off-pro/{product_id}', [ProductController::class, 'off_pro']);
 Route::post('/import-product', [ProductController::class, 'import_product']);
 Route::post('/export-product', [ProductController::class, 'export_product']);
 
+Route::post('/load-comment', [ProductController::class, 'load_comment']);
+Route::post('/send-comment', [ProductController::class, 'send_comment']);
+
 //Cart
 Route::post('/save-cart', [CartController::class, 'save_cart']);
 Route::post('/save-cartt', [CartController::class, 'save_cartt']);
@@ -104,6 +111,7 @@ Route::post('/reduce-to-cart', [CartController::class, 'reduce_to_cart']);
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax']);
 Route::get('/show-cart-ajax', [CartController::class, 'show_cart_ajax']);
 Route::get('/delete-all-cart', [CartController::class, 'delete_all_cart']);
+Route::post('/update-size-cart', [CartController::class, 'update_size_cart']);
 
 
 //Checkout

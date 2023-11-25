@@ -10,6 +10,7 @@ use Excel;
 use App\Imports\ImportProduct;
 use App\Exports\ExportProduct;
 use App\Models\Product;
+use App\Models\Comment;
 session_start();
 
 class ProductController extends Controller
@@ -165,5 +166,36 @@ class ProductController extends Controller
         $path = $request->file('files')->getRealPath();
         Excel::import(new ImportProduct, $path);
         return back();
+    }
+    public function load_comment(Request $request){
+        $product_id = $request->product_id;
+        $comment = Comment::where('comment_product_id', $product_id)->where('comment_status', 1)->get();
+        $output = '';
+        foreach($comment as $k =>$comm){
+            $output.= '
+                <div class="row" style="border: 1px solid #ddd; border-radius:5px; margin-bottom:5px;">
+                    <div class="col-md-2">
+                        <img>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="color: green">@'.$comm->comment_user.'</p>
+                        <p style="font-size: 15px; margin-top:-8px; color:gray;">'.$comm->comment_date.'</p>
+                        <p>'.$comm->comment.'</p>
+                    </div>
+                </div>
+            ';
+        }
+        echo $output;
+    }
+    public function send_comment(Request $request){
+        $product_id = $request->product_id;
+        $comment_user = $request->comment_user;
+        $comment_content = $request->comment_content;
+        $comment = new Comment();
+        $comment->comment_product_id = $product_id;
+        $comment->comment = $comment_content;
+        $comment->comment_user = $comment_user;
+        $comment->comment_status = 0;
+        $comment->save();
     }
 }

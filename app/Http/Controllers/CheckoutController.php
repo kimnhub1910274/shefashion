@@ -192,7 +192,7 @@ class CheckoutController extends Controller
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $order->created_at = now();
         $order->save();
-
+        $cart = Session::get('cart');
         if(Session::get('cart')){
             foreach(Session::get('cart') as $key => $cart){
                 $order_detail = new OrderDetails;

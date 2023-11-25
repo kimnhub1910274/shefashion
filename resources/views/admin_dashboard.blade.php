@@ -176,7 +176,7 @@
             </div>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
+                <a class="nav-link collapsed" href="{{URL::to('/manage-review')}}">
                     <i class="fas fa-fw fa-check-to-slot"></i>
                     <span><b>Quản lý Đánh giá</b> </span>
                 </a>
@@ -188,7 +188,7 @@
             </div>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{URL::to('/manage-order')}}">
+                <a class="nav-link collapsed" href="{{URL::to('/manage-comment')}}">
                     <i class="fas fa-fw fa-comment"></i>
                     <span><b>Quản lý Bình luận</b></span>
                 </a>
@@ -404,6 +404,7 @@
             var order_code = $(this).children(":selected").attr("id");
             var _token = $('input[name="_token"]').val();
 
+           alert(order_code);
             //lay so luong
             quantity = [];
             $("input[name='product_sale_quantity']").each(function(){

@@ -97,6 +97,7 @@ class OrderController extends Controller
         return view('admin.view_order')->with(compact('order_details','order_details_product',
          'customer', 'ship', 'order', 'order_status'));
     }
+
     public function update_quantity_order(Request $request)
     {
         $data = $request->all();
@@ -231,6 +232,7 @@ class OrderController extends Controller
         $order_details->save();
 
     }
+
     public function print_order( $checkout_code ){
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->print_order_convert($checkout_code));
