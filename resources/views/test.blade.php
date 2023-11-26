@@ -383,9 +383,9 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
                     }
 
                 });
-                {{-- window.setTimeout(function(){
+                window.setTimeout(function(){
                     location.reload();
-                  }, 3000); --}}
+                  }, 3000);
            }
 
 

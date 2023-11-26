@@ -29,6 +29,7 @@
                             <th>Số lượng</th>
                             <th>Kích cỡ</th>
                             <th>Màu sắc</th>
+                            <th></th>
                             <th>Giá</th>
                             <th>Thành tiền</th>
                             <th>Xóa</th>
@@ -58,22 +59,22 @@
                                         </a>
                                     </td>
                                     <td>{{ $cart['product_name'] }}</td>
+
+                                    <form action="{{ URL::to('/update-quantity-cart') }}" method="post"
+                                        style="margin-left: ;margin-top: ">
+                                        {{@csrf_field() }}
                                     <td>
-                                        <form action="{{ URL::to('/update-quantity-cart') }}" method="post"
-                                            style="margin-left: ;margin-top: ">
-                                            {{@csrf_field() }}
+
                                             <input type="hidden" value="{{$cart['product_id']}}">
-                                            <input style="width:50px;" type="number"
+                                            <input style="width: 70px;" type="number"
                                                 name="cart_qty[{{ $cart['session_id'] }}]"
-                                                value="{{ $cart['product_qty'] }}" min="1" class="cart_quantity">
-                                            <button type="submit" class="btt">Cập nhật</button>
-                                        </form>
+                                                value="{{ $cart['product_qty'] }}" min="1"
+                                                 class="cart_quantity form-control">
                                     </td>
                                     <td>
-                                        <form action="{{ URL::to('/update-size-cart') }}" method="post">
-                                            @csrf
                                             @if($cart['product_size'] == 1)
-                                                <select name="cart_size" id="{{ $cart['session_id'] }}" class="form-control cart_size" >
+                                                <select name="cart_size[{{ $cart['session_id'] }}]"
+                                                 class="form-control cart_size" >
 
                                                     <option selected value="1" id="{{ $cart['product_size'] }}">
                                                         S</option>
@@ -83,12 +84,10 @@
                                                         L</option>
                                                     <option value="4" id="{{ $cart['product_size'] }}">
                                                         XL</option>
-
                                                 </select>
-                                                <input type="hidden" name="cart_session_id"
-                                                        id="{{ $cart['session_id'] }}" class="">
                                             @elseif($cart['product_size'] == 2)
-                                                    <select name="cart_size" id="{{ $cart['session_id'] }}" class="form-control cart_size" >
+                                                    <select name="cart_size[{{ $cart['session_id'] }}]" id=""
+                                                     class="form-control cart_size" >
                                                         <option  value="1" id="{{ $cart['product_size'] }}">
                                                             S</option>
                                                         <option selected value="2" id="{{ $cart['product_size'] }}">
@@ -99,10 +98,9 @@
                                                             XL</option>
 
                                                     </select>
-                                                    <input type="hidden" name="cart_session_id"
-                                                        id="{{ $cart['session_id'] }}" class="cart_session_id">
                                             @elseif($cart['product_size'] == 3)
-                                                <select name="cart_size" id="{{ $cart['session_id'] }}" class="form-control cart_size " >
+                                                <select name="cart_size[{{ $cart['session_id'] }}]" id=""
+                                                 class="form-control cart_size " >
                                                     <option  value="1" id="{{ $cart['product_size'] }}">
                                                         S</option>
                                                     <option  value="2" id="{{ $cart['product_size'] }}">
@@ -113,10 +111,9 @@
                                                         XL</option>
 
                                                 </select>
-                                                <input type="hidden" name="cart_session_id"
-                                                        id="{{ $cart['session_id'] }}" class="cart_session_id">
                                             @elseif($cart['product_size'] == 4)
-                                                    <select name="cart_size" id="{{ $cart['session_id'] }}" class="form-control cart_size" >
+                                                    <select name="cart_size[{{ $cart['session_id'] }}]" id=""
+                                                     class="form-control cart_size" >
                                                         <option  value="1" id="{{ $cart['product_size'] }}">
                                                             S</option>
                                                         <option  value="2" id="{{ $cart['product_size'] }}">
@@ -127,18 +124,13 @@
                                                             XL</option>
 
                                                     </select>
-                                                    <input type="hidden" name="cart_session_id"
-                                                        id="{{ $cart['session_id'] }}" class="cart_session_id">
                                             @endif
-                                            <button type="submit" class="btt">Cập nhật</button>
-                                        </form>
 
                                     </td>
                                     <td>
-                                        <form action="" method="post">
-                                            @csrf
                                             @if($cart['product_color'] == 1)
-                                                <select name="" id="" class="form-control " name="cart_color">
+                                                <select name="cart_color[{{ $cart['session_id'] }}]" id=""
+                                                 class="form-control " name="cart_color">
                                                     <option selected value="1" id="{{ $cart['product_color'] }}">
                                                         Vàng</option>
                                                     <option value="2" id="{{ $cart['product_color'] }}">
@@ -150,7 +142,8 @@
 
                                                 </select>
                                             @elseif($cart['product_color'] == 2)
-                                                    <select name="" id="" class="form-control " name="cart_color">
+                                                    <select name="cart_color[{{ $cart['session_id'] }}]" id=""
+                                                    class="form-control " name="cart_color">
                                                         <option  value="1" id="{{ $cart['product_color'] }}">
                                                             Vàng</option>
                                                         <option selected value="2" id="{{ $cart['product_color'] }}">
@@ -162,7 +155,8 @@
 
                                                     </select>
                                             @elseif($cart['product_color'] == 3)
-                                                <select name="" id="" class="form-control " name="cart_color">
+                                                <select name="cart_color[{{ $cart['session_id'] }}]" id=""
+                                                class="form-control " name="cart_color">
                                                     <option  value="1" id="{{ $cart['product_color'] }}">
                                                         Vàng</option>
                                                     <option  value="2" id="{{ $cart['product_color'] }}">
@@ -174,7 +168,8 @@
 
                                                 </select>
                                             @elseif($cart['product_color'] == 4)
-                                                    <select name="" id="" class="form-control " name="cart_color">
+                                                    <select name="cart_color[{{ $cart['session_id'] }}]" id=""
+                                                     class="form-control " name="cart_color">
                                                         <option  value="1" id="{{ $cart['product_color'] }}">
                                                             Vàng</option>
                                                         <option  value="2" id="{{ $cart['product_color'] }}">
@@ -186,9 +181,11 @@
 
                                                     </select>
                                             @endif
+                                        </td>
+                                        <td>
                                             <button type="submit" class="btt">Cập nhật</button>
+                                        </td>
                                         </form>
-                                    </td>
                                     <td>{{ number_format($cart['product_price']) }}</td>
                                     <td>{{ number_format($subtotal) }}</td>
                                     <td>
@@ -219,7 +216,8 @@
                     ?>
                             <p class="text-center" style="color: red" > Hãy đăng nhập để mua sắm. </p>
                             <a href="{{ URL::to('/login-checkout') }}" class="btn btn-success"
-                             style="float:right ; background-color: rgb(143, 10, 10); color:white;"><b>ĐẶT HÀNG</b></a>
+                             style="float:right ; background-color: rgb(143, 10, 10);
+                              color:white;"><b>ĐẶT HÀNG</b></a>
                     <?php
                         }else {
                     ?>

@@ -291,30 +291,7 @@ class AdminController extends Controller
         echo $data = json_encode($chart_data);
     }
 
-    public function manage_comment(){
-        $comment = Comment::with('product')->where('comment_parent_comment', '=', 0)
-        ->orderBy('comment_id', 'desc')->paginate(10);
-        $comment_rpl = Comment::with('product')
-        ->where('comment_parent_comment', '>', 0)->orderBy('comment_id', 'asc')->paginate(10);
-        return view('admin.comment.manage_comment')->with(compact('comment', 'comment_rpl' ));
-    }
-    public function approve_comment(Request $request){
-        $data = $request->all();
-        $comment = Comment::find($data['comment_id']);
-        $comment->comment_status = $data['comment_status'];
-        $comment->save();
-    }
-    public function reply_comment(Request $request){
-        $data = $request->all();
-        $comment = new Comment();
-        $comment->comment = $data['comment'];
-        $comment->comment_product_id = $data['comment_product_id'];
-        $comment->comment_parent_comment = $data['comment_id'];
-        $comment->comment_status = 1;
-        $comment->comment_user = 'Admin';
-        $comment->save();
 
-    }
 
 
 }

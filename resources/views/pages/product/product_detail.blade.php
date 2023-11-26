@@ -47,32 +47,34 @@
                             <p> <b>Giá:</b> {{number_format($value->product_price)}} VND</p>
                             <div class="row">
                                 <div class="col">
-                                    <label><b>Số lượng:</b></label>
-                                    <input type="number" class="cart_product_qty_{{$value->product_id}}"
-                                     value="1" name="quantity" style="width:50px ;" min="1" />
+                                    <label><b>Số lượng:</b></label><br>
+                                    <input type="number" class="cart_product_qty_{{$value->product_id}} form-control"
+                                     value="1" name="quantity" style="width:80px ;" min="1" />
                                     <input type="hidden" value="{{$value->product_id}}"
                                     name="product_id_hidden" style="width:50px;" />
 
                                 </div>
                                 <div class="col">
                                     <label for=""><b>Kích cỡ:</b></label>
-                                    <select class="form-select cart_size cart_product_size_{{$value->product_id}}" name="size" >
+                                    <select class="form-select cart_size
+                                     cart_product_size_{{$value->product_id}}" name="size" >
                                         <option selected value="0" id="{{$value->product_id}}">Chọn</option>
-                                        <option value="1">S</option>
-                                        <option value="2">M</option>
-                                        <option value="3">L</option>
-                                        <option value="4">XL</option>
+                                        <option value="1" id="{{$value->product_id}}">S</option>
+                                        <option value="2" id="{{$value->product_id}}">M</option>
+                                        <option value="3" id="{{$value->product_id}}">L</option>
+                                        <option value="4" id="{{$value->product_id}}">XL</option>
 
                                       </select>
                                 </div>
                                 <div class="col">
                                     <label for=""><b>Màu sắc:</b></label>
-                                    <select class="form-select cart_color cart_product_color_{{$value->product_id}}" name="color" >
+                                    <select class="form-select cart_color
+                                     cart_product_color_{{$value->product_id}}" name="color" >
                                         <option selected value="0" id="{{$value->product_id}}">Chọn</option>
-                                        <option value="1">Vàng</option>
-                                        <option value="2">Trắng</option>
-                                        <option value="3">Hồng</option>
-                                        <option value="4">Xanh</option>
+                                        <option value="1" id="{{$value->product_id}}">Vàng</option>
+                                        <option value="2" id="{{$value->product_id}}">Trắng</option>
+                                        <option value="3" id="{{$value->product_id}}">Hồng</option>
+                                        <option value="4" id="{{$value->product_id}}">Xanh</option>
 
                                       </select>
                                 </div>

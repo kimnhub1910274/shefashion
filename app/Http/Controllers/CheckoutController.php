@@ -135,7 +135,9 @@ class CheckoutController extends Controller
 
     public function log_out()
     {
-        Session::flush();
+        Session::put('customer_name', null);
+        Session::put('customer_id', null);
+        Session::put('cart', null);
         return Redirect::to('/');
     }
     public function manage_order()

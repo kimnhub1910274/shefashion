@@ -321,10 +321,7 @@
                                         <a class="nav-link " style="color: black;"
                                          href="{{ URL::to('/comment-approved') }}">Đã duyệt</a>
                                         </li>
-                                        <li class="nav-item" style="border: solid 1px;">
-                                            <a class="nav-link " style="color: black;"
-                                             href="{{ URL::to('/comment-delete') }}">Đã xóa</a>
-                                            </li>
+
                                     </ul>
                                 </div>
 

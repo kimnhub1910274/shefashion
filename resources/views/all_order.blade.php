@@ -310,28 +310,28 @@
                                 ?>
                                 <div class=" nav-collapse" id="nav-collapse">
                                     <ul class="nav"  id="nav" >
-                                        <li class="nav-item " >
+                                        <li class="nav-item " style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
                                              href="{{ URL::to('/manage-order') }}">
                                                Tất cả đơn hàng</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                         <a class="nav-link " style="color: black;"
                                         href="{{ URL::to('/wait-pay/') }}">Chờ thanh toán</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                         <a class="nav-link " style="color: black;"
                                          href="{{ URL::to('/delivery/') }}">Đang giao hàng</a>
                                         </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
                                              href="{{ URL::to('/success-delivery/') }}">Giao hàng thành công</a>
                                             </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
                                                 href="{{ URL::to('/cancel/') }}">Đã hủy</a>
                                             </li>
-                                        <li class="nav-item">
+                                        <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
                                                 href="{{ URL::to('/delivery-failed/') }}">Giao hàng không thành công</a>
                                             </li>

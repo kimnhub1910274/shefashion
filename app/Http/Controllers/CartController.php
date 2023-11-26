@@ -70,9 +70,6 @@ class CartController extends Controller
     public function delete_to_cart($session_id)
     {
         $cart = Session::get('cart');
-        //echo '<pre>';
-       //     print_r($cart);
-        //echo '</pre>';
         if($cart == true){
             foreach ($cart as $k => $v){
                 if($v['session_id'] == $session_id){
@@ -85,14 +82,13 @@ class CartController extends Controller
             return Redirect()->back()->with('message', "Xóa sản phẩm thất bại!");
 
         }
-        //Cart::remove($id);
     }
 
     public function update_quantity_cart(Request $request)
     {
         $data = $request->all();
         $cart = Session::get('cart');
-        if($cart == true){
+        if($cart){
             $message = '';
             foreach($data['cart_qty'] as $key =>$qty){
                 $i = 0;
@@ -100,16 +96,39 @@ class CartController extends Controller
                     $i++;
                     if($val['session_id'] == $key && $qty < $cart[$k]['product_quantity']){
                         $cart[$k]['product_qty'] = $qty;
-                        $message = 'Cập nhật số lượng sản phẩm '.$cart[$k]['product_name'].' thành công. Số lượng kho: ' . $cart[$k]['product_quantity'];
-                    }elseif($val['session_id'] == $key && $qty>$cart[$k]['product_quantity']){
-                        $message = 'Cập nhật số lượng sản phẩm ' . $cart[$k]['product_name'] . ' không thành công! Số lượng kho: ' . $cart[$k]['product_quantity'];
+                        $message = 'Cập nhật số lượng sản phẩm '
+                        .$cart[$k]['product_name'].' thành công. Số lượng kho: ' . $cart[$k]['product_quantity'];
+                    }elseif($val['session_id'] == $key &&
+                        $qty>$cart[$k]['product_quantity']){
+                        $message = 'Cập nhật số lượng sản phẩm '
+                         . $cart[$k]['product_name'] . ' không thành công! Số lượng kho: ' . $cart[$k]['product_quantity'];
                     }
                 }
             }
-            Session::put('cart', $cart);
-            return Redirect()->back()->with('message', $message);
+            foreach($data['cart_size'] as $s => $size){
+                $y =0;
+                foreach($cart as $c => $ca){
+                    $i++;
+                    if($ca['session_id'] ==$s){
+
+                        $cart[$c]['product_size'] = $size;
+                    }
+                }
+            }
+            foreach($data['cart_color'] as $c => $color){
+                $y =0;
+                foreach($cart as $ca => $car){
+                    $i++;
+                    if($car['session_id'] ==$c){
+
+                        $cart[$ca]['product_color'] = $color;
+                    }
+                }
+            }
+           Session::put('cart', $cart);
+            return Redirect()->back();
         }else{
-            return Redirect()->back()->with('message', $message);
+            return Redirect()->back();
         }
     }
     public function reduce_to_cart(Request $request)

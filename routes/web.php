@@ -10,7 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,10 +65,6 @@ Route::post('/search-review', [AdminController::class, 'search_review']);
 Route::post('/filter-by-date', [AdminController::class, 'filter_by_date']);
 Route::post('/dashboard-filter', [AdminController::class, 'dashboard_filter']);
 Route::post('/days-order', [AdminController::class, 'days_order']);
-
-Route::get('/manage-comment', [AdminController::class, 'manage_comment']);
-Route::post('/approve-comment', [AdminController::class, 'approve_comment']);
-Route::post('/reply-comment', [AdminController::class, 'reply_comment']);
 
 
 //Category product
@@ -197,3 +193,10 @@ Route::group(['middleware' => 'auth.role' ], function(){
 
 //});
 Route::get('/delete-roles/{admin_id}', [UserController::class, 'delete_roles'])->middleware('auth.role');
+
+Route::get('/manage-comment', [CommentController::class, 'manage_comment']);
+Route::post('/approve-comment', [CommentController::class, 'approve_comment']);
+Route::post('/reply-comment', [CommentController::class, 'reply_comment']);
+Route::get('/comment-not-approved', [CommentController::class, 'comment_not_approved']);
+Route::get('/comment-approved', [CommentController::class, 'comment_approved']);
+
