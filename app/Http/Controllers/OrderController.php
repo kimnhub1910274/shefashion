@@ -18,48 +18,12 @@ use Mail;
 use App\Mail\Gmail;
 class OrderController extends Controller
 {
-    public function ordered($customerId)
-    {
-        $get_order = Order::where('customer_id', Session::get('customer_id'))
-        ->orderBy('created_at', 'DESC')->get();
-        return view('customer.ordered')->with(compact('get_order'));
 
-    }
-    public function wait_pay($customerId)
-    {
-        $wait_pay =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '1')
-        ->orderBy('created_at', 'DESC')->get();
-            return view('customer.wait_pay')->with(compact('wait_pay'));
-}
-    public function delivery($customerId)
-        {
-            $delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '2')
-            ->orderBy('created_at', 'DESC')->get();
-                return view('customer.delivery')->with(compact('delivery'));
-    }
-    public function success_delivery($customerId)
-        {
-            $success_delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '3')
-            ->orderBy('created_at', 'DESC')->get();
-                return view('customer.success_delivery')->with(compact('success_delivery'));
-    }
-    public function cancel($customerId)
-        {
-            $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
-            ->orderBy('created_at', 'DESC')->get();
-                return view('customer.cancel')->with(compact('cancel'));
-    }
-    public function delivery_failed($customerId)
-        {
-            $delivery_failed =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '5')
-            ->orderBy('created_at', 'DESC')->get();
-                return view('customer.delivery_failed')->with(compact('delivery_failed'));
-    }
 
     public function view_ordered($order_id)
     {
         $order_details = OrderDetails::with('product')->where('order_code', $order_id)->get();
-        $order = Order::where('order_code', $order_id)->get();
+        $order = Order::with('review')->where('order_code', $order_id)->get();
 
         foreach ($order as $key => $value) {
             $customer_id = $value->customer_id;
@@ -412,6 +376,43 @@ class OrderController extends Controller
 
         return $output;
     }
+    public function ordered($customerId)
+    {
+        $get_order = Order::where('customer_id', Session::get('customer_id'))
+        ->orderBy('created_at', 'DESC')->get();
+        return view('customer.ordered')->with(compact('get_order'));
+
+    }
+    public function wait_pay($customerId)
+    {
+        $wait_pay =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '1')
+        ->orderBy('created_at', 'DESC')->get();
+            return view('customer.wait_pay')->with(compact('wait_pay'));
+}
+    public function delivery($customerId)
+        {
+            $delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '2')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('customer.delivery')->with(compact('delivery'));
+    }
+    public function success_delivery($customerId)
+        {
+            $success_delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '3')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('customer.success_delivery')->with(compact('success_delivery'));
+    }
+    public function cancel($customerId)
+        {
+            $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('customer.cancel')->with(compact('cancel'));
+    }
+    public function delivery_failed($customerId)
+        {
+            $delivery_failed =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '5')
+            ->orderBy('created_at', 'DESC')->get();
+                return view('customer.delivery_failed')->with(compact('delivery_failed'));
+    }
     public function cancel_order(Request $request)
     {
         $data = $request->all();
@@ -435,4 +436,5 @@ class OrderController extends Controller
         $order->save();
 
     }
+
 }

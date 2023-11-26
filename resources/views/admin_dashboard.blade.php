@@ -404,7 +404,7 @@
             var order_code = $(this).children(":selected").attr("id");
             var _token = $('input[name="_token"]').val();
 
-           alert(order_code);
+           //alert(order_code);
             //lay so luong
             quantity = [];
             $("input[name='product_sale_quantity']").each(function(){

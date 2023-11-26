@@ -11,6 +11,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\OrderReviewController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -200,3 +202,5 @@ Route::post('/reply-comment', [CommentController::class, 'reply_comment']);
 Route::get('/comment-not-approved', [CommentController::class, 'comment_not_approved']);
 Route::get('/comment-approved', [CommentController::class, 'comment_approved']);
 
+Route::post('/load-review', [OrderReviewController::class, 'load_review']);
+Route::post('/send-review', [OrderReviewController::class, 'send_review']);

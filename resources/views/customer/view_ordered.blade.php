@@ -180,17 +180,36 @@
             <div class="card mb-4">
                 <!-- Shipping information -->
                 <div class="card-body">
-                  <h3 class="h6">Đánh giá đơn hàng</h3>
-                  <form action="">
-                    @csrf
-                    <div>
-                        Đánh giá:
-                      </div>
-                      <div>
-                        <input type="text" class="form-control">
-                      </div>
-                      <button type="button" class="btn" style="background-color: rgb(143, 10, 10); color:white;">Đánh giá</button>
-                  </form>
+                    <h3 class="h6">Đánh giá đơn hàng</h3>
+                    <form action="" method="post">
+
+                        @csrf
+                        <input type="hidden" class="order_id"
+                        name="order_id" id="" value="{{$valu->order_code}}">
+
+                        <input type="hidden" class="customer_id"
+                        name="customer_id" id="" value="{{$valu->customer_id}}">
+
+                        <div class="" id="order_review"  ></div>
+
+                    </form>
+                    <form action="" method="post">
+                        @csrf
+                        <div>
+                            Đánh giá:
+                          </div>
+                          <div>
+                            <textarea name="review" class="form-control review" ></textarea>
+                            <input type="hidden" class="order_id" value="{{$valu->order_id}}">
+                            <input type="hidden" class="customer_id"
+                             name="customer_id" id="" value="{{$valu->customer_id}}">
+                          </div>
+                          <br>
+                          <button type="button" class="btn send-review" style="background-color: rgb(143, 10, 10);
+                           color:white;">Đánh giá</button>
+                      </form>
+
+
                 </div>
               </div>
             @endif

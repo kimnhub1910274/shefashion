@@ -37,10 +37,8 @@
                                             Chờ xác nhận
                                             @elseif($order->order_status == 1)
                                             Đơn hàng đã được xử lý
-                                            </form>
                                             @elseif($order->order_status == 2)
                                             Đang giao hàng
-                                            </form>
                                             @elseif($order->order_status == 3)
                                             Giao hàng thành công
                                             @elseif($order->order_status == 4)

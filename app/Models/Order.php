@@ -14,6 +14,10 @@ class Order extends Model
     protected $primaryKey = 'order_id';
     protected $table = 'tbl_orders';
 
+    public function review()
+    {
+        return $this->hasMany('App\Models\OrderReview', 'order_review');
+    }
 
 
 }

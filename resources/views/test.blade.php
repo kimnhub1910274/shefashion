@@ -452,35 +452,35 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
     </script>
 <script type="text/javascript">
     $(document).ready(function(){
-        load_comment();
+        load_review();
         //alert(product_id);
-        function load_comment(){
-            var product_id = $('.comment_product_id').val();
+        function load_review(){
+            var order_id = $('.order_id').val();
+            var customer_id = $('.customer_id').val();
             var _token = $('input[name="_token"]').val();
 
             $.ajax({
-                url: '{{url('/load-comment')}}',
+                url: '{{url('/load-review')}}',
                 method: 'POST',
-                data:{product_id:product_id, _token:_token},
+                data:{order_id:order_id, customer_id:customer_id, _token:_token},
                 success:function(data){
-                    $('#comment').html(data);
+                    $('#order_review').html(data);
                 }
             });
         }
-        $('.send-comment').click(function(){
-            var product_id = $('.comment_product_id').val();
-            var comment_user = $('.comment_user').val();
-            var comment_content = $('.comment_content').val();
+        $('.send-review').click(function(){
+            var order_id = $('.order_id').val();
+            var customer_id = $('.customer_id').val();
+            var review = $('.review').val();
             var _token = $('input[name="_token"]').val();
             $.ajax({
-                url: '{{url('/send-comment')}}',
+                url: '{{url('/send-review')}}',
                 method: 'POST',
-                data:{product_id:product_id, _token:_token, comment_user:comment_user, comment_content:comment_content},
+                data:{order_id:order_id, _token:_token, customer_id:customer_id, review:review},
                 success:function(data){
                     $('#notify_comment').html('<p>Thêm thành công! Đang chờ duyệt.</p>').fadeOut(5000);
-                    load_comment();
-                    var comment_user = $('.comment_user').val('');
-                    var comment_content = $('.comment_content').val('');
+                    load_review();
+                    var review = $('.review').val('');
                 }
             });
 
