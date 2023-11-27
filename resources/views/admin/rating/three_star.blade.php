@@ -3,7 +3,7 @@
 
     <div class="container">
         <div class="card">
-            @foreach($review as $key => $re)
+            @foreach($three_star as $key => $re)
             <div class="card-header">
                 <span><?php echo $key+1;?>
                     <span style="text-align: center;">
@@ -35,7 +35,7 @@
 
         </div>
         <div>
-               {{ $review->links() }}
+               {{ $three_star->links() }}
         </div>
     </div>
     <style>

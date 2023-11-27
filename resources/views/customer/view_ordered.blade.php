@@ -193,30 +193,30 @@
                         <div class="" id="order_review"  ></div>
 
                     </form>
+                    <style>
+                        ul {
+                            list-style-type: none;
+                            margin: 0;
+                            padding: 0;
+                            overflow: hidden;
+                        }
+
+                        li {
+                            float: left;
+                        }
+
+                        li a {
+                            display: block;
+                            color: white;
+                            text-align: center;
+                            padding: 16px;
+                            text-decoration: none;
+                        }
+
+                        </style>
                     <form action="" method="post">
                         @csrf
                         <div>
-                            <style>
-                                ul {
-                                    list-style-type: none;
-                                    margin: 0;
-                                    padding: 0;
-                                    overflow: hidden;
-                                }
-
-                                li {
-                                    float: left;
-                                }
-
-                                li a {
-                                    display: block;
-                                    color: white;
-                                    text-align: center;
-                                    padding: 16px;
-                                    text-decoration: none;
-                                }
-
-                                </style>
                             <ul class="list-inline rating">
                                 @for ($count = 1; $count<=5; $count++)
                                     @php
@@ -243,7 +243,7 @@
                         </div>
                           <div>
                             <textarea name="review" class="form-control review" ></textarea>
-                            <input type="hidden" class="order_id" value="{{$valu->order_id}}">
+                            <input type="hidden" class="order_code" value="{{$valu->order_code}}">
                             <input type="hidden" class="customer_id"
                              name="customer_id" id="" value="{{$valu->customer_id}}">
                           </div>

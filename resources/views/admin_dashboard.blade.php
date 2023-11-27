@@ -376,6 +376,32 @@
        crossorigin="anonymous"></script>
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
+        $('.btn_customer_status').click(function(){
+            var customer_status = $(this).data('customer_status');
+            var customer_id = $(this).data('customer_id');
+            //alert(comment_user);
+           // alert(comment_id);
+           // alert(comment_product_id);
+           if(customer_status ==0 ){
+                var alert = 'Bỏ chặn thành công';
+           }else{
+                 var alert = 'Chặn thành công';
+           }
+           $.ajax({
+            method:'POST',
+            url: '{{url('/approve-customer')}}',
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{customer_status:customer_status, customer_id:customer_id
+                   },
+            success:function(data) {
+                $('#notify_customer').html('<p>'+alert+'</p>').fadeOut(2000);
+                location.reload();
+            }
+        });
+
+        });
         $('.update_quantity_order').click(function () {
             var order_product_id = $(this).data('product_id');
             var order_qty = $('.order_qty_'+order_product_id).val();
@@ -475,7 +501,6 @@
     <!-- jquery -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  //  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 
     <script type="text/javascript">
     $( function() {
@@ -524,7 +549,6 @@
             var _token = $('input[name="_token"]').val();
             var from_date = $('#datepicker').val();
             var to_date = $('#datepicker2').val();
-           // var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 url:'{{ url('/filter-by-date') }}',
                 type: 'POST',

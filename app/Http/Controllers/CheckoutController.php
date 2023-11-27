@@ -37,6 +37,7 @@ class CheckoutController extends Controller
         $data['customer_phone'] = $request->customer_phone;
         $data['customer_address'] = $request->customer_address;
         $data['customer_password'] = md5($request->customer_password);
+        $data['customer_status'] = 1;
 
         $customer_id = DB::table('tbl_customers')->insertGetId($data);
 
@@ -45,7 +46,7 @@ class CheckoutController extends Controller
         Session::put('username', $request->username);
         Session::put('customer_phone', $request->customer_phone);
         Session::put('customer_address', $request->customer_address);
-
+        Session::put('customer_status', $result->customer_status);
         return Redirect::to('/home');
     }
     public function login()
@@ -66,7 +67,7 @@ class CheckoutController extends Controller
             Session::put('customer_id', $result->customer_id);
             Session::put('customer_phone', $result->customer_phone);
             Session::put('customer_address', $result->customer_address);
-
+            Session::put('customer_status', $result->customer_status);
             return Redirect::to('/home');
         } else {
             return Redirect::to('/login_checkout')->with('message',"Vui lòng đăng nhập lại!!");
@@ -80,8 +81,9 @@ class CheckoutController extends Controller
             $meta_keywords = $request->product_name;
             $meta_title = $request->product_name;
             $meta_url = $request->url();
+        $customer = Customer::where('customer_id', Session::get('customer_id'))->get();
         return view('pages.checkout.check_out')->with('category', $cate_product)->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
-        ->with('meta_title', $meta_title)->with('meta_url', $meta_url);
+        ->with('meta_title', $meta_title)->with('meta_url', $meta_url)->with('customer', $customer);
     }
     public function delete_to_checkout($id)
     {

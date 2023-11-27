@@ -31,9 +31,7 @@ class ProductController extends Controller
         $data['product_status'] = $request->product_status;
         $data['product_quantity'] = $request->product_quantity;
         $data['product_sold'] = $request->product_sold;
-        $data['color'] = $request->color;
-        $data['size'] = $request->size;
-        $data['product_total_import'] = $request->product_total_import;
+        $data['product_total_import'] = $request->product_total_import + $request->product_quantity;
         $get_img = $request->file('product_image');
 
         if ($get_img) {
@@ -89,9 +87,7 @@ class ProductController extends Controller
         $data['product_status'] = $request->product_status;
         $data['product_quantity'] = $request->product_quantity;
         $data['product_sold'] = $request->product_sold;
-        $data['color'] = $request->color;
-        $data['size'] = $request->size;
-        $data['product_total_import'] = $request->product_total_import;
+        $data['product_total_import'] = $request->product_total_import + $request->product_quantity;
 
         $get_img = $request->file('product_image');
         if ($get_img) {

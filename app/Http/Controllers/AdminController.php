@@ -73,12 +73,12 @@ class AdminController extends Controller
         $product_count = Product::all()->count();
         $order_count = Order::where('order_status','0')->get();
         $customer_count = Customer::all()->count();
-
+        $comment_count = Comment::where('comment_status','0')->get();
 
 
        return view('admin.dashboard')->with(compact('product_count', 'order_count', 'customer_count',
       'visitor_of_lastmonth_count', 'visitor_of_thismonth_count', 'visitor_count',
-       'visitor_of_year_count', 'visitor_total'));
+       'visitor_of_year_count', 'visitor_total', 'comment_count'));
     }
 
     public function dashboard(Request $request)

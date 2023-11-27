@@ -313,6 +313,7 @@
                         <div class="fixed col-9 container-fluid" style="padding:5px; " >
                             <?php
                                 $admin_id = Auth::user()->admin_id;
+
                                 if($admin_id ) {
                                 ?>
                                 <div class=" nav-collapse" id="nav-collapse" >
@@ -324,23 +325,23 @@
                                         </li>
                                         <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
-                                            href="{{ URL::to('/five-star') }}">5 Sao ()</a>
+                                            href="{{ URL::to('/five-star') }}">5 Sao </a>
                                         </li>
                                         <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
-                                            href="{{ URL::to('/four-star') }}">4 Sao ()</a>
+                                            href="{{ URL::to('/four-star') }}">4 Sao </a>
                                         </li>
                                         <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
-                                            href="{{ URL::to('/three-star') }}">3 Sao ()</a>
+                                            href="{{ URL::to('/three-star') }}">3 Sao </a>
                                         </li>
                                         <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
-                                            href="{{ URL::to('/two-star') }}">2 Sao ()</a>
+                                            href="{{ URL::to('/two-star') }}">2 Sao </a>
                                         </li>
                                         <li class="nav-item" style="border: solid 1px;">
                                             <a class="nav-link " style="color: black;"
-                                            href="{{ URL::to('/one-star') }}">1 Sao ()</a>
+                                            href="{{ URL::to('/one-star') }}">1 Sao </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -618,6 +619,25 @@
                 }
             });
 
+
+        });
+        $(document).ready(function(){
+            order_review();
+            //alert(product_id);
+            function order_review(){
+                var order_code = $('.order_code').val();
+                var customer_id = $('.customer_id').val();
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: '{{url('/order-review')}}',
+                    method: 'POST',
+                    data:{order_code:order_code, customer_id:customer_id, _token:_token},
+                    success:function(data){
+                        $('#order_reviews').html(data);
+                    }
+                });
+            }
         });
 
     </script>

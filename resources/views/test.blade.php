@@ -405,6 +405,12 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             var ship_address = $('.ship_address').val();
             var ship_note = $('.ship_note').val();
             var _token = $('input[name="_token"]').val();
+            var customer_status = $('.customer_status').val();
+
+           // alert(customer_status)
+           if(customer_status == 0){
+                alert('Bạn không thể đặt hàng, có thể bạn đã bị chặn!');
+           }
             $.ajax({
                 url: '{{url('/confirm-order')}}',
                 method: 'POST',
@@ -417,7 +423,9 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             });
             window.setTimeout(function(){
                 location.reload();
-              }, 1000);
+            }, 1000);
+
+
         });
     });
 </script>
@@ -458,28 +466,31 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
         load_review();
         //alert(product_id);
         function load_review(){
-            var order_id = $('.order_id').val();
+            var order_code = $('.order_code').val();
             var customer_id = $('.customer_id').val();
             var _token = $('input[name="_token"]').val();
 
             $.ajax({
                 url: '{{url('/load-review')}}',
                 method: 'POST',
-                data:{order_id:order_id, customer_id:customer_id, _token:_token},
+                data:{order_code:order_code, customer_id:customer_id, _token:_token},
                 success:function(data){
                     $('#order_review').html(data);
                 }
             });
         }
         $('.send-review').click(function(){
-            var order_id = $('.order_id').val();
+           // var index = $(this).data("index");
+            var order_code = $('.order_code').val();
             var customer_id = $('.customer_id').val();
             var review = $('.review').val();
             var _token = $('input[name="_token"]').val();
+            {{-- alert(index);
+            alert(order_id); --}}
             $.ajax({
                 url: '{{url('/send-review')}}',
                 method: 'POST',
-                data:{order_id:order_id, _token:_token, customer_id:customer_id, review:review},
+                data:{order_code:order_code, _token:_token, customer_id:customer_id, review:review},
                 success:function(data){
                     $('#notify_comment').html('<p>Thêm thành công! Đang chờ duyệt.</p>').fadeOut(5000);
                     load_review();
@@ -487,6 +498,11 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
                 }
             });
         });
+            {{-- window.setTimeout(function(){
+                location.reload();
+              }, 1000); --}}
+
+
     });
 </script>
 <script type="text/javascript">

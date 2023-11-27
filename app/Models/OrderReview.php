@@ -9,7 +9,7 @@ class OrderReview extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'customer_id', 'order_id', 'review', 'img', 'range_id', 'review_date'
+        'customer_id', 'order_code', 'review', 'img', 'range', 'review_date'
     ];
     protected $primaryKey = 'order_review';
     protected $table = 'tbl_order_review';
@@ -20,8 +20,7 @@ class OrderReview extends Model
     public function customer(){
         return $this->belongsTo('App\Models\Customer', 'customer_id');
     }
-    public function rating()
-{
-    return $this->belongsTo('App\Models\OrderRating', 'rating_id');
-}
+    public function rating(){
+        return $this->belongsTo('App\Models\OrderRating', 'order_code');
+    }
 }

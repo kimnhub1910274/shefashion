@@ -27,4 +27,13 @@ class CustomerController extends Controller
         $address = view('customer.address')->with('get_address', $get_address);
         return view('customer')->with('customer.address', $address);
     }
+    public function approve_customer(Request $request){
+        $data = $request->all();
+        $customer = Customer::find($data['customer_id']);
+        $customer->customer_status = $data['customer_status'];
+        $customer->save();
+        Session::put('customer_name', null);
+        Session::put('customer_id', null);
+        Session::put('cart', null);
+    }
 }

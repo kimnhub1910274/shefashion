@@ -170,6 +170,9 @@ Route::get('/delivery-failed', [AdminController::class, 'delivery_failed']);
 //Customer
 Route::get('/customer/{customerId}', [CustomerController::class, 'customer']);
 Route::get('/address/{customerId}', [CustomerController::class, 'address']);
+Route::post('/approve-customer', [CustomerController::class, 'approve_customer']);
+
+
 
 //Authentication role
 Route::get('/register-admin', [AuthController::class, 'register_admin']);

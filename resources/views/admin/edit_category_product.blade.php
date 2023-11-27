@@ -47,9 +47,9 @@
                                 .panel{
                                     margin-left: 30%;
                                 }
-                                {{-- .add{
-                                    width: 100px;
-                                } --}}
+                                .add{
+                                    margin-bottom: 120px
+                                }
                             </style>
                         </form>
                     </div>

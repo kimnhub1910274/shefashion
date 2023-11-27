@@ -298,27 +298,7 @@
                 <div class="card-body">
                   <h3 class="h6">Đánh giá đơn hàng</h3>
                   <div>
-                    <style>
-                        ul {
-                            list-style-type: none;
-                            margin: 0;
-                            padding: 0;
-                            overflow: hidden;
-                        }
 
-                        li {
-                            float: left;
-                        }
-
-                        li a {
-                            display: block;
-                            color: white;
-                            text-align: center;
-                            padding: 16px;
-                            text-decoration: none;
-                        }
-
-                        </style>
                     <ul class="list-inline rating">
                         @for ($count = 1; $count<=5; $count++)
                             @php
@@ -393,4 +373,25 @@
             text-decoration: none;
         }
       </style>
+      <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        </style>
 @endsection

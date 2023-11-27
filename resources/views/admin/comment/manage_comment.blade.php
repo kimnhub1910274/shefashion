@@ -9,7 +9,8 @@
         echo $message;
         Session::pull('message', null);
     }
-?>  <div id="notify_comment"></div>
+?>
+<div id="notify_comment"></div>
     <table class="table">
         <thead>
           <tr>

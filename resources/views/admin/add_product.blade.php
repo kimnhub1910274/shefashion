@@ -69,18 +69,11 @@
                         </div>
                         <br>
                         <div class="row mb">
-                            <div class="col">
-                                <label class="form-label" for=""><b>Size</b></label>
-                                <input type="text" name="size" >
-                            </div>
-                            <div class="col">
-                                <label class="form-label" for=""><b>Màu sắc</b></label>
-                                <input type="text" name="color" >
-                            </div>
+
                             <div class="col">
                                 <label class="form-label" for=""><b>Tổng nhập</b></label>
-                                <input class="form-control" style="resize:none;" min="1" type="number"
-                                name="product_sold" rows="3" value="1"></input>
+                                <input class="form-control" min="1" type="number"
+                                name="product_total_import" rows="3" value="1"></input>
 
                             </div>
                             <div class="col">

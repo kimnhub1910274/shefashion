@@ -85,7 +85,8 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="{{URL::to('/manage-order')}}" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{URL::to('/manage-order')}}" class="small-box-footer">
+                Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -100,7 +101,8 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="{{URL::to('/list-product')}}" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{URL::to('/list-product')}}" class="small-box-footer">
+                Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -115,7 +117,8 @@
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="{{URL::to('/manage-customer')}}" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{URL::to('/manage-customer')}}" class="small-box-footer">
+                Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -123,14 +126,15 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{ $visitor_total }}</h3>
+                <h3>{{ $comment_count->count() }}</h3>
 
-                <p>Số lượng khách truy cập</p>
+                <p>Bình luận mới</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{URL::to('/manage-comment')}}" class="small-box-footer">
+                Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

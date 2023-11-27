@@ -1,7 +1,7 @@
 @extends('admin_dashboard')
 @section('admin_content')
 
-<dir>
+<div>
     <form action="{{URL::to('/search_customer')}}" method="POST" style="float: right"
         class="my-2 mr-auto d-none d-sm-inline-block form-inline ml-md-3 my-md-0 mw-100 navbar-search">
         {{ csrf_field() }}
@@ -15,7 +15,7 @@
             </div>
         </div>
     </form>
-</dir>
+</div>
 <div class="container-fluid card">
     &nbsp;
     <h3>DANH SÁCH KHÁCH HÀNG </h3>
@@ -26,6 +26,7 @@
         Session::pull('message', null);
     }
     ?>
+    <div id="notify_customer"></div>
     <table class="table">
         <thead>
           <tr>
@@ -35,6 +36,7 @@
             <th scope="col">Số điện thoại</th>
             <th scope="col">Email</th>
             <th scope="col">Địa chỉ</th>
+            <th scope="col">Trạng thái</th>
             <th scope="col">Chặn khách hàng</th>
 
           </tr>
@@ -50,12 +52,24 @@
                     <td>{{$customer->customer_email}}</td>
                     <td>{{$customer->customer_address}}</td>
                     <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
+                        @if($customer->customer_status == 1)
+                            Cho phép
+                        @elseif($customer->customer_status == 0)
+                            Bị chặn
+                        @endif
+                    </td>
+                    <td>
+                        @if ($customer->customer_status == 0)
+                            <input type="button" data-customer_id = "{{$customer->customer_id}}"
+                            data-customer_status = "1"
 
-                            </label>
-                        </div>
+                            class="btn btn-success btn-xs btn_customer_status" value="Bỏ chặn">
+                        @elseif($customer->customer_status == 1)
+                            <input type="button" data-customer_id = "{{$customer->customer_id}}"
+                            data-customer_status = "0"
+
+                            class="btn btn-danger btn-xs btn_customer_status" value="Chặn">
+                        @endif
                     </td>
                 </tr>
             @endforeach

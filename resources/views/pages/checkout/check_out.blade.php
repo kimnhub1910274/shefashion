@@ -112,6 +112,8 @@
                         $customer_name = Session::get('customer_name');
                         $customer_phone = Session::get('customer_phone');
                         $customer_address = Session::get('customer_address');
+                        $customer_status = Session::get('customer_status');
+
                     ?>
                     <div class="card-body">
 
@@ -124,12 +126,14 @@
                             </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Họ tên</span>
-                               <input type="text" class="form-control ship_name" placeholder="" aria-label="" name="ship_name"
+                               <input type="text" class="form-control ship_name"
+                                placeholder="" aria-label="" name="ship_name"
                                aria-describedby="basic-addon1" value="{{ $customer_name }}"  >
                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Số điện thoại</span>
-                               <input type="text" class="form-control ship_phone" placeholder="" aria-label="" name="ship_phone"
+                               <input type="text" class="form-control ship_phone"
+                                placeholder="" aria-label="" name="ship_phone"
                                aria-describedby="basic-addon1" value="{{ $customer_phone }}" >
                            </div>
                            <div class="mb-3 input-group">
@@ -143,12 +147,15 @@
                                <textarea type="text" class="form-control ship_note"
                                placeholder="" name="ship_note"></textarea>
                            </div>
+                           <input type="hidden" class="customer_status"
+                            name="customer_status" value="{{ $customer_status }}">
                         </div>
                            <?php
-                            if ($c == true) {
+                            if ($c == true ) {
                                 ?>
                                 <input type="button" value="ĐẶT HÀNG" class="order btn"
-                                style="float: right; background-color: rgb(143, 10, 10); color:white;" name="order" ></input>
+                                style="float: right; background-color: rgb(143, 10, 10);
+                                 color:white;" name="order" ></input>
                                 <?php
                             }
                            ?>

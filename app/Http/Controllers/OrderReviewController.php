@@ -19,9 +19,9 @@ session_start();
 class OrderReviewController extends Controller
 {
     public function load_review(Request $request){
-        $order_id = $request->order_id;
+        $order_code = $request->order_code;
         $customer_id = $request->customer_id;
-        $order_review = OrderReview::with('customer')->where('order_id',$order_id)
+        $order_review = OrderReview::with('customer')->where('order_code',$order_code)
         ->where('customer_id', $customer_id)->get();
         $output = '';
         foreach($order_review as $k =>$order){
@@ -44,13 +44,15 @@ class OrderReviewController extends Controller
         echo $output;
     }
     public function send_review(Request $request){
-        $order_id = $request->order_id;
+        $data = $request->all();
+        $order_code = $request->order_code;
         $customer_id = $request->customer_id;
         $review = $request->review;
         $order_review = new OrderReview();
         $order_review->customer_id = $customer_id;
         $order_review->review = $review;
-        $order_review->order_id = $order_id;
+        $order_review->order_code = $order_code;
+        //$order_review->rating = $data['index'];
         $order_review->save();
     }
     public function send_rating(Request $request){
@@ -63,7 +65,7 @@ class OrderReviewController extends Controller
     public function order_review(Request $request){
         $order_code = $request->order_code;
         $customer_id = $request->customer_id;
-        $order_review = OrderReview::with('customer')->where('order_id',$order_code)
+        $order_review = OrderReview::with('customer')->where('order_code',$order_code)
         ->where('customer_id', $customer_id)->get();
         $output = '';
         foreach($order_review as $k =>$order){
@@ -86,11 +88,48 @@ class OrderReviewController extends Controller
         echo $output;
     }
     public function manage_review(){
-        $review = OrderReview::with('order')->with('customer')->with('rating')
-        ->orderBy('order_review', 'desc')->paginate(10);
-        $order_detail = OrderDetails::where('order_code')->get();
-        $rating = OrderRating::with('review')->get();
-        return view('admin.rating.manage_review')->with(compact('review', 'order_detail', 'rating'));
+        $review = DB::table('tbl_order_review')
+        ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_order_review.customer_id')
+        ->join('tbl_rating', 'tbl_rating.order_code', '=', 'tbl_order_review.order_code')
+        ->orderBy('tbl_order_review.order_review', 'desc')->paginate(10);
+        return view('admin.rating.manage_review')->with(compact('review', ));
+    }
+    public function five_star(){
+        $five_star = DB::table('tbl_order_review')
+        ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_order_review.customer_id')
+        ->join('tbl_rating', 'tbl_rating.order_code', '=', 'tbl_order_review.order_code')
+        ->where('tbl_rating.rating', '5')
+        ->orderBy('tbl_order_review.order_review', 'desc')->paginate(10);
+        return view('admin.rating.five_star')->with(compact('five_star'));
+    }
+    public function four_star(){
+        $four_star = DB::table('tbl_order_review')
+        ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_order_review.customer_id')
+        ->join('tbl_rating', 'tbl_rating.order_code', '=', 'tbl_order_review.order_code')
+        ->where('tbl_rating.rating', '4')
+        ->orderBy('tbl_order_review.order_review', 'desc')->paginate(10);
+        return view('admin.rating.four_star')->with(compact('four_star'));
+    }public function three_star(){
+        $three_star = DB::table('tbl_order_review')
+        ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_order_review.customer_id')
+        ->join('tbl_rating', 'tbl_rating.order_code', '=', 'tbl_order_review.order_code')
+        ->where('tbl_rating.rating', '3')
+        ->orderBy('tbl_order_review.order_review', 'desc')->paginate(10);
+        return view('admin.rating.three_star')->with(compact('three_star'));
+    }public function two_star(){
+        $two_star = DB::table('tbl_order_review')
+        ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_order_review.customer_id')
+        ->join('tbl_rating', 'tbl_rating.order_code', '=', 'tbl_order_review.order_code')
+        ->where('tbl_rating.rating', '2')
+        ->orderBy('tbl_order_review.order_review', 'desc')->paginate(10);
+        return view('admin.rating.two_star')->with(compact('two_star'));
+    }public function one_star(){
+        $one_star = DB::table('tbl_order_review')
+        ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_order_review.customer_id')
+        ->join('tbl_rating', 'tbl_rating.order_code', '=', 'tbl_order_review.order_code')
+        ->where('tbl_rating.rating', '1')
+        ->orderBy('tbl_order_review.order_review', 'desc')->paginate(10);
+        return view('admin.rating.one_star')->with(compact('one_star'));
     }
 
 

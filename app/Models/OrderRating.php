@@ -17,7 +17,7 @@ class OrderRating extends Model
 
     public function review()
 {
-    return $this->belongsTo('App\Models\OrderReview', 'range_id');
+    return $this->belongsTo('App\Models\OrderReview', 'order_code');
 }
 }
 
