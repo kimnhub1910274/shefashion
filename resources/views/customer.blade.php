@@ -40,6 +40,10 @@
                     .she{
                         width: 250px;
                         border-radius: 20px;
+
+                    }
+                    li a:hover {
+                        background-color: rgb(247, 236, 238);
                     }
                 </style>
                 <ul class="p-1 nav d-sm-none d-md-none d-lg-flex d-xl-flex">

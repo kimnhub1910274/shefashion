@@ -566,6 +566,26 @@
 
 
 </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        order_review();
+        //alert(product_id);
+        function order_review(){
+            var order_code = $('.order_code').val();
+            var customer_id = $('.customer_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: '{{url('/order-review')}}',
+                method: 'POST',
+                data:{order_code:order_code, customer_id:customer_id, _token:_token},
+                success:function(data){
+                    $('#order_reviews').html(data);
+                }
+            });
+        }
+    });
+</script>
 
 </body>
 

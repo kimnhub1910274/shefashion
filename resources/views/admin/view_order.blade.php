@@ -297,7 +297,60 @@
                 <!-- Shipping information -->
                 <div class="card-body">
                   <h3 class="h6">Đánh giá đơn hàng</h3>
+                  <div>
+                    <style>
+                        ul {
+                            list-style-type: none;
+                            margin: 0;
+                            padding: 0;
+                            overflow: hidden;
+                        }
 
+                        li {
+                            float: left;
+                        }
+
+                        li a {
+                            display: block;
+                            color: white;
+                            text-align: center;
+                            padding: 16px;
+                            text-decoration: none;
+                        }
+
+                        </style>
+                    <ul class="list-inline rating">
+                        @for ($count = 1; $count<=5; $count++)
+                            @php
+                                if($count <= $rating){
+                                    $color = 'color: #ffcc00;';
+                                }else{
+                                    $color = 'color: #ccc;';
+                                }
+                            @endphp
+
+
+                            <li title="star_rating"
+                                id="{{ $valu->order_code}} - {{$count}}"
+                                data-index="{{ $count }}"
+                                data-order_code="{{ $valu->order_code }}"
+                                data-rating="{{ $rating }}"
+                                class="rating"
+                                style="cursor: pointer;{{ $color }} font-size:30px;" >
+                                &#9733;
+
+                            </li>
+                        @endfor
+                    </ul>
+                    <input type="hidden" class="order_code"
+                        name="order_code" id="" value="{{$valu->order_code}}">
+
+                        <input type="hidden" class="customer_id"
+                        name="customer_id" id="" value="{{$valu->customer_id}}">
+
+                    <div class="" id="order_reviews"  ></div>
+
+                </div>
                 </div>
               </div>
             @endif

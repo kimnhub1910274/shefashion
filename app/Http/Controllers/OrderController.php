@@ -16,6 +16,8 @@ use PDF;
 use Carbon\Carbon;
 use Mail;
 use App\Mail\Gmail;
+use App\Models\OrderRating;
+
 class OrderController extends Controller
 {
 
@@ -29,13 +31,18 @@ class OrderController extends Controller
             $customer_id = $value->customer_id;
             $ship_id = $value->ship_id;
             $order_status = $value->order_status;
+            $order_code = $value->order_code;
+
         }
         $customer = Customer::where('customer_id', $customer_id)->first();
         $ship = Ship::where('ship_id', $ship_id)->first();
         $order_details_product = OrderDetails::with('product')->where('order_code', $order_id)->get();
 
+        $rating = OrderRating::where('order_code', $order_code)->avg('rating');
+        $rating = round($rating);
+
         return view('customer.view_ordered')
-        ->with(compact('order_details', 'customer', 'ship', 'order', 'order_status'));
+        ->with(compact('order_details', 'customer', 'ship', 'order', 'order_status', 'order_code', 'rating'));
 
     }
     public function manage_order()
@@ -53,13 +60,18 @@ class OrderController extends Controller
             $customer_id = $value->customer_id;
             $ship_id = $value->ship_id;
             $order_status = $value->order_status;
+            $order_code = $value->order_code;
+
         }
         $customer = Customer::where('customer_id', $customer_id)->first();
         $ship = Ship::where('ship_id', $ship_id)->first();
         $order_details_product = OrderDetails::where('order_code', $order_id)->get();
 
+        $rating = OrderRating::where('order_code', $order_code)->avg('rating');
+        $rating = round($rating);
+
         return view('admin.view_order')->with(compact('order_details','order_details_product',
-         'customer', 'ship', 'order', 'order_status'));
+         'customer', 'ship', 'order', 'order_status', 'rating'));
     }
 
     public function update_quantity_order(Request $request)

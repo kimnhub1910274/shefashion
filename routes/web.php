@@ -204,3 +204,13 @@ Route::get('/comment-approved', [CommentController::class, 'comment_approved']);
 
 Route::post('/load-review', [OrderReviewController::class, 'load_review']);
 Route::post('/send-review', [OrderReviewController::class, 'send_review']);
+
+Route::post('/order-review', [OrderReviewController::class, 'order_review']);
+
+Route::post('/send-rating', [OrderReviewController::class, 'send_rating']);
+Route::get('/manage-review', [OrderReviewController::class, 'manage_review']);
+Route::get('/five-star', [OrderReviewController::class, 'five_star']);
+Route::get('/four-star', [OrderReviewController::class, 'four_star']);
+Route::get('/three-star', [OrderReviewController::class, 'three_star']);
+Route::get('/two-star', [OrderReviewController::class, 'two_star']);
+Route::get('/one-star', [OrderReviewController::class, 'one_star']);

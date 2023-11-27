@@ -196,8 +196,51 @@
                     <form action="" method="post">
                         @csrf
                         <div>
-                            Đánh giá:
-                          </div>
+                            <style>
+                                ul {
+                                    list-style-type: none;
+                                    margin: 0;
+                                    padding: 0;
+                                    overflow: hidden;
+                                }
+
+                                li {
+                                    float: left;
+                                }
+
+                                li a {
+                                    display: block;
+                                    color: white;
+                                    text-align: center;
+                                    padding: 16px;
+                                    text-decoration: none;
+                                }
+
+                                </style>
+                            <ul class="list-inline rating">
+                                @for ($count = 1; $count<=5; $count++)
+                                    @php
+                                        if($count <= $rating){
+                                            $color = 'color: #ffcc00;';
+                                        }else{
+                                            $color = 'color: #ccc;';
+                                        }
+                                    @endphp
+
+
+                                    <li title="star_rating"
+                                        id="{{ $valu->order_code}} - {{$count}}"
+                                        data-index="{{ $count }}"
+                                        data-order_code="{{ $valu->order_code }}"
+                                        data-rating="{{ $rating }}"
+                                        class="rating"
+                                        style="cursor: pointer;{{ $color }} font-size:30px;" >
+                                        &#9733;
+
+                                    </li>
+                                @endfor
+                            </ul>
+                        </div>
                           <div>
                             <textarea name="review" class="form-control review" ></textarea>
                             <input type="hidden" class="order_id" value="{{$valu->order_id}}">

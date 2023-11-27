@@ -57,6 +57,9 @@
                     width: 250px;
                     border-radius: 20px;
                 }
+                li a:hover {
+                    background-color: rgb(247, 236, 238);
+                }
             </style>
             <ul class="p-1 nav d-sm-none d-md-none d-lg-flex d-xl-flex">
                 <li class="nav-item align-self-center ">
@@ -483,12 +486,65 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
                     var review = $('.review').val('');
                 }
             });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function remove_background(order_code){
+        var count = 1;
+        for(var count = 1; count <= 5; count++){
+            $('#'+ order_code + '-' + count).css('color', '#ccc');
+        }
+    }
+    $(document).ready(function(){
+        $('.rating').mouseenter(function(){
+            var index = $(this).data("index");
+            var order_code = $(this).data('order_code');
+            {{-- alert(index);
+            alert(order_code); --}}
+            var count = 1;
+            let output = [];
+            remove_background(order_code);
 
+            for(count = 1; count <= index; count++){
+                output.push('<div style="color:#ffcc00;">order_code+'-'+count</div>');
+              //  $('#'+order_code+'-'+count).css('color', '#ffcc00');
+            }
+        });
+        $('.rating').mouseleave(function(){
+            var index = $(this).data("index");
+            var order_code = $(this).data('order_code');
+            var rating = $(this).data("rating");
+            {{-- alert(index);
+            alert(order_code);
+            alert(rating); --}}
+            var count = 1;
+            remove_background(order_code);
 
-
+            for(count = 1; count <= rating; count++){
+                $('#'+ order_code + '-' + count).css('color', '#ffcc00');
+            }
         });
 
     });
+    $(document).on('click', '.rating', function(){
+        var index = $(this).data("index");
+        var order_code = $(this).data('order_code');
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: '{{url('/send-rating')}}',
+            method: 'POST',
+            data:{index:index, _token:_token, order_code:order_code},
+            success:function(data){
+            }
+
+        });
+        window.setTimeout(function(){
+            location.reload();
+          }, 1000);
+
+    });
+
 </script>
 
 

@@ -66,7 +66,16 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
+        <style>
+            .nav-item .nav-link:hover {
+                background-color: rgb(235, 185, 194);
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 16px;
+                text-decoration: none;
+            }
+        </style>
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -310,18 +319,29 @@
                                     <ul class="nav"  id="nav" >
                                         <li class="nav-item " style="border: solid 1px;" >
                                             <a class="nav-link " style="color: black;"
-                                             href="{{ URL::to('/manage-comment') }}">
-                                               Tất cả bình luận</a>
+                                             href="{{ URL::to('/manage-review') }}">
+                                               Tất cả đánh giá</a>
                                         </li>
                                         <li class="nav-item" style="border: solid 1px;">
-                                        <a class="nav-link " style="color: black;"
-                                        href="{{ URL::to('/comment-not-approved') }}">Chưa duyệt</a>
+                                            <a class="nav-link " style="color: black;"
+                                            href="{{ URL::to('/five-star') }}">5 Sao ()</a>
                                         </li>
                                         <li class="nav-item" style="border: solid 1px;">
-                                        <a class="nav-link " style="color: black;"
-                                         href="{{ URL::to('/comment-approved') }}">Đã duyệt</a>
+                                            <a class="nav-link " style="color: black;"
+                                            href="{{ URL::to('/four-star') }}">4 Sao ()</a>
                                         </li>
-
+                                        <li class="nav-item" style="border: solid 1px;">
+                                            <a class="nav-link " style="color: black;"
+                                            href="{{ URL::to('/three-star') }}">3 Sao ()</a>
+                                        </li>
+                                        <li class="nav-item" style="border: solid 1px;">
+                                            <a class="nav-link " style="color: black;"
+                                            href="{{ URL::to('/two-star') }}">2 Sao ()</a>
+                                        </li>
+                                        <li class="nav-item" style="border: solid 1px;">
+                                            <a class="nav-link " style="color: black;"
+                                            href="{{ URL::to('/one-star') }}">1 Sao ()</a>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -340,7 +360,7 @@
                         </div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @yield('check_content')
+                    @yield('order_rating_content')
                 </div>
                 <!-- /.container-fluid -->
 

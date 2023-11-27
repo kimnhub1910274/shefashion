@@ -1,5 +1,5 @@
-@extends('check')
-@section('check_content')
+@extends('comment')
+@section('comment_content')
 
 <div class="container-fluid card">
     &nbsp;
