@@ -279,9 +279,8 @@
             <div class="card-body">
               <h3 class="h6">Thông tin vận chuyển</h3>
               <address>
-                <strong>{{ $ship->ship_name}}</strong><br>
+               <br>
                 {{ $ship->ship_address}}<br>
-                <abbr title="Phone">P:</abbr> {{ $ship->ship_phone}}
               </address>
             </div>
           </div>

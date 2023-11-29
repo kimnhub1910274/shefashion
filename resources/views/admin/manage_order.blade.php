@@ -16,7 +16,7 @@
         </div>
     </form>
 </div>
-<div class="container-fluid card" style="margin-top: 20px">
+<div class="container card" style="margin-top: 20px">
     <?php
     $message = Session::get('message');
     if($message){
@@ -26,7 +26,7 @@
     ?>
     <table class="table">
         <thead>
-          <tr>
+          <tr style="background-color: rgb(210, 226, 152)">
             <th scope="col">STT</th>
             <th>Mã đơn hàng</th>
             <th>Mã khách hàng</th>
@@ -88,7 +88,7 @@
             @endforeach
         </tbody>
       </table>
-      <div class="" style="margin-left:85%;">
+      <div class="" style="margin-left:50%;">
         {{ $all_order->links() }}
       </div>
 

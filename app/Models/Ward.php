@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ship extends Model
+class Ward extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'customer_id','ship_address', 'ship_note', 'created_at'
+        'ward_name', 'type', 'maqh'
     ];
-    protected $primaryKey = 'ship_id';
-    protected $table = 'tbl_ship';
+    protected $primaryKey = 'xaid';
+    protected $table = 'tbl_ward';
 }

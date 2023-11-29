@@ -3,7 +3,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
  rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
   crossorigin="anonymous">
-<div class="card">
+<div class="card container-sm" style="width:50%">
     &nbsp;
     <div class="">
         <?php
@@ -49,12 +49,12 @@
                                 <label for=""></label>
                                 <button class="add btn btn-primary"  type="submit"
                                  name="add-cate-pro">Thêm</button>
+                                 <br>
+                                 <div></div>
                             </div>
                        </div>
 <style>
-    .card{
-        padding: 20px 300px
-    }
+
     button.add.btn.btn-primary {
         margin-top: 8px;
     }

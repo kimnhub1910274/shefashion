@@ -1,7 +1,7 @@
 @extends('admin_dashboard')
 @section('admin_content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<div class="card" >
+<div class="card container-sm" style="width:70%" >
     &nbsp;
     <div class="">
         <?php
@@ -18,7 +18,7 @@
             <div class="panel-body">
                 <div class="position-center">
                     <form action="{{URL::to('/save-product')}}" method="post" enctype='multipart/form-data'>
-                        {{ csrf_field() }}
+                       @csrf
                         <div class="mb-3">
                             <label  class="form-label"><b>Tên sản phẩm</b></label>
                             <input type="text" class="form-control" data-validation-error-msg="Vui lòng nhập tên"
@@ -82,12 +82,6 @@
                         </div>
                         <br>
                         <button class="add btn btn-primary" type="submit" name="add-pro">Thêm sản phẩm</button>
-<style>
-    .card{
-        padding: 20px 200px  ;
-    }
-
-</style>
                     </form>
                 </div>
             </div>

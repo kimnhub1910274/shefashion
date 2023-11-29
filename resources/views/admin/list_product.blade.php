@@ -13,7 +13,7 @@
 ?>
     <table class="table">
         <thead>
-          <tr>
+          <tr style="background-color: rgb(235, 185, 235)">
             <th scope="col">STT</th>
             <th scope="col">Tên sản phẩm</th>
             <th scope="col">Hình ảnh</th>
@@ -27,9 +27,14 @@
           </tr>
         </thead>
         <tbody>
+            <style>
+                .tr:hover{
+                    background-color: rgb(245, 205, 211);
+                }
+            </style>
 
             @foreach ( $list_product as $key => $product)
-                <tr>
+                <tr class="tr" >
                     <th scope=""><?php echo $key+1;?></th>
                     <td>{{$product->product_name}}</td>
                     <td><img alt="" src="public/uploads/product/{{$product->product_image}}"

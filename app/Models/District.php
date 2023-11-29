@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ship extends Model
+class District extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'customer_id','ship_address', 'ship_note', 'created_at'
+        'district_name', 'type', 'matp'
     ];
-    protected $primaryKey = 'ship_id';
-    protected $table = 'tbl_ship';
+    protected $primaryKey = 'maqh';
+    protected $table = 'tbl_district';
 }

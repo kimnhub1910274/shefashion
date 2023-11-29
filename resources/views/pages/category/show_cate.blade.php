@@ -36,12 +36,13 @@
             </a>
         </div>
         @endforeach
+        <div>
+            <div class="fb-comments" data-href="{{$meta_url}}" data-width="" data-numposts="20"></div>
+          </div>
     </div>
 
   </div>
-  <div>
-    <div class="fb-comments" data-href="{{$meta_url}}" data-width="" data-numposts="20"></div>
-  </div>
+
   <style>
     .fa-cart-plus{
         color: rgb(15, 162, 170);

@@ -27,7 +27,7 @@
     ?>
     <table class="table" style="margin-top: 20px">
         <thead>
-          <tr>
+          <tr style="background-color: rgb(226, 162, 152)">
             <th scope="col">STT</th>
             <th>Mã </th>
             <th scope="col">Tên </th>

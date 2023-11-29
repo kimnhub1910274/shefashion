@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderReviewController;
+use App\Http\Controllers\DeliveryController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -126,10 +127,12 @@ Route::post('/save-checkout', [CheckoutController::class, 'save_checkout']);
 Route::get('/payment', [CheckoutController::class, 'payment']);
 Route::post('/order', [CheckoutController::class, 'order']);
 Route::get('/manage-customer', [CheckoutController::class, 'manage_customer']);
-//ajax
+//Order
 Route::post('/confirm-order', [CheckoutController::class, 'confirm_order']);
-
-
+//FeeShip
+Route::post('/select-delivery-checkout', [CheckoutController::class, 'select_delivery_checkout']);
+Route::post('/fee-ship-order', [CheckoutController::class, 'fee_ship_order']);
+Route::get('/delete-fee', [CheckoutController::class, 'delete_fee']);
 
 //Order
 Route::group(['middleware' => 'auth.role', 'auth.role' =>['admin', 'editor'] ], function(){
@@ -217,3 +220,10 @@ Route::get('/four-star', [OrderReviewController::class, 'four_star']);
 Route::get('/three-star', [OrderReviewController::class, 'three_star']);
 Route::get('/two-star', [OrderReviewController::class, 'two_star']);
 Route::get('/one-star', [OrderReviewController::class, 'one_star']);
+
+//Delivery
+Route::get('/manage-delivery', [DeliveryController::class, 'manage_delivery']);
+Route::post('/select-delivery', [DeliveryController::class, 'select_delivery']);
+Route::post('/add-delivery', [DeliveryController::class, 'add_delivery']);
+Route::post('/load-delivery', [DeliveryController::class, 'load_delivery']);
+Route::post('/update-fee', [DeliveryController::class, 'update_fee']);

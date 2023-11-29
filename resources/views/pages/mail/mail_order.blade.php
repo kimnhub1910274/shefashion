@@ -42,16 +42,9 @@
                         </div>
                         <div class="col">
                             <h4>THÔNG TIN NGƯỜI NHẬN</h4>
-                            <p>Người nhận hàng: {{ $ship_array['ship_name'] }}</p>
+                            <p>Người nhận hàng: </p>
                             <p>Email:
 
-                            </p>
-                            <p>Số điện thoại:
-                                @if ($ship_array['ship_phone'] == '')
-                                Không có
-                            @else
-                                <span>{{$ship_array['ship_phone']}}</span>
-                            @endif
                             </p>
                             <p>Địa chỉ:
                                 @if ($ship_array['ship_address'] == '')

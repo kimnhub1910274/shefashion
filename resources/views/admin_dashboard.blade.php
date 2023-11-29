@@ -128,6 +128,27 @@
                     </div>
                 </div>
             </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+               Vận chuyển
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagedelivery"
+                    aria-expanded="true" aria-controls="collapsePagedelivery">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span><b>Quản lý Vận chuyển</b></span>
+                </a>
+                <div id="collapsePagedelivery" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="py-2 bg-white rounded collapse-inner">
+                        <a class="collapse-item" href="{{URL::to('/manage-delivery')}}">Danh sách</a>
+                    </div>
+                </div>
+            </li>
             @hasrole(['editor', 'admin'])
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -608,6 +629,86 @@
                 }
             });
         }
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        fetch_delivey();
+        $('.choose').on('change', function(){
+            var action = $(this).attr('id');
+            var ma_tp = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            var result ='';
+            {{-- alert(action);
+            alert(matp);
+            alert(_token); --}}
+
+            if(action == 'city'){
+                result = 'district';
+            }else{
+                result = 'ward';
+            }
+            $.ajax({
+                url: '{{url('/select-delivery')}}',
+                method: 'POST',
+                data:{action:action, ma_tp:ma_tp, _token:_token},
+                success:function(data){
+                    $('#' + result).html(data);
+                }
+            });
+
+        });
+        $('.add_fee_delivery').click(function(){
+            var city = $('.city').val();
+            var district = $('.district').val();
+            var ward = $('.ward').val();
+            var feeship = $('.feeship').val();
+            var _token = $('input[name="_token"]').val();
+            {{-- alert(city);
+            alert(district);
+            alert(ward);
+            alert(feeship); --}}
+            $.ajax({
+                url: '{{url('/add-delivery')}}',
+                method: 'POST',
+                data:{city:city, district:district, ward:ward, feeship:feeship, _token:_token},
+                success:function(data){
+                    alert('Thêm thành công');
+
+                }
+            });
+            window.setTimeout(function(){
+                location.reload();
+              }, 2000);
+        });
+        function fetch_delivey(){
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/load-delivery')}}',
+                method: 'POST',
+                data:{ _token:_token},
+                success:function(data){
+                    $('#load_delivery').html(data);
+                }
+            });
+        }
+        $(document).on('blur', '.feeship_edit', function(){
+            var feeship_id = $(this).data('feeship_id');
+            var fee = $(this).text();
+            var _token = $('input[name="_token"]').val();
+            {{-- alert(feeship_id);
+            alert(fee); --}}
+            $.ajax({
+                url: '{{url('/update-fee')}}',
+                method: 'POST',
+                data:{ feeship_id:feeship_id, fee:fee, _token:_token},
+                success:function(data){
+                    fetch_delivey();
+                }
+            });
+
+
+        });
     });
 </script>
 

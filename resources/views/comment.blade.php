@@ -166,6 +166,27 @@
                         </div>
                     </div>
                 </li>
+                <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+               Vận chuyển
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ollapsePagedelivery"
+                    aria-expanded="true" aria-controls="ollapsePagedelivery">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span><b>Quản lý Vận chuyển</b></span>
+                </a>
+                <div id="ollapsePagedelivery" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="py-2 bg-white rounded collapse-inner">
+                        <a class="collapse-item" href="{{URL::to('/manage-delivery')}}">Danh sách</a>
+                    </div>
+                </div>
+            </li>
                 @hasrole(['admin', 'editor'])
                 <!-- Divider -->
                 <hr class="sidebar-divider">
@@ -613,6 +634,7 @@
     <script>
 
     </script>
+
 
 
 </body>

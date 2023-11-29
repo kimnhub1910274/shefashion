@@ -13,7 +13,7 @@
 <div id="notify_comment"></div>
     <table class="table">
         <thead>
-          <tr>
+          <tr style="background-color: rgb(109, 109, 241)">
             <th scope="col">STT</th>
             <th scope="col">Tên</th>
             <th scope="col">Bình luận</th>

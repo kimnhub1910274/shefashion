@@ -14,4 +14,8 @@ class Statistic extends Model
     ];
     protected $primaryKey = 'id_statistical ';
     protected $table = 'tbl_statistical ';
+    public function statistic()
+    {
+        return $this->belongsToMany('App\Models\Statistic', 'order_date');
+    }
 }

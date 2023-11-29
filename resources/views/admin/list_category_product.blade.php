@@ -13,7 +13,7 @@
 ?>
     <table class="table">
         <thead>
-          <tr>
+          <tr style="background-color: rgb(152, 152, 226)">
             <th scope="col">STT</th>
             <th scope="col">Tên danh mục</th>
             <th scope="col">Từ khóa danh mục</th>

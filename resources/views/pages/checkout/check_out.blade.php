@@ -32,6 +32,7 @@
                                     //print_r(Session::get('cart'));
                                     $c = Session::get('cart');
                                     $total = 0;
+                                    $fee = Session::get('fee');
 
                                 @endphp
                                 @if($c == true)
@@ -39,6 +40,7 @@
                                     @php
                                         $subtotal = $cart['product_price'] * $cart['product_qty'];
                                         $total = $total + $subtotal;
+                                        $total_order = $total + $fee;
                                     @endphp
                                         <tr>
                                             <td>{{ $cart['product_id'] }}</td>
@@ -84,6 +86,11 @@
                                                     <i class="fa-solid fa-trash"></i></a>
                                             </td>
                                         </tr>
+
+                                    @endforeach
+                                    @foreach($customer as $key => $c)
+                                        <input type="hidden" class="customer_status"
+                                        name="customer_status" value="{{ $c->customer_status }}">
                                     @endforeach
                                     <tr>
                                         <td><b>TỔNG TIỀN:</b></td>
@@ -125,33 +132,29 @@
                                 aria-describedby="basic-addon1" value="{{ $customer_id }}">
                             </div>
                            <div class="mb-3 input-group">
-                               <span class="input-group-text" id="basic-addon1">Họ tên</span>
-                               <input type="text" class="form-control ship_name"
-                                placeholder="" aria-label="" name="ship_name"
-                               aria-describedby="basic-addon1" value="{{ $customer_name }}"  >
-                           </div>
-                           <div class="mb-3 input-group">
-                               <span class="input-group-text" id="basic-addon1">Số điện thoại</span>
-                               <input type="text" class="form-control ship_phone"
-                                placeholder="" aria-label="" name="ship_phone"
-                               aria-describedby="basic-addon1" value="{{ $customer_phone }}" >
-                           </div>
-                           <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Địa chỉ</span>
-                               <input type="text" class="form-control ship_address" placeholder="" aria-label=""
-                               name="ship_address"
-                               aria-describedby="basic-addon1" value="{{ $customer_address }}">
                            </div>
+                           <div class="mb-3 input-group">
+
+                                <select name="" id="" class="form-control ship_address" style="height: 80px">
+                                    @foreach ($address as $k => $add)
+                                    <option value="{{ $add->name }}-{{ $add->phone }}-{{ $add->address }}">
+                                        {{ $add->name }}
+                                        {{ $add->phone }}
+                                        {{ $add->address }}
+                                    </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
                            <div class="mb-3 input-group">
                                <span class="input-group-text" id="basic-addon1">Ghi chú</span>
                                <textarea type="text" class="form-control ship_note"
                                placeholder="" name="ship_note"></textarea>
                            </div>
-                           <input type="hidden" class="customer_status"
-                            name="customer_status" value="{{ $customer_status }}">
                         </div>
                            <?php
-                            if ($c == true ) {
+                            if ($c && $fee) {
                                 ?>
                                 <input type="button" value="ĐẶT HÀNG" class="order btn"
                                 style="float: right; background-color: rgb(143, 10, 10);
@@ -162,20 +165,73 @@
                        </form>
                     </div>
                 </div>
+                <br>
+                <?php
+                    $fee = Session::get('fee');
+                ?>
+                <form action="" method="post" name="delivery">
+                    @csrf
+                    <div class="row">
+                        <div class="col" style="margin-top: 35px">
 
-                <div class="card">
-                    <div class="card-header">
-                        <h6>TÓM TẮT ĐƠN HÀNG</h6>
+                            <div class="mb-3">
+                                <label  class="form-label"><b>Chọn tỉnh/thành phố</b></label>
+                                <select class="form-select input-sm choose city" name="city" id="city">
+                                    <option value="0">Chọn tỉnh/thành phố</option>
+                                    @foreach ($city as $k => $c )
+                                    <option value="{{ $c->matp }}">{{ $c->city_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label  class="form-label"><b>Chọn quận/huyện</b></label>
+                                <select class="form-select input-sm choose district"  name="district" id="district">
+                                    <option value="0">Chọn quận/huyện</option>
+
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label  class="form-label"><b>Chọn xã/phường</b></label>
+                                <select class="form-select input-sm ward" name="ward" id="ward">
+                                <option value="0">Chọn xã/phường</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+
+                            </div>
+                            <input type="button" name="fee_ship" id=""
+                                class="fee_ship_order btn btn-info"
+                                value="Phí vận chuyển">
+
+                        </div>
+                        <div class="col">
+                            <div class="card" style="margin-top: 70px">
+                                <div class="card-header">
+                                    <h6>TÓM TẮT ĐƠN HÀNG</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p class="total_order"><b>Giá trị đơn hàng:
+                                        </b> {{ number_format($total + $fee) }} VNĐ</p>
+                                    <p><b>Phí giao hàng:</b>
+                                        @if ($fee)
+                                        {{ number_format($fee) }}
+                                        <a href="{{ url('/delete-fee') }}">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                        @elseif(!$fee)
+                                            0
+                                        @endif
+
+                                    </p>
+                                    <p><b>Hình thức:</b> Thanh toán khi nhận hàng</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p><b>Giá trị đơn hàng:</b> {{ number_format($total) }} VNĐ</p>
-                        <p><b>Phí giao hàng:</b> Miễn phí</p>
-                        <p><b>Hình thức:</b> Thanh toán khi nhận hàng</p>
-                    </div>
-                </div>
-            </div>
+                </form>
             </div>
         </div>
+    </div>
  </div>
  <style>
     .btt{

@@ -39,7 +39,7 @@
                 <div class="col-md-2">
                     <p>Đến ngày: <input type="text" id="datepicker2" class="form-control"></p>
                 </div>
-                <div class="col-md-2">
+                {{-- <div class="col-md-2">
                     <p>Lọc theo:
                         <select name="" id="" class="dashboard-filter form-control">
                             <option value="">Chọn</option>
@@ -49,7 +49,7 @@
                             <option value="thisyear">1 năm qua</option>
                         </select>
                     </p>
-                </div>
+                </div> --}}
 
            </div>
         </form>
@@ -142,7 +142,7 @@
         <div class="row">
             <p class="title">THỐNG KÊ SỐ LƯỢNG TRUY CẬP</p>
             <table class="table">
-                <thead>
+                <thead style="background-color: rgb(236, 195, 201)">
                     <th scope="col">Đang online</th>
                     <th scope="col">Tổng tháng trước</th>
                     <th scope="col">Tổng tháng này</th>
@@ -160,6 +160,19 @@
 
                 </tbody>
             </table>
+
+        </div>
+        <div class="row">
+            <p class="title">THỐNG KÊ LƯỢT XEM SẢN PHẨM</p>
+                <ol class="list_product_view container">
+                    @foreach ($product_view as $k => $v)
+                    <li>
+                        <a target="_blank" href="{{ url('/product-detail/'.$v->product_id) }}" style="color: black">
+                            {{ $v->product_name }} | {{ $v->product_view }}
+                        </a>
+                    </li>
+                    @endforeach
+                </ol>
 
         </div>
         <!-- /.row -->

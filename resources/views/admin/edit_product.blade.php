@@ -2,8 +2,8 @@
 @section('admin_content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<div class="row">
-    <div class="col">
+<div class="card container-sm" style="width:50%">
+    <div class="">
         <?php
             $message = Session::get('message');
             if($message){
@@ -11,12 +11,12 @@
                 Session::pull('message', null);
             }
         ?>
-        <section class="panel">
-            <header class="panel-heading"  style="text-align: center">
+        <section class="">
+            <header class="card-header"  style="text-align: center">
                 <h3>CẬP NHẬT SẢN PHẨM</h3>
 
             </header>
-            <div class="panel-body container">
+            <div class="card-body">
                 <div class="position-center">
                     @foreach ($edit_product as $key => $product)
                         <form action="{{URL::to('/update-product/'.$product->product_id)}}"
@@ -93,12 +93,6 @@
         </section>
     </div>
 </div>
-<style>
-     .panel {
-       margin: 0px 150px;
-    }
 
-
-</style>
 
 @endsection

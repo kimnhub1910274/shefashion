@@ -145,9 +145,14 @@ class ProductController extends Controller
             $meta_url = $request->url();
 
         }
+
         $related_product = DB::table('tbl_product')
             ->join('tbl_cate_pro', 'tbl_cate_pro.cate_id', '=', 'tbl_product.category_id')
             ->where('tbl_cate_pro.cate_id', $category_id)->whereNotIn('tbl_product.product_id', [$product_id])->get();
+
+        $product = Product::where('product_id', $product_id)->first();
+        $product->product_view = $product->product_view + 1;
+        $product->save();
 
         return view('pages.product.product_detail')->with('category', $cate_product)
         ->with('product_details', $detail_product)->with('related', $related_product)

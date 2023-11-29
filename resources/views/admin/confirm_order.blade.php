@@ -46,13 +46,6 @@
                             <p>Email:
 
                             </p>
-                            <p>Số điện thoại:
-                                @if ($ship_array['ship_phone'] == '')
-                                Không có
-                            @else
-                                <span>{{$ship_array['ship_phone']}}</span>
-                            @endif
-                            </p>
                             <p>Địa chỉ:
                                 @if ($ship_array['ship_address'] == '')
                                 Không có

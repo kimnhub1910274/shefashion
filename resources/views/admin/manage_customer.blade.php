@@ -29,7 +29,7 @@
     <div id="notify_customer"></div>
     <table class="table">
         <thead>
-          <tr>
+          <tr style="background-color: rgb(152, 226, 175)">
             <th scope="col">STT</th>
             <th>Mã khách hàng</th>
             <th scope="col">Tên khách hàng</th>

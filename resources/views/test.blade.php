@@ -400,21 +400,20 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
     $(document).ready(function(){
         $('.order').click(function(){
             var customer_id = $('.customer_id').val();
-            var ship_name = $('.ship_name' ).val();
-            var ship_phone = $('.ship_phone').val();
             var ship_address = $('.ship_address').val();
             var ship_note = $('.ship_note').val();
             var _token = $('input[name="_token"]').val();
             var customer_status = $('.customer_status').val();
-
-           // alert(customer_status)
+            var total_order = $('.total_order').val();
+           // var ship_address = $('.ship_address_' + id).val();
+           // alert(ship_address)
            if(customer_status == 0){
                 alert('Bạn không thể đặt hàng, có thể bạn đã bị chặn!');
            }
             $.ajax({
                 url: '{{url('/confirm-order')}}',
                 method: 'POST',
-                data:{customer_id:customer_id, ship_name:ship_name, ship_phone:ship_phone, ship_address:ship_address, ship_note:ship_note, _token:_token},
+                data:{customer_id:customer_id, total_order:total_order, ship_address:ship_address, ship_note:ship_note, _token:_token},
                 success:function(data){
                     alert("Đặt hàng thành công");
 
@@ -562,5 +561,83 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
     });
 
 </script>
+<script>
+    $(document).ready(function(){
+        $('.choose').on('change', function(){
+            var action = $(this).attr('id');
+            var ma_tp = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            var result ='';
+            {{-- alert(action);
+            alert(matp);
+            alert(_token); --}}
+
+            if(action == 'city'){
+                result = 'district';
+            }else{
+                result = 'ward';
+            }
+            $.ajax({
+                url: '{{url('/select-delivery-checkout')}}',
+                method: 'POST',
+                data:{action:action, ma_tp:ma_tp, _token:_token},
+                success:function(data){
+                    $('#' + result).html(data);
+                }
+            });
+
+        });
+        $('.fee_ship_order').click(function(){
+            var ma_tp = $('.city').val();
+            var ma_qh = $('.district').val();
+            var ma_xp = $('.ward').val();
+            var _token = $('input[name="_token"]').val();
+            if(ma_tp == 0 && ma_qh == 0 && ma_xp){
+                alert('Hãy chọn để tính phí vận chuyển');
+            }else{
+                $.ajax({
+                    url: '{{url('/fee-ship-order')}}',
+                    method: 'POST',
+                    data:{ma_qh:ma_qh, ma_tp:ma_tp, ma_xp:ma_xp, _token:_token},
+                    success:function(){
+                        location.reload();
+                    }
+                });
+            }
+
+        });
+    });
+
+</script>
+<!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "188994957625440");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v18.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
 
 

@@ -12,6 +12,7 @@ use App\Models\Ship;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Customer;
+use App\Models\Statistic;
 use PDF;
 use Carbon\Carbon;
 use Mail;
@@ -80,6 +81,10 @@ class OrderController extends Controller
         $order = Order::find($data['order_code']);
         $order->order_status = $data['order_status'];
         $order->save();
+
+        //
+
+
         if($order->order_status == 1){
             $order->order_status = 1;
             $order->save();
@@ -106,8 +111,6 @@ class OrderController extends Controller
                'customer_name' => $customer->customer_name,
                'ship_name' => $ship['ship_name'],
                'ship_address' => $ship['ship_address'],
-               'ship_phone' => $ship['ship_phone'],
-               'ship_note' => $ship['ship_note'],
 
            );
            $ordercode_mail = array(
@@ -125,18 +128,58 @@ class OrderController extends Controller
                    $message->from($data['email'], $title_email);
                });
         }elseif ($order->order_status == 3) {
+            //
+            $total_order = 0;
+            $sale = 0;
+            $profit = 0;
+            $quantity = 0;
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
                 $product_quantity = $product->product_quantity;
                 $product_sold = $product->product_sold;
+                //
+                $product_price = $product->product_price;
+                $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
                 foreach ($data['quantity'] as $key2 => $qty) {
                     if ($key == $key2) {
                         $product_remain = $product_quantity - $qty;
                         $product->product_quantity = $product_remain;
                         $product->product_sold = $product_sold + $qty;
                         $product->save();
+                        //update statistical
+                        $quantity += $qty;
+                        $total_order += 1;
+                        $sale = $product_price * $qty;
+                        $profit = $sale - 1000;
+
                     }
                 }
+            }
+            //
+            $order_date = $order->order_date;
+            //$statistical = Statistic::where('order_date', $order_date)->get();
+            $statistical = Statistic::where('order_date', $order_date)->get();
+            if($statistical){
+                $statistical_count = $statistical->count();
+            }else{
+                $statistical_count = 0;
+            }
+            if($statistical_count > 0){
+                $statistical_update = Statistic::where('order_date', '$order_date')->first();
+                $statistical_update->sale = $statistical_update->sale + $sale;
+                $statistical_update->profit = $statistical_update->profit + $profit;
+                $statistical_update->quantity = $statistical_update->quantity + $quantity;
+                $statistical_update->total_order = $statistical_update->total_order + $total_order;
+                $statistical_update->save();
+            }else{
+                $statistical_new = new Statistic();
+                $statistical_new->order_date = $order_date;
+                $statistical_new->sale = $sale;
+                $statistical_new->profit = $profit;
+                $statistical_new->quantity = $quantity;
+                $statistical_new->total_order = $total_order;
+                $statistical_update->save();
             }
              //send mail
              $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
@@ -162,8 +205,7 @@ class OrderController extends Controller
                 'customer_name' => $customer->customer_name,
                 'ship_name' => $ship['ship_name'],
                 'ship_address' => $ship['ship_address'],
-                'ship_phone' => $ship['ship_phone'],
-                'ship_note' => $ship['ship_note'],
+
 
             );
             $ordercode_mail = array(
@@ -196,6 +238,7 @@ class OrderController extends Controller
                 }
             }
         }
+
 
     }
     public function update_qty_order(Request $request)
@@ -283,8 +326,6 @@ class OrderController extends Controller
                     <td>
                         <div class="b">
                             <p class=""><b>Người nhận hàng</b></p>
-                            <p>Họ tên: '.$ship->ship_name.'</p>
-                            <p>Số điện thoại: '.$ship->ship_phone.'</p>
                             <p>Địa chỉ: '.$ship->ship_address.'</p>
                             <p>Ghi chú: '.$ship->ship_note.'</p>
                         </div>

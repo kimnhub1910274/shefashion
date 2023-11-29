@@ -10,7 +10,7 @@ class OrderDetails extends Model
     public $timestamps = false;
     protected $fillable = [
         'order_code', 'product_id', 'product_name', 'product_price', 'product_quantity', 'created_at',
-        'product_color', 'product_size', 'total'
+        'product_color', 'product_size', 'total', 'total_order'
     ];
     protected $primaryKey = 'order_details_id';
     protected $table = 'tbl_order_details';

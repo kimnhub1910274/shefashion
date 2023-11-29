@@ -9,10 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 use Cart;
 session_start();
+use App\Models\Address;
 use App\Models\Ship;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Customer;
+use App\Models\City;
+use App\Models\District;
+use App\Models\Ward;
+use App\Models\FeeShip;
 use Carbon\Carbon;
 use Mail;
 use App\Mail\Gmail;
@@ -82,8 +87,11 @@ class CheckoutController extends Controller
             $meta_title = $request->product_name;
             $meta_url = $request->url();
         $customer = Customer::where('customer_id', Session::get('customer_id'))->get();
-        return view('pages.checkout.check_out')->with('category', $cate_product)->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)
-        ->with('meta_title', $meta_title)->with('meta_url', $meta_url)->with('customer', $customer);
+        $address = Address::where('id_customer', Session::get('customer_id'))->get();
+        $city = City::orderBy('matp', 'ASC')->get();
+        return view('pages.checkout.check_out')->with('category', $cate_product)->with('meta_desc', $meta_desc)
+        ->with('meta_keywords', $meta_keywords)->with('meta_title', $meta_title)->with('meta_url', $meta_url)
+        ->with('customer', $customer)->with('address', $address)->with('city', $city);
     }
     public function delete_to_checkout($id)
     {
@@ -94,8 +102,6 @@ class CheckoutController extends Controller
     {
         $data = array();
         $data['customer_id'] = $request->customer_id;
-        $data['ship_name'] = $request->ship_name;
-        $data['ship_phone'] = $request->ship_phone;
         $data['ship_address'] = $request->ship_address;
         $data['ship_note'] = $request->ship_note;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -178,8 +184,6 @@ class CheckoutController extends Controller
         $data = $request->all();
         $ship = new Ship();
         $ship->customer_id = $data['customer_id'];
-        $ship->ship_name = $data['ship_name'];
-        $ship->ship_phone = $data['ship_phone'];
         $ship->ship_address = $data['ship_address'];
         $ship->ship_note = $data['ship_note'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -187,6 +191,7 @@ class CheckoutController extends Controller
         $ship->save();
         $ship_id = $ship->ship_id;
 
+        $order_date = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
         $code = substr(md5(microtime()),rand(0,26),5);
         $order = new Order;
         $order->customer_id = Session::get('customer_id');
@@ -195,6 +200,7 @@ class CheckoutController extends Controller
         $order->order_status = 0;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $order->created_at = now();
+        $order->order_date = $order_date;
         $order->save();
         $cart = Session::get('cart');
         if(Session::get('cart')){
@@ -208,6 +214,7 @@ class CheckoutController extends Controller
                 $order_detail->product_color = $cart['product_color'];
                 $order_detail->product_size = $cart['product_size'];
                 $order_detail->total = $cart['product_price'] * $cart['product_qty'];
+                $order_detail->total_order = $data['total_order'];
                 $order_detail->created_at = now();
                 $order_detail->save();
             }
@@ -231,10 +238,9 @@ class CheckoutController extends Controller
         }
         $ship_array = array(
             'customer_name' => $customer->customer_name,
-            'ship_name' => $data['ship_name'],
-            'ship_address' => $data['ship_address'],
-            'ship_phone' => $data['ship_phone'],
             'ship_note' => $data['ship_note'],
+            'ship_address' => $data['ship_address'],
+
 
         );
         $ordercode_mail = array(
@@ -253,8 +259,45 @@ class CheckoutController extends Controller
                 $message->from($data['email'], $title_email);
             });
         Session::forget('cart');
-    }
+        Session::forget('fee');
 
+    }
+    public function select_delivery_checkout(Request $request){
+        $data = $request->all();
+        if($data['action']){
+            $output = '';
+            if($data['action'] == "city"){
+                $select_district = District::where('matp', $data['ma_tp'])->orderBy('maqh', 'ASC')->get();
+                $output.='<option>Chọn quận/huyện</option>';
+                foreach($select_district as $k => $district){
+                $output.='<option value = "'.$district->maqh.'">'.$district->district_name.'</option>';
+                }
+            }else{
+                $select_ward= Ward::where('maqh', $data['ma_tp'])->orderBy('xaid', 'ASC')->get();
+                $output.='<option>Chọn quận/huyện</option>';
+                foreach($select_ward as $k => $ward){
+                $output.='<option value = "'.$ward->xaid.'">'.$ward->ward_name.'</option>';
+                }
+            }
+        }
+        echo $output;
+    }
+    public function fee_ship_order(Request $request){
+        $data = $request->all();
+        if($data['ma_tp']){
+            $feeship = FeeShip::where('fee_id_city',$data['ma_tp'])
+                ->where('fee_id_district',$data['ma_qh'])
+                ->where('fee_id_ward',$data['ma_xp'])->get();
+            foreach($feeship as $k => $fee){
+                Session::put('fee', $fee->fee_ship);
+                Session::save();
+            }
+        }
+    }
+    public function delete_fee(){
+        Session::forget('fee');
+        return Redirect()->back();
+    }
 
 
 }
