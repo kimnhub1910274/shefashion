@@ -54,6 +54,9 @@
 
         </tbody>
       </table>
+      <div>
+        {{ $delivery_failed->links() }}
+      </div>
 </div>
 
 @endsection

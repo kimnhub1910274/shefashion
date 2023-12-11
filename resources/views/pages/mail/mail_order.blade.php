@@ -17,10 +17,10 @@
 
 </head>
 <body>
-    <div class="container" style="margin-left: 20%; text-align: justify;">
+    <div class="container" style="text-align: justify;">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-6" style="margin-left: 10%;">
+                <div class="col-md-6" style="">
                     <h4 style="margin-left: 20px;">SHE - FASHION</h4>
                 <h4>Chuyên bán quần áo nữ các loại</h4>
                 </div>
@@ -28,7 +28,7 @@
                     <p>Chào bạn, <strong>{{ $ship_array['customer_name'] }}</strong></p>
                 </div>
                 <div class="col-md-12">
-                    <p>Bạn đã đặt đơn hàng , hãy truy cập <a href="http://localhost/shefashion/">website</a> để theo dõi tình trạng đơn hàng.</p>
+                    <p>Đơn hàng của bạn đã được xác nhận , hãy truy cập <a href="http://shefashion.com/shefashion">website</a> để theo dõi tình trạng đơn hàng.</p>
                     <div class="row">
                         <div class="col">
                             <h4>THÔNG TIN NGƯỜI MUA</h4>
@@ -42,10 +42,6 @@
                         </div>
                         <div class="col">
                             <h4>THÔNG TIN NGƯỜI NHẬN</h4>
-                            <p>Người nhận hàng: </p>
-                            <p>Email:
-
-                            </p>
                             <p>Địa chỉ:
                                 @if ($ship_array['ship_address'] == '')
                                 Không có
@@ -118,14 +114,22 @@
                           @endforeach
                         </tbody>
                         <tr>
-                            <td colspan="4" >TỔNG TIỀN: <b>{{ number_format( $total,0,',','.')}} VNĐ</b></td>
+                            <td > PHÍ VẬN CHUYỂN: </td>
+                            <td colspan="5">{{ number_format($ship_array['ship_fee']) }} VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>TỔNG TIỀN HÀNG: {{ number_format($total) }} VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td>TỔNG THANH TOÁN: <b>{{ number_format( $total + $ship_array['ship_fee'])}} VNĐ</b></td>
+
                         </tr>
                       </table>
                 </div>
                 <div>
                     <p>Mọi chi tiết thắc mắc xin vui lòng liên hệ:</p>
                     <p>Xin cảm ơn</p>
-                    <p style="margin-left: 20px;">Đây là email tự động. Vui lòng không trả email này.</p>
+                    <p style="">Đây là email tự động. Vui lòng không trả email này.</p>
                 </div>
             </div>
         </div>

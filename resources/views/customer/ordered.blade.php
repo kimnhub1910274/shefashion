@@ -13,7 +13,7 @@
         ?>
         <table class="table">
             <thead>
-              <tr>
+              <tr style="background-color: pink">
                 <th scope="col">STT</th>
                 <th>Mã đơn hàng</th>
                 <th>Mã khách hàng</th>

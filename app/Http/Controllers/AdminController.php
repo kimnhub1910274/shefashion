@@ -41,7 +41,7 @@ class AdminController extends Controller
         $this->AuthLogin();
 
 
-        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
         $user_ip_address = $request->ip();
         $early_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth()->toDateString();
         $end_last_month = Carbon::now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth()->toDateString();
@@ -179,32 +179,32 @@ class AdminController extends Controller
     }
     public function wait_pay()
     {
-        $wait_pay =  Order::where('order_status', '1')
-        ->orderBy('created_at', 'DESC')->get();
+        $wait_pay =  Order::where('order_status', '0')
+        ->orderBy('created_at', 'DESC')->paginate(10);
             return view('admin.order.wait_pay')->with(compact('wait_pay'));
 }
     public function delivery()
         {
             $delivery =  Order::where('order_status', '2')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('admin.order.delivery')->with(compact('delivery'));
     }
     public function success_delivery()
         {
             $success_delivery =  Order::where('order_status', '3')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('admin.order.success_delivery')->with(compact('success_delivery'));
     }
     public function cancel()
         {
             $cancel =  Order::where('order_status', '4')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('admin.order.cancel')->with(compact('cancel'));
     }
     public function delivery_failed()
         {
             $delivery_failed =  Order::where('order_status', '5')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('admin.order.delivery_failed')->with(compact('delivery_failed'));
     }
     public function filter_by_date(Request $request){
@@ -277,10 +277,12 @@ class AdminController extends Controller
         }
         echo $data = json_encode($chart_data);
     }
-    public function days_order(){
+    public function days_order(Request $request){
+        $data = $request->all();
         $sub30days = Carbon::now('Asia/Ho_Chi_Minh')->subdays(30)->toDateString();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub30days,$now))->orderBy('order_date', 'ASC')->get();
+        $get = DB::table('tbl_statistical')->whereBetween('order_date',array($sub30days,$now))
+        ->orderBy('order_date', 'ASC')->get();
         foreach($get as $k =>$val){
             $chart_data[] = array(
                 'period' => $val->order_date,

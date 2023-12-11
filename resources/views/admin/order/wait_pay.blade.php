@@ -18,6 +18,7 @@
             <th scope="col">Trạng thái</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>
+            <th scope="col">Duyệt</th>
 
           </tr>
         </thead>
@@ -50,11 +51,32 @@
                         </a>
                         &nbsp;
                     </td>
+                    <td>
+                        @if ($order->order_status == 0)
+                            <div style="margin-top: 10px; margin-bottom: -12px;">
+                            <form action="">
+                                @csrf
+                                <button class="btn btn-success " id="{{$order->order_code}}"
+                                style="margin-left: -20px;" onclick="acceptorder(this.id)" >Duyệt</button>
+                            </form>
+                            <form action="">
+                                @csrf
+                                <button class="btn btn-danger" id="{{$order->order_code}}"
+                                    style="margin-left: 50px; margin-top: -67px;"
+                                     onclick="cancelorder(this.id)">Hủy</button>
+                            </form>
+                            </div>
+
+                        @endif
+                    </td>
                 </tr>
             @endforeach
 
         </tbody>
       </table>
+      <div>
+        {{ $wait_pay->links() }}
+      </div>
 </div>
 
 @endsection

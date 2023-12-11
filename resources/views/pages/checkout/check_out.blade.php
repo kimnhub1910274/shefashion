@@ -93,11 +93,10 @@
                                         name="customer_status" value="{{ $c->customer_status }}">
                                     @endforeach
                                     <tr>
-                                        <td><b>TỔNG TIỀN:</b></td>
-                                        <td colspan="6" class="text-center"><b>{{ number_format($total) }} VNĐ</b></td>
-                                        <td colspan="2">
-                                        </td>
+                                        <td colspan="3"><b>TỔNG TIỀN:</b></td>
+                                        <td colspan="3" class="text-center"><b>{{ number_format($total) }} VNĐ</b></td>
                                     </tr>
+
                                     @else
                                     <p class="text-center"><b>Giỏ hàng rỗng hãy mua sắm</b></p>
                                     @endif
@@ -152,6 +151,16 @@
                                <textarea type="text" class="form-control ship_note"
                                placeholder="" name="ship_note"></textarea>
                            </div>
+                           <div class="mb-3 input-group">
+                                <span class="input-group-text" id="basic-addon">Hình thức thanh toán</span>
+                           </div>
+                            <div class="mb-3 input-group">
+                                <select name="payment_method" id="" class="form-control payment_method">
+                                    <option value="1">Thanh toán khi nhận hàng</option>
+                                    <option value="2">Thanh toán PayPal</option>
+                                </select>
+                            </div>
+                            <input type="hidden" class="ship_fee" value="{{ $fee }}" name="" id="">
                         </div>
                            <?php
                             if ($c && $fee) {
@@ -171,8 +180,8 @@
                 ?>
                 <form action="" method="post" name="delivery">
                     @csrf
-                    <div class="row">
-                        <div class="col" style="margin-top: 35px">
+                    <div class="row" style="margin-top: 35px">
+                        <div class="col" >
 
                             <div class="mb-3">
                                 <label  class="form-label"><b>Chọn tỉnh/thành phố</b></label>
@@ -205,7 +214,18 @@
 
                         </div>
                         <div class="col">
-                            <div class="card" style="margin-top: 70px">
+                            <div>
+                                @php
+                                   $money_vn = $total / 24257;
+                                @endphp
+                                <div id="paypal-button-container">
+                                    <input type="hidden" id="money_vn" value="{{ round($money_vn, 2) }}">
+                                </div>
+                                <p id="result-message"></p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card" style="margin-top: ">
                                 <div class="card-header">
                                     <h6>TÓM TẮT ĐƠN HÀNG</h6>
                                 </div>
@@ -223,7 +243,6 @@
                                         @endif
 
                                     </p>
-                                    <p><b>Hình thức:</b> Thanh toán khi nhận hàng</p>
                                 </div>
                             </div>
                         </div>

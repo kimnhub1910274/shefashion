@@ -186,6 +186,8 @@ class CheckoutController extends Controller
         $ship->customer_id = $data['customer_id'];
         $ship->ship_address = $data['ship_address'];
         $ship->ship_note = $data['ship_note'];
+        $ship->ship_fee = $data['ship_fee'];
+        $ship->payment_method = $data['payment_method'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $ship->created_at = now();
         $ship->save();
@@ -240,6 +242,9 @@ class CheckoutController extends Controller
             'customer_name' => $customer->customer_name,
             'ship_note' => $data['ship_note'],
             'ship_address' => $data['ship_address'],
+            'ship_fee' => $data['ship_fee'],
+            'payment_method' => $data['payment_method'],
+
 
 
         );

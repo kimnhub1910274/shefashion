@@ -48,7 +48,7 @@ class OrderController extends Controller
     }
     public function manage_order()
     {
-        $all_order = Order::orderBy('created_at', 'DESC')->paginate(5);
+        $all_order = Order::orderBy('created_at', 'DESC')->paginate(10);
 
         return view('admin.manage_order')->with(compact('all_order'));
     }
@@ -82,8 +82,11 @@ class OrderController extends Controller
         $order->order_status = $data['order_status'];
         $order->save();
 
-        //
-
+        $order_date = $order->order_date;
+        $statistic = Statistic::where('order_date', $order_date)->get();
+        if($statistic){
+            $statistic_count = $statistic->count();
+        }
 
         if($order->order_status == 1){
             $order->order_status = 1;
@@ -92,16 +95,30 @@ class OrderController extends Controller
             $title_email = "Đơn hàng đã được xác nhận".' '.$now;
             $customer = Customer::where('customer_id', $order->customer_id)->first();
             $data['email'][] = $customer->customer_email;
-            $code = substr(md5(microtime()),rand(0,26),5);
-            foreach($data['order_product_id'] as $key =>$product){
-                $product_mail = Product::find($product);
+           // $code = substr(md5(microtime()),rand(0,26),5);
+            foreach($data['order_product_id'] as $key =>$product_id){
+                $product = Product::find($product_id);
+                $product_mail = Product::find($product_id);
+                $detail = OrderDetails::where('order_code', $order->order_code)->first();
+                $product_quantity = $product->product_quantity;
+                $product_sold = $product->product_sold;
+                //
+                $product_price = $product->product_price;
+                $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
                 foreach($data['quantity'] as $key2 => $qty){
                     if($key ==$key2){
                         $cart_array[] = array(
                             'product_name' => $product_mail['product_name'],
                             'product_price' => $product_mail['product_price'],
-                            'product_quantity' => $qty,
+                            'product_qty' => $qty,
+                            'product_color' => $detail['product_color'],
+                            'product_size' => $detail['product_size'],
+
                        );
+                       $product_remain = $product_quantity - $qty;
+                        $product->product_quantity = $product_remain;
+                        $product->product_sold = $product_sold + $qty;
+                        $product->save();
                    }
                }
            }
@@ -111,17 +128,20 @@ class OrderController extends Controller
                'customer_name' => $customer->customer_name,
                'ship_name' => $ship['ship_name'],
                'ship_address' => $ship['ship_address'],
+               'ship_note' => $ship['ship_note'],
+               'ship_fee' => $ship['ship_fee'],
+               'payment_method' => $ship['payment_method'],
 
            );
            $ordercode_mail = array(
-               'order_code' => $code,
+               'order_code' => $order->order_code,
                'created_at' => $order->created_at,
                'customer_email' => $customer->customer_email,
                'customer_phone' => $customer->customer_phone,
                'customer_address' => $customer->customer_address,
            );
 
-           Mail::send('admin.confirm_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
+           Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
                                                'ordercode_mail' => $ordercode_mail],
                function($message) use ($title_email, $data){
                    $message->to($data['email'])->subject($title_email);
@@ -135,58 +155,51 @@ class OrderController extends Controller
             $quantity = 0;
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
-                $product_quantity = $product->product_quantity;
-                $product_sold = $product->product_sold;
-                //
+
                 $product_price = $product->product_price;
+
                 $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
                 foreach ($data['quantity'] as $key2 => $qty) {
-                    if ($key == $key2) {
-                        $product_remain = $product_quantity - $qty;
-                        $product->product_quantity = $product_remain;
-                        $product->product_sold = $product_sold + $qty;
-                        $product->save();
+                  //  if ($key == $key2) {
+                       // $product_remain = $product_quantity - $qty;
+                      //  $product->product_quantity = $product_remain;
+                       // $product->product_sold = $product_sold + $qty;
+                        //$product->save();
                         //update statistical
-                        $quantity += $qty;
-                        $total_order += 1;
+                        $quantity = $quantity + $qty;
+                        $total_order = $total_order + 1;
                         $sale = $product_price * $qty;
-                        $profit = $sale - 1000;
+                        $profit = $sale * 0.3;
 
-                    }
+                   // }
                 }
             }
-            //
-            $order_date = $order->order_date;
-            //$statistical = Statistic::where('order_date', $order_date)->get();
-            $statistical = Statistic::where('order_date', $order_date)->get();
-            if($statistical){
-                $statistical_count = $statistical->count();
+            //order_date
+
+            if($statistic_count > 0){
+                $statistic_update = Statistic::where('order_date', $order_date)->first();
+                $statistic_update->sale = $statistic_update->sale + $sale;
+                $statistic_update->profit = $statistic_update->profit + $profit;
+                $statistic_update->quantity = $statistic_update->quantity + $quantity;
+                $statistic_update->total_order = $statistic_update->total_order + $total_order;
+                $statistic_update->save();
             }else{
-                $statistical_count = 0;
+                $statistic_new = new Statistic();
+                $statistic_new->order_date = $order_date;
+                $statistic_new->sale = $sale;
+                $statistic_new->profit = $profit;
+                $statistic_new->quantity = $quantity;
+                $statistic_new->total_order = $total_order;
+                $statistic_new->save();
             }
-            if($statistical_count > 0){
-                $statistical_update = Statistic::where('order_date', '$order_date')->first();
-                $statistical_update->sale = $statistical_update->sale + $sale;
-                $statistical_update->profit = $statistical_update->profit + $profit;
-                $statistical_update->quantity = $statistical_update->quantity + $quantity;
-                $statistical_update->total_order = $statistical_update->total_order + $total_order;
-                $statistical_update->save();
-            }else{
-                $statistical_new = new Statistic();
-                $statistical_new->order_date = $order_date;
-                $statistical_new->sale = $sale;
-                $statistical_new->profit = $profit;
-                $statistical_new->quantity = $quantity;
-                $statistical_new->total_order = $total_order;
-                $statistical_update->save();
-            }
+
              //send mail
              $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
              $title_email = "Đơn hàng đã giao hàng thành công".' '.$now;
              $customer = Customer::where('customer_id', $order->customer_id)->first();
              $data['email'][] = $customer->customer_email;
-             $code = substr(md5(microtime()),rand(0,26),5);
+             //$code = substr(md5(microtime()),rand(0,26),5);
              foreach($data['order_product_id'] as $key =>$product){
                  $product_mail = Product::find($product);
                  foreach($data['quantity'] as $key2 => $qty){
@@ -194,7 +207,7 @@ class OrderController extends Controller
                          $cart_array[] = array(
                              'product_name' => $product_mail['product_name'],
                              'product_price' => $product_mail['product_price'],
-                             'product_quantity' => $qty,
+                             'product_qty' => $qty,
                         );
                     }
                 }
@@ -205,11 +218,13 @@ class OrderController extends Controller
                 'customer_name' => $customer->customer_name,
                 'ship_name' => $ship['ship_name'],
                 'ship_address' => $ship['ship_address'],
+                'ship_note' => $ship['ship_note'],
+
 
 
             );
             $ordercode_mail = array(
-                'order_code' => $code,
+                'order_code' => $order->order_codet,
                 'created_at' => $order->created_at,
                 'customer_email' => $customer->customer_email,
                 'customer_phone' => $customer->customer_phone,
@@ -222,7 +237,7 @@ class OrderController extends Controller
                     $message->to($data['email'])->subject($title_email);
                     $message->from($data['email'], $title_email);
                 });
-        } elseif ($order->order_status != 2 && $order->order_status != 3 && $order->order_status == 5) {
+        } elseif ($order->order_status == 4 || $order->order_status == 5) {
             foreach ($data['order_product_id'] as $key => $product_id) {
                 $product = Product::find($product_id);
                 $product_quantity = $product->product_quantity;
@@ -281,23 +296,16 @@ class OrderController extends Controller
                 font-family:DejaVu Sans;
                 font-size: 15px;
             }
-            .table2{
-                position: absolute;
-                bottom: 80;
-                height: 2.5rem;
-            }
             .a{
                 margin-right:10px;
             }
-            .c{
-                margin-right: 160px
-            }
 
             .b{
-                margin-left:170px;
+                margin-left:150px;
+                margin-top:-30px;
             }
             .e{
-                margin-left:220px;
+                margin-left:200px;
             }
 
         </style>
@@ -310,27 +318,21 @@ class OrderController extends Controller
 
             <tbody>';
     $output.='
-                <tr>
-                    <td>
-                        <div class="a">
-                            <p class=""><b>Người đặt hàng</b></p>
-                            <p class="">Họ tên: '.$customer->customer_name.'</p>
-                            <p>Số điện thoại: '.$customer->customer_phone.'</p>
-                            <p>Email: '.$customer->customer_email.'</p>
-                            <p>Địa chỉ: '.$customer->customer_address.'</p>
-                            <p>Ngày đặt: '.$order->created_at.'</p>
-
-
-                        </div>
-                    </td>
-                    <td>
-                        <div class="b">
-                            <p class=""><b>Người nhận hàng</b></p>
-                            <p>Địa chỉ: '.$ship->ship_address.'</p>
-                            <p>Ghi chú: '.$ship->ship_note.'</p>
-                        </div>
-                    </td>
-                </tr>
+                <div class="row">
+                    <div class="col">
+                        <p class=""><b>Người đặt hàng</b></p>
+                        <p class="">Họ tên: '.$customer->customer_name.'</p>
+                        <p>Số điện thoại: '.$customer->customer_phone.'</p>
+                        <p>Email: '.$customer->customer_email.'</p>
+                        <p>Địa chỉ: '.$customer->customer_address.'</p>
+                        <p>Ngày đặt: '.$order->created_at.'</p>
+                    </div>
+                    <div class="col">
+                        <p class=""><b>Người nhận hàng</b></p>
+                        <p>Địa chỉ: '.$ship->ship_address.'</p>
+                        <p>Ghi chú: '.$ship->ship_note.'</p>
+                    </div>
+                </div>
                 ';
     $output.='
 
@@ -354,19 +356,19 @@ class OrderController extends Controller
                         $subtotal = $product->product_price*$product->product_quantity;
                         $total = $subtotal+$total;
         $output.='
-                    <tr>
+                    <tr style="text-align: center">
                         <td>'.$product->product_name.'&nbsp; &nbsp;&nbsp; &nbsp;</td>
-                        <td>'.$product->product_color.'&nbsp; &nbsp;&nbsp; &nbsp;</td>
-                        <td>'.$product->product_size.'&nbsp; &nbsp;&nbsp; &nbsp;</td>
+                        <td>'.$product->product_color.'</td>
+                        <td>'.$product->product_size.'</td>
                         <td>'.number_format($product->product_price,0,',',',').'đ'.'</td>
-                        <td> &nbsp; &nbsp;&nbsp; &nbsp;'.$product->product_quantity.'</td>
+                        <td> '.$product->product_quantity.'</td>
                         <td>'.number_format($subtotal,0,',',',').'đ'.'</td>
                     </tr>';
                 }
         $output.='
                 <tr>
-                    <td><p>Phí vận chuyển: 0đ</p>
-                        <p>Tổng thanh toán: '.number_format($total,0,',',',').'đ'.'</p>
+                    <td><p>Phí vận chuyển: '.number_format($ship->ship_fee).'</p>
+                        <p>Tổng thanh toán: '.number_format($subtotal + $ship->ship_fee).'</p>
                     </td>
                 </tr>
         ';
@@ -384,7 +386,7 @@ class OrderController extends Controller
                     <small><center>(Ký xác nhận)</center></small>
                 </div>
             </td>
-            <td>
+            <td colpan=5>
                 <div class="e">
                     <p class=""><b>Người nhận hàng</b></p>
                     <small><center>(Ký xác nhận)</center></small>
@@ -398,11 +400,14 @@ class OrderController extends Controller
                 </tbody>
             </table>';
         $output.='
-            <table class="table2">
+
+            <table class="table2" style="position: absolute;
+                bottom: 80;
+                height: 2.5rem;">
                 <thead >
                     <tr>
                         <th>
-                            <p class="c">THÔNG TIN LIÊN HỆ</p>
+                            <p class="" style="margin-top: 70px">THÔNG TIN LIÊN HỆ</p>
                         </th>
                     </tr>
                 </thead>
@@ -410,13 +415,13 @@ class OrderController extends Controller
         $output.='
                     <tr>
                         <td>
-                            <div class="a">
+                            <div class="" style="font-size: 10px">
                                 <p>Số điện thoại: 0795484345</p>
                                 <p>Email: lethikimnhuhb@gmail.com</p>
                             </div>
                         </td>
                         <td>
-                            <div class="e font">
+                            <div class="e" >
                                 <h2>CẢM ƠN!</h2>
                             </div>
                         </td>

@@ -55,6 +55,9 @@
 
         </tbody>
       </table>
+      <div>
+        {{ $cancel->links() }}
+      </div>
 </div>
 
 @endsection

@@ -39,7 +39,7 @@
                 <div class="col-md-2">
                     <p>Đến ngày: <input type="text" id="datepicker2" class="form-control"></p>
                 </div>
-                {{-- <div class="col-md-2">
+                <div class="col-md-2">
                     <p>Lọc theo:
                         <select name="" id="" class="dashboard-filter form-control">
                             <option value="">Chọn</option>
@@ -49,7 +49,7 @@
                             <option value="thisyear">1 năm qua</option>
                         </select>
                     </p>
-                </div> --}}
+                </div>
 
            </div>
         </form>
@@ -99,7 +99,7 @@
                 <p>Sản phẩm</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-shirt"></i>
               </div>
               <a href="{{URL::to('/list-product')}}" class="small-box-footer">
                 Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
@@ -110,12 +110,12 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>{{ $customer_count }}</h3>
+                <h3>1</h3>
 
-                <p>Khách hàng đăng ký</p>
+                <p>Tổng doanh thu</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="ion ion-stats-bars"></i>
               </div>
               <a href="{{URL::to('/manage-customer')}}" class="small-box-footer">
                 Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
@@ -131,7 +131,7 @@
                 <p>Bình luận mới</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-comment"></i>
               </div>
               <a href="{{URL::to('/manage-comment')}}" class="small-box-footer">
                 Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
@@ -163,7 +163,7 @@
 
         </div>
         <div class="row">
-            <p class="title">THỐNG KÊ LƯỢT XEM SẢN PHẨM</p>
+            <p class="title"></p>
                 <ol class="list_product_view container">
                     @foreach ($product_view as $k => $v)
                     <li>

@@ -12,10 +12,10 @@ class Statistic extends Model
         'order_date', 'sale', 'profit',
          'quantity', 'total_order'
     ];
-    protected $primaryKey = 'id_statistical ';
-    protected $table = 'tbl_statistical ';
+    protected $primaryKey = 'id_statistical';
+    protected $table = 'tbl_statistical';
     public function statistic()
     {
-        return $this->belongsToMany('App\Models\Statistic', 'order_date');
+        return $this->belongsToMany('App\Models\Order', 'order_date');
     }
 }

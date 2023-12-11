@@ -232,13 +232,17 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="" colspan="3">Phí vận chuyển</th>
-                                    <td class="text-end">0</td>
+                                    <th scope="" colspan="5">Tổng tiền sản phẩm</th>
+                                    <td class="text-end">{{ $total }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="" colspan="5">Phí vận chuyển</th>
+                                    <td class="text-end">{{ $ship->ship_fee }}</td>
                                 </tr>
                                 <tr class="fw-bold">
-                                    <td colspan="3">Tổng tiền</td>
+                                    <td colspan="5">Tổng tiền</td>
                                     <td class="text-end">
-                                        {{ number_format($total)}}</td>
+                                        {{ number_format($total + $ship->ship_fee)}}</td>
                                 </tr>
                             </tfoot>
 
@@ -251,7 +255,13 @@
                     <div class="row">
                         <div class="col-lg-4">
                         <h3 class="h6">Phương thức thanh toán</h3>
-                        <p>Thanh toán khi nhận hàng <br>
+                           <p>
+                            @if($ship->payment_method == 1)
+                            Thanh toán khi nhận hàng
+                            @elseif ($ship->payment_method == 2)
+                            Thanh toán PayPal
+                        @endif
+                           </p>
                         </div>
                         <div class="col-lg-4">
                         <h3 class="h6">Người đặt đơn</h3>
@@ -284,12 +294,6 @@
               </address>
             </div>
           </div>
-          <div class="card mb-4">
-            <div class="card-body">
-            <h3 class="h6">Chat với khách hàng</h3>
-            <p></p>
-            </div>
-        </div>
           @foreach ($order as $key => $valu)
             @if ($valu->order_status == 3)
             <div class="card mb-4">

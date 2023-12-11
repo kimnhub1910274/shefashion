@@ -1,3 +1,8 @@
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +22,10 @@
 
 </head>
 <body>
-    <div class="container" style="margin-left: 20%; text-align: justify;">
+    <div class="container" style=" text-align: justify;">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-6" style="margin-left: 10%;">
+                <div class="col-md-6" style="">
                     <h4 style="margin-left: 20px;">SHE - FASHION</h4>
                 <h4>Chuyên bán quần áo nữ các loại</h4>
                 </div>
@@ -28,7 +33,7 @@
                     <p>Chào bạn, <strong>{{ $ship_array['customer_name'] }}</strong></p>
                 </div>
                 <div class="col-md-12">
-                    <p>Đơn hàng <b>{{ $ordercode_mail['order_code'] }}</b> được giao thành công , hãy truy cập <a href="http://localhost/shefashion/">website</a> để tiếp tục mua sắm.</p>
+                    <p>Đơn hàng <b>{{ $ordercode_mail['order_code'] }}</b> được giao thành công , hãy truy cập <a href="http://shefashion.com/shefashion">website</a> để tiếp tục mua sắm.</p>
                     <div class="row">
                         <div class="col">
                             <h4>THÔNG TIN NGƯỜI MUA</h4>
@@ -42,10 +47,7 @@
                         </div>
                         <div class="col">
                             <h4>THÔNG TIN NGƯỜI NHẬN</h4>
-                            <p>Người nhận hàng: {{ $ship_array['ship_name'] }}</p>
-                            <p>Email:
 
-                            </p>
                             <p>Địa chỉ:
                                 @if ($ship_array['ship_address'] == '')
                                 Không có
@@ -68,6 +70,8 @@
                           <tr>
                             <th scope="">Tên sản phẩm</th>
                             <th scope="col">Số lượng</th>
+                            <th scope="col">Màu sắc</th>
+                            <th scope="col">Kích thước</th>
                             <th scope="col">Giá</th>
                             <th scope="col">Thành tiền</th>
 
@@ -87,13 +91,41 @@
                                 <tr>
                                     <td>{{ $cart['product_name'] }}</td>
                                     <td>{{ $cart['product_quantity'] }}</td>
+                                    <td>{{ $cart['product_qty'] }}</td>
+                                    <td>
+                                        @if($cart['product_color'] == 1)
+                                            Vàng
+                                        @elseif($cart['product_color'] == 2)
+                                            Trắng
+                                        @elseif($cart['product_color'] == 3)
+                                            Hồng
+                                        @elseif($cart['product_color'] == 4)
+                                            Xanh
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        @if($cart['product_size'] == 1)
+                                            S
+                                        @elseif($cart['product_size'] == 2)
+                                            M
+                                        @elseif($cart['product_size'] == 3)
+                                            L
+                                        @elseif($cart['product_size'] == 4)
+                                            XL
+                                        @endif
+
+                                    </td>
+
                                     <td>{{ number_format( $cart['product_price'],0,',','.') }}</td>
                                     <td>{{ number_format( $sub,0,',','.') }} VNĐ</td>
                                 </tr>
                           @endforeach
                         </tbody>
                         <tr>
-                            <td colspan="4" >TỔNG TIỀN: <b>{{ number_format( $total,0,',','.')}} VNĐ</b></td>
+                            <td >{{ number_format($ship_array['ship_fee']) }} VNĐ</td>
+                            <td >{{ number_format($total) }} VNĐ</td>
+                            <td >TỔNG TIỀN: <b>{{ number_format( $total + $ship_array['ship_fee'])}} VNĐ</b></td>
                         </tr>
                       </table>
                 </div>

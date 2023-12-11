@@ -405,15 +405,19 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             var _token = $('input[name="_token"]').val();
             var customer_status = $('.customer_status').val();
             var total_order = $('.total_order').val();
+            var payment_method = $('.payment_method').val();
+            var ship_fee = $('.ship_fee').val();
+
+
            // var ship_address = $('.ship_address_' + id).val();
            // alert(ship_address)
            if(customer_status == 0){
                 alert('Bạn không thể đặt hàng, có thể bạn đã bị chặn!');
-           }
+           }else{
             $.ajax({
                 url: '{{url('/confirm-order')}}',
                 method: 'POST',
-                data:{customer_id:customer_id, total_order:total_order, ship_address:ship_address, ship_note:ship_note, _token:_token},
+                data:{customer_id:customer_id, total_order:total_order, ship_address:ship_address, ship_note:ship_note, payment_method:payment_method, ship_fee:ship_fee, _token:_token},
                 success:function(data){
                     alert("Đặt hàng thành công");
 
@@ -423,6 +427,8 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
             window.setTimeout(function(){
                 location.reload();
             }, 1000);
+           }
+
 
 
         });
@@ -501,6 +507,44 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
                 location.reload();
               }, 1000); --}}
 
+
+    });
+    $(document).ready(function(){
+        load_comment();
+        //alert(product_id);
+        function load_comment(){
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: '{{url('/load-comment')}}',
+                method: 'POST',
+                data:{product_id:product_id, _token:_token},
+                success:function(data){
+                    $('#comment').html(data);
+                }
+            });
+        }
+        $('.send-comment').click(function(){
+            var product_id = $('.comment_product_id').val();
+            var comment_user = $('.comment_user').val();
+            var comment_content = $('.comment_content').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/send-comment')}}',
+                method: 'POST',
+                data:{product_id:product_id, _token:_token, comment_user:comment_user, comment_content:comment_content},
+                success:function(data){
+                    $('#notify_comment').html('<p>Thêm thành công! Đang chờ duyệt.</p>').fadeOut(5000);
+                    load_comment();
+                    var comment_user = $('.comment_user').val('');
+                    var comment_content = $('.comment_content').val('');
+                }
+            });
+
+
+
+        });
 
     });
 </script>
@@ -640,4 +684,69 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
       }(document, 'script', 'facebook-jssdk'));
     </script>
 
+//<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+<script>
+    paypal.Buttons({
+        env: 'sandbox',
+        client:{
+            sandbox: 'AbbM7NNKpAomeotoKZ9rEzZo0R457k2yb9A-r4IsP5PgIYvhhUhDAgjai3ALtf6u2MeztMUFYPM4rC0H',
+            production:'',
+        },
+        locate: 'en_US',
+        commit: true,
+        payment: function(data, actions) {
+            return actions.payment.create({
+                transactions: [{
+                    amount:{
+                        total:'0.02',
+                        currency:'USD'
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.payment.excute().then(function(){
+                alert('df');
+            });
 
+        },
+  }).render("#paypal-button-containere");
+
+// Example function to show a result to the user. Your site's UI library can be used instead.
+function resultMessage(message) {
+  const container = document.querySelector("#result-message");
+  container.innerHTML = message;
+}
+</script>
+<script src="https://www.paypal.com/sdk/js?client-id=AbbM7NNKpAomeotoKZ9rEzZo0R457k2yb9A-r4IsP5PgIYvhhUhDAgjai3ALtf6u2MeztMUFYPM4rC0H" ></script>
+<script>
+    var usd = document.getElementById('money_vn').value;
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',
+            color:  'gold',
+            shape:  'rect',
+            label:  'paypal'
+          },
+
+          payment: function(data, actions) {
+            return actions.payment.create({
+                purchase_units: [
+                {
+                amount: {
+                    currency_code: "USD",
+                    total: `${usd}`,
+                },
+                },
+            ],
+            });
+        },
+        onAuthorize: function(data, actions) {
+            return actions.payment.excute().then(function(){
+                alert('df');
+            });
+
+        },
+
+    }).render('#paypal-button-container')
+  </script>

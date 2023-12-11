@@ -79,11 +79,7 @@
                             <i class="fa-solid fa-pen-to-square"></i>
 
                         </a>
-                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục
-                        {{$product->product_name}} ?')"href="{{URL::to('/delete-product/'.$product->product_id)}}">
-                            <i class="fa-solid fa-trash red"></i>
 
-                        </a>
                     </td>
                 </tr>
                 @endforeach
