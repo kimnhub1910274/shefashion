@@ -155,6 +155,7 @@ Route::get('/view-ordered/{order_id}', [OrderController::class, 'view_ordered'])
 Route::post('/cancel-order', [OrderController::class, 'cancel_order']);
 Route::post('/cancel-order-customer', [OrderController::class, 'cancel_order_customer']);
 Route::post('/accept-order', [OrderController::class, 'accept_order']);
+Route::get('/delete-order/{order_code}', [OrderController::class, 'delete_order']);
 
 //Send Mail
 Route::get('/send-mail', [HomeController::class, 'send_mail']);
@@ -174,6 +175,8 @@ Route::get('/delivery-failed', [AdminController::class, 'delivery_failed']);
 Route::get('/customer/{customerId}', [CustomerController::class, 'customer']);
 Route::get('/address/{customerId}', [CustomerController::class, 'address']);
 Route::post('/approve-customer', [CustomerController::class, 'approve_customer']);
+Route::post('/add-address', [CustomerController::class, 'add_address']);
+Route::get('/delete-address/{address_id}', [CustomerController::class, 'delete_address']);
 
 
 

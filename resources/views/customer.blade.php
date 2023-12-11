@@ -4,219 +4,234 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{-- <meta name="description" content="{{$meta_desc}}">
+    <meta name="keywords" content="{{$meta_keywords}}">
+    <meta name="robots" content="">
+    <meta name="author" content="">
+    <link rel="canonical" href="{{$meta_url}}"> --}}
+    <link rel="icon" type="image/x-icon" href="">
+
+    {{-- <meta property="og:image" content="{{$meta_image}}"/>
+    <meta property="og:site_name" content="http://localhost/shefashion"/>
+    <meta property="og:description" content="{{$meta_desc}}"/>
+    <meta property="og:title" content="{{$meta_title}}"/>
+    <meta property="og:url" content="{{$meta_url}}"/>
+    <meta property="og:type" content="website"/> --}}
+
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+     rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{asset('public/fonts/fontawesome-free-6.0.0/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/Frontend/css/main.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css"
+     integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="crossorigin="anonymous"></script>
+     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+     crossorigin="anonymous"></script>
     <!-- Boostrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-    crossorigin="anonymous"></script>
+     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+     crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-    crossorigin="anonymous"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+     crossorigin="anonymous"></script>
 </head>
 
 <body>
-        <header class="fixed header position" style="margin-bottom: 100px;">
-            <div class="d-flex justify-content-between " style=" margin: 10px 30px 20px 30px;">
-                <!-- logo -->
-                <a href="{{URL ::to('/')}}">
-                    <img class="she" src="{{asset('public/images/She.png')}}" alt="">
-                </a>
-                <style>
-                    .she{
-                        width: 250px;
-                        border-radius: 20px;
-
-                    }
-                    li a:hover {
-                        background-color: rgb(247, 236, 238);
-                    }
-                </style>
-                <ul class="p-1 nav d-sm-none d-md-none d-lg-flex d-xl-flex">
-                    <li class="nav-item align-self-center ">
-                        <a class=" menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
-                            style="font-weight: 400;color:black;" href="{{URL ::to('/home')}}" aria-current="page">
-                            <b>TRANG CHỦ</b></a>
-                    </li>
-                    <li class="nav-item align-self-center">
-                        <a class=" menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
-                            style="font-weight: 400;color:black;" href="{{URL ::to('/introduce')}}">
-                            <b>GIỚI THIỆU</b></a>
-                    </li>
-                    <li class="nav-item align-self-center">
-                        <a class=" menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
-                            style="font-weight: 400;color:black;" href="{{URL ::to('/product')}}">
-                            <b>SẢN PHẨM</b></a>
-                    </li>
-                    <li class="nav-item align-self-center">
-                        <a class="menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
-                            style="font-weight: 400;color:black;" href="{{URL ::to('/news')}}">
-                            <b>TIN TỨC</b> </a>
-                    </li>
-                </ul>
-                <!-- offcanvas menu-->
-                <div class="d-flex">
-                    <div class="align-self-center me-3">
-                        <nav class="navbar navbar-expand-xl navbar-expand-lg navbar-light" aria-labelledby="">
-                            <!-- nút menu -->
-                            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                                <span class="navbar-toggler-icon"></span></button>
-                            <!-- offcanvas -->
-                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                                aria-labelledby="offcanvasExampleLabel">
-                                <div class="offcanvas-header">
-                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="login">
-                                    <?php
-                                        $customer_id = Session::get('customer_id');
-                                        if ($customer_id != null) {
-                                    ?>
-                                        <div class="login" style="color:black;margin-top: 20px;">
-                                            <a href="{{URL ::to('/log-out')}}"><b>Đăng xuất,</b></a>
-                                        </div>
-                                    <?php
-                                        } else {
-                                    ?>
-                                        <div class="login" style="color:black;margin-top: 20px;">
-                                            <a href="{{URL ::to('/login')}}"><b>Đăng nhập</b></a>
-                                        </div>
-                                    <?php
-                                        }
-                                    ?>
-                                    <div style="color: black; margin: 10px 10px 20px ">
-                                        <?php
-                                        $name = Session::get('customer_name');
-                                        if ($name) {
-                                            echo $name;
-                                        }
-
-                                        ?>
+    <header class="fixed header position" style="margin-bottom: 100px;">
+        <div class="container-fluid d-flex justify-content-between" style=" margin: 10px 30px 20px 3px;">
+            <!-- logo -->
+            <a href="{{URL ::to('/home')}}">
+                <img class="she" src="{{asset('public/images/She.png')}}" alt="">
+            </a>
+            <style>
+                .she{
+                    width: 250px;
+                    border-radius: 20px;
+                }
+                li a:hover {
+                    background-color: rgb(247, 236, 238);
+                }
+            </style>
+            <ul class="p-1 nav d-sm-none d-md-none d-lg-flex d-xl-flex">
+                <li class="nav-item align-self-center ">
+                    <a class=" menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
+                        style="font-weight: 400;color:black;" href="{{URL ::to('/home')}}" aria-current="page">
+                        <b>TRANG CHỦ</b></a>
+                </li>
+                <li class="nav-item align-self-center">
+                    <a class=" menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
+                        style="font-weight: 400;color:black;" href="{{URL ::to('/introduce')}}">
+                        <b>GIỚI THIỆU</b></a>
+                </li>
+                <li class="nav-item align-self-center">
+                    <a class=" menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
+                        style="font-weight: 400;color:black;" href="{{URL ::to('/product')}}">
+                        <b>SẢN PHẨM</b></a>
+                </li>
+                <li class="nav-item align-self-center">
+                    <a class="menu nav-link align-self-center d-none d-sm-none d-md-none d-lg-flex d-xl-flex"
+                        style="font-weight: 400;color:black;" href="{{URL ::to('/news')}}">
+                        <b>TIN TỨC</b> </a>
+                </li>
+            </ul>
+            <!-- offcanvas menu-->
+            <div class="d-flex">
+                <div class="align-self-center me-3">
+                    <nav class="navbar navbar-expand-xl navbar-expand-lg navbar-light" aria-labelledby="">
+                        <!-- nút menu -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                            <span class="navbar-toggler-icon"></span></button>
+                        <!-- offcanvas -->
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+                            aria-labelledby="offcanvasExampleLabel">
+                            <div class="offcanvas-header">
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="login">
+                                <?php
+                                    $customer_id = Session::get('customer_id');
+                                    if ($customer_id != null) {
+                                ?>
+                                    <div class="login" style="color:black;margin-top: 20px;">
+                                        <a href="{{URL ::to('/log-out')}}"><b>Đăng xuất,</b></a>
                                     </div>
-                                </div>
-                                <div class="mx-2 d-flex justify-content-end">
-
-                                </div>
-                                <hr>
-                                <div class="p-0 mx-3 offcanvas-body">
-                                    <div class="mt-3 dropdown">
-                                        <ul class="navbar-nav">
-                                            <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
-                                                <a href="{{URL ::to('/home')}}"
-                                                style="text-decoration:none;color:black;"><b>TRANG CHỦ</b></a>
-                                            </li>
-                                            <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
-                                                <a href="{{{ 'pages/introduce.php' }}}"
-                                                style="text-decoration:none;color:black;"><b>GIỚI THIỆU</b></a>
-                                            </li>
-                                            <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
-                                                <a href="{{{'pages/product.php'}}}"
-                                                style="text-decoration:none;color:black;"><b>SẢN PHẨM</b></a>
-                                            </li>
-                                            <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
-                                                <a href="{{URL ::to('/news')}}"
-                                                style="text-decoration:none;color:black;"><b>TIN TỨC</b></a>
-                                        </ul>
+                                <?php
+                                    } else {
+                                ?>
+                                    <div class="login" style="color:black;margin-top: 20px;">
+                                        <a href="{{URL ::to('/login')}}"><b>Đăng nhập</b></a>
                                     </div>
+                                <?php
+                                    }
+                                ?>
+                                <div style="color: black; margin: 10px 10px 20px ">
+                                    <?php
+                                    $username = Session::get('customer_name');
+                                    if ($username) {
+                                        echo $username;
+                                    }
+
+                                    ?>
                                 </div>
                             </div>
-                        </nav>
-                    </div>
-                    <!--search-->
-                    <form action="{{URL::to('/search')}}" method="POST" style="margin-top: 20px ; margin-left:-50px;">
-                        {{csrf_field()}}
-                        <div class="dropdown align-self-center d-sm-none d-md-none d-none d-lg-flex d-xl-flex">
-                            <div class="dropdown-content">
-                                <div>
-                                    <input class="input-search" name="key_word" type="text" placeholder="Tìm kiếm">
+                            <div class="mx-2 d-flex justify-content-end">
+
+                            </div>
+                            <hr>
+                            <div class="p-0 mx-3 offcanvas-body">
+                                <div class="mt-3 dropdown">
+                                    <ul class="navbar-nav">
+                                        <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
+                                            <a href="{{URL ::to('/home')}}"
+                                            style="text-decoration:none;color:black;"><b>TRANG CHỦ</b></a>
+                                        </li>
+                                        <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
+                                            <a href="{{{ 'pages/introduce.php' }}}"
+                                            style="text-decoration:none;color:black;"><b>GIỚI THIỆU</b></a>
+                                        </li>
+                                        <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
+                                            <a href="{{{'pages/product.php'}}}"
+                                             style="text-decoration:none;color:black;"><b>SẢN PHẨM</b></a>
+                                        </li>
+                                        <li class="pt-3 nav-item px-xl-5 px-lg-4 px-md-3">
+                                            <a href="{{URL ::to('/news')}}"
+                                             style="text-decoration:none;color:black;"><b>TIN TỨC</b></a>
+                                    </ul>
                                 </div>
                             </div>
-                            <div>
-                                <button type="submit"  name="search" style="border:white ;">
-                                    <i class="search fa-solid fa-magnifying-glass"></i>
-                                </button>
-                            </div>
-                            {{-- <div class="dropdown-content">
-                                <input class="input-search" name="key_word" type="text" placeholder="Tìm kiếm">
-                                <button type="submit"  name="search" style="border:white ;">
-                                    <i class="search fa-solid fa-magnifying-glass"></i>
-                                </button>
-                            </div> --}}
                         </div>
-                    </form>
+                    </nav>
                 </div>
-                <?php
-                    $customer_id = Session::get('customer_id');
-                    if ($customer_id != null) {
-                ?>
+                <!--search-->
+                <form action="{{URL::to('/search')}}" method="POST" style="margin-top: 20px ;">
+                    {{csrf_field()}}
+                    <div class="dropdown align-self-center d-sm-none d-md-none d-none d-lg-flex d-xl-flex">
+                        <div class="dropdown-content">
+                            <div>
+                                <input class="input-search" name="key_word" type="text" placeholder="Tìm kiếm">
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit"  name="search" style="border:white ;">
+                                <i class="search fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        {{-- <div class="dropdown-content">
+                            <input class="input-search" name="key_word" type="text" placeholder="Tìm kiếm">
+                            <button type="submit"  name="search" style="border:white ;">
+                                <i class="search fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div> --}}
+                    </div>
+                </form>
+            </div>
+            <?php
+                $customer_id = Session::get('customer_id');
+                if ($customer_id != null) {
+            ?>
                 <div class="dropdown login" style="color:black;margin-top: 15px;">
                     <a class="btn btn-secondary dropdown-toggle"
                      href="{{URL ::to('/log-out')}}" role="button"
                       id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       <?php
-                        $name = Session::get('customer_name');
-                        if ($name)
+                        $username = Session::get('customer_name');
+                        if ($username)
                         {
-                            echo $name;
+                            echo $username;
                         }
                         ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a class="dropdown-item" href="{{URL ::to('/')}}">Tài khoản</a></li>
+                      <li><a class="dropdown-item" href="{{URL ::to('/customer/'.$customer_id)}}">Tài khoản</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/ordered/'.$customer_id)}}">Đơn mua</a></li>
                       <li><a class="dropdown-item" href="{{URL ::to('/log-out')}}">Đăng xuất</a></li>
+
                     </ul>
                 </div>
-                <?php
-                    } else {
-                ?>
-                    <div class="dropdown login" style="color:black;margin-top: 15px; ">
-                        <a class="btn btn-secondary dropdown-toggle"
-                        href="{{URL ::to('/login')}}" role="button" >
-                        Đăng nhập
-                        </a>
-                    </div>
-                <?php
-                    }
-                ?>
-                <div class="cart" style="">
-                    @php
-                        $cart = Session::get('cart');
-                    @endphp
-                    <a href="{{URL ::to('/show-cart-ajax')}}" style="text-decoration: none; color:black;"><i
-                            class="fa-solid fa-cart-shopping"></i>
-                        <span id="circle">
-                            @if($cart == true)
-                            {{ count($cart) }}
-                            @elseif($cart == 0)
-                            0
-                            @endif
 
-                            </span>
+            <?php
+                } else {
+            ?>
+                <div class="dropdown login" style="color:black;margin-top: 15px;">
+                    <a class="btn btn-secondary dropdown-toggle"
+                     href="{{URL ::to('/login')}}" role="button" >
+                     Đăng nhập
                     </a>
-                </div>
-                </div>
+                  </div>
+            <?php
+                }
+            ?>
+            <div class="cart">
+                @php
+                    $cart = Session::get('cart');
+                @endphp
+                <a href="{{URL ::to('/show-cart-ajax')}}" style="text-decoration: none; color:black;"><i
+                        class="fa-solid fa-cart-shopping"></i>
+                    <span id="circle">
+                        @if($cart == true)
+                        {{ count($cart) }}
+                        @elseif(!$cart)
+                        0
+                        @endif
 
+                        </span>
+                </a>
             </div>
-            </div>
-        </header>
-    <div class=" header container-fluid" style="margin-top: 110px; ">
+        </div>
+        </div>
+    </header>
+    <div class=" container-fluid" style="margin-top: 110px; ">
         <div class="row">
             <div class="col-2 container " style="padding: 10px; margin-left:80px; ">
                 <div class="user">
@@ -253,36 +268,30 @@
                     </a>
                 </div>
             </div>
-            <div class="col-9 container-fluid " style="padding:5px; margin-top: -8px; " >
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3"></div>
-                <div class="col-8 container" style="">
-                    <div>@yield('customer')</div>
-
-                </div>
+            <div class="col-8 container" style="">
+                <div>@yield('customer')</div>
             </div>
 
+        </div>
+    </div>
 </body>
-<footer style="position: " >
+<footer class="" style="margin-top:30px;" >
 
-    <div class="container ft"  style="">
+    <div class="container ft">
         <div class="row align-items-start">
             <div class="col">
               <b>DANH MỤC</b>
               <div class="contact">
-                <div><a href="{{URL ::to('/home')}}"
-                  style="text-decoration:none ;color:black;">TRANG CHỦ</a></div>
-                  <div><a href="{{URL ::to('/introduce')}}"
-                       style="text-decoration:none ;color:black;">GIỚI THIỆU</a></div>
-                <div><a href="{{URL ::to('/product')}}"
-                   style="text-decoration:none ;color:black;">SẢN PHẨM</a></div>
-                <div><a href="{{URL ::to('/news')}}"
-                   style="text-decoration:none ;color:black;">TIN TỨC</a></div>
+                  <div><a href="{{URL ::to('/home')}}"
+                    style="text-decoration:none ;color:black;">TRANG CHỦ</a></div>
+                    <div><a href="{{URL ::to('/introduce')}}"
+                         style="text-decoration:none ;color:black;">GIỚI THIỆU</a></div>
+                  <div><a href="{{URL ::to('/product')}}"
+                     style="text-decoration:none ;color:black;">SẢN PHẨM</a></div>
+                  <div><a href="{{URL ::to('/news')}}"
+                     style="text-decoration:none ;color:black;">TIN TỨC</a></div>
 
-            </div>
+              </div>
             </div>
             <div class="col">
               <b>ĐỊA CHỈ</b>
@@ -315,10 +324,15 @@
       </div>
     </div>
     <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
 </footer>
 <script>
+// Get the button
 let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function() {scrollFunction()};
+
 function scrollFunction() {
   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
     mybutton.style.display = "block";
@@ -326,11 +340,14 @@ function scrollFunction() {
     mybutton.style.display = "none";
   }
 }
+
+// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
 </script>
+
 </html>
 
 <script>
@@ -341,95 +358,391 @@ $("figure").mouseleave(
     }
 );
 </script>
+<scrip type="text/javascript">
+</scrip>
+<div id="fb-root"></div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"type="text/javascript"></script>
+<script async defer crossorigin="anonymous"
+src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS7fsa"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add-to-cart').click(function(){
+            var id = $(this).data('id_pro');
+            var cart_product_id = $('.cart_product_id_' + id).val();
+            var cart_product_name = $('.cart_product_name_' + id).val();
+            var cart_product_image = $('.cart_product_image_' + id).val();
+            var cart_product_quantity = $('.cart_product_quantity_' + id).val();
+            var cart_product_price = $('.cart_product_price_' + id).val();
+            var cart_product_qty = $('.cart_product_qty_' + id).val();
+            var cart_product_size = $('.cart_product_size_' + id).val();
+            var cart_product_color = $('.cart_product_color_' + id).val();
+            var _token = $('input[name="_token"]').val();
+            //alert(cart_product_qty);
+            //alert(cart_product_quantity);
+           if(parseInt(cart_product_qty) > parseInt(cart_product_quantity) ){
+               // alert('Số lượng sản phẩm không đủ! Số lượng kho:' +  cart_product_quantity);
+                $.ajax({
+                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image,cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity, cart_product_size:cart_product_size, cart_product_color:cart_product_color},
+                    success:function(data){
+                        //alert(data);
+                        Swal.fire({
+                            //icon: 'warning',
+                            title: "Số lượng sản phẩm không đủ! Số lượng kho: " + cart_product_quantity,
+                            confirmButtonText: 'Mua lại',
+                        })
+                    }
+
+                });
+           }else{
+                $.ajax({
+                    url: '{{url('/add-cart-ajax')}}',
+                    method: 'POST',
+                    data:{cart_product_id:cart_product_id, cart_product_name:cart_product_name, cart_product_image:cart_product_image,cart_product_price:cart_product_price, cart_product_qty:cart_product_qty, _token:_token, cart_product_quantity:cart_product_quantity, cart_product_size:cart_product_size, cart_product_color:cart_product_color},
+                    success:function(data){
+                        //alert(data);
+                        Swal.fire({
+                            //icon: 'warning',
+                            title: "Đã thêm sản phẩm vào giỏ hàng",
+                            text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                            showDenyButton: false,
+                            showCancelButton: true,
+                            confirmButtonText: 'Đến giỏ hàng',
+                            cancelButtonText: "Mua tiếp",
+                        }).then((result) => {
+                            /* Read more about isConfirmed, isDenied below */
+                            if (result.isConfirmed) {
+                                window.location.href = "{{url('/show-cart-ajax')}}";
+                            }
+                        });
+                    }
+
+                });
+                window.setTimeout(function(){
+                    location.reload();
+                  }, 3000);
+           }
+
+
+        });
+    });
+</script>
 
 <script type="text/javascript">
     $(document).ready(function(){
         $('.order').click(function(){
-            Swal.fire({
-                title: 'Xác nhận đặt hàng',
-                showDenyButton: true,
-                //showCancelButton: true,
-                confirmButtonText: 'Đặt hàng',
-                denyButtonText: `Không đặt`,
-              }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                  var customer_id = $('.customer_id').val();
-                  var ship_name = $('.ship_name' ).val();
-                  var ship_phone = $('.ship_phone').val();
-                  var ship_address = $('.ship_address').val();
-                  var ship_note = $('.ship_note').val();
-                  var _token = $('input[name="_token"]').val();
-                  $.ajax({
-                      url: '{{url('/confirm-order')}}',
-                      method: 'POST',
-                      data:{customer_id:customer_id, ship_name:ship_name, ship_phone:ship_phone, ship_address:ship_address, ship_note:ship_note, _token:_token},
-                      success:function(data){
-                        Swal.fire('Đã đặt hàng, xin cảm ơn!', '', 'success');
+            var customer_id = $('.customer_id').val();
+            var ship_address = $('.ship_address').val();
+            var ship_note = $('.ship_note').val();
+            var _token = $('input[name="_token"]').val();
+            var customer_status = $('.customer_status').val();
+            var total_order = $('.total_order').val();
+            var payment_method = $('.payment_method').val();
+            var ship_fee = $('.ship_fee').val();
 
-                      }
-                  });
 
-                } else if (result.isDenied) {
-                  Swal.fire('Đặt hàng không thành công!', '', 'info');
+           // var ship_address = $('.ship_address_' + id).val();
+           // alert(ship_address)
+           if(customer_status == 0){
+                alert('Bạn không thể đặt hàng, có thể bạn đã bị chặn!');
+           }else{
+            $.ajax({
+                url: '{{url('/confirm-order')}}',
+                method: 'POST',
+                data:{customer_id:customer_id, total_order:total_order, ship_address:ship_address, ship_note:ship_note, payment_method:payment_method, ship_fee:ship_fee, _token:_token},
+                success:function(data){
+                    alert("Đặt hàng thành công");
+
                 }
-                window.setTimeout(function(){
-                    location.reload();
-                  }, 1000);
 
-              })
+            });
+            window.setTimeout(function(){
+                location.reload();
+            }, 1000);
+           }
+
+
 
         });
     });
 </script>
+<script>
+    $(document).ready(function(){
+        $('#sort').on('change', function(){
+            var url = $(this).val();
+           // alert(url);
+            if(url){
+                window.location = url;
+            }
+            return false;
+        })
+    });
+
+</script>
+<script>
+    $( function() {
+      $( "#range-slider" ).slider({
+        orientation:"horizontal",
+        range: true,
+        min: 100000,
+        max: 500000,
+        step: 10000,
+        values: [100000, 500000],
+        slide: function(event, ui){
+            $("#amount").val(ui.values[0] + "đ" + " - " + ui.values[1] + "đ");
+            $("#min_price").val(ui.values[0]);
+            $("#max_price").val(ui.values[1]);
+
+        }
+      });
+      $("#amount").val($("#range-slider").slider("values", 0) + "đ" + " - " + $("#range-slider").slider("values", 1) + "đ");
+    } );
+    </script>
 <script type="text/javascript">
-    function Cancelorder(id){
-        var order_code = id ;
-        var reason = $('.reason_cancel').val();
+    $(document).ready(function(){
+        load_review();
+        //alert(product_id);
+        function load_review(){
+            var order_code = $('.order_code').val();
+            var customer_id = $('.customer_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: '{{url('/load-review')}}',
+                method: 'POST',
+                data:{order_code:order_code, customer_id:customer_id, _token:_token},
+                success:function(data){
+                    $('#order_review').html(data);
+                }
+            });
+        }
+        $('.send-review').click(function(){
+           // var index = $(this).data("index");
+            var order_code = $('.order_code').val();
+            var customer_id = $('.customer_id').val();
+            var review = $('.review').val();
+            var _token = $('input[name="_token"]').val();
+            {{-- alert(index);
+            alert(order_id); --}}
+            $.ajax({
+                url: '{{url('/send-review')}}',
+                method: 'POST',
+                data:{order_code:order_code, _token:_token, customer_id:customer_id, review:review},
+                success:function(data){
+                    $('#notify_comment').html('<p>Thêm thành công! Đang chờ duyệt.</p>').fadeOut(5000);
+                    load_review();
+                    var review = $('.review').val('');
+                }
+            });
+        });
+            {{-- window.setTimeout(function(){
+                location.reload();
+              }, 1000); --}}
+
+
+    });
+    $(document).ready(function(){
+        load_comment();
+        //alert(product_id);
+        function load_comment(){
+            var product_id = $('.comment_product_id').val();
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: '{{url('/load-comment')}}',
+                method: 'POST',
+                data:{product_id:product_id, _token:_token},
+                success:function(data){
+                    $('#comment').html(data);
+                }
+            });
+        }
+        $('.send-comment').click(function(){
+            var product_id = $('.comment_product_id').val();
+            var comment_user = $('.comment_user').val();
+            var comment_content = $('.comment_content').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: '{{url('/send-comment')}}',
+                method: 'POST',
+                data:{product_id:product_id, _token:_token, comment_user:comment_user, comment_content:comment_content},
+                success:function(data){
+                    $('#notify_comment').html('<p>Thêm thành công! Đang chờ duyệt.</p>').fadeOut(5000);
+                    load_comment();
+                    var comment_user = $('.comment_user').val('');
+                    var comment_content = $('.comment_content').val('');
+                }
+            });
+
+
+
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    function remove_background(order_code){
+        var count = 1;
+        for(var count = 1; count <= 5; count++){
+            $('#'+ order_code + '-' + count).css('color', '#ccc');
+        }
+    }
+    $(document).ready(function(){
+        $('.rating').mouseenter(function(){
+            var index = $(this).data("index");
+            var order_code = $(this).data('order_code');
+            {{-- alert(index);
+            alert(order_code); --}}
+            var count = 1;
+            let output = [];
+            remove_background(order_code);
+
+            for(count = 1; count <= index; count++){
+                output.push('<div style="color:#ffcc00;">order_code+'-'+count</div>');
+              //  $('#'+order_code+'-'+count).css('color', '#ffcc00');
+            }
+        });
+        $('.rating').mouseleave(function(){
+            var index = $(this).data("index");
+            var order_code = $(this).data('order_code');
+            var rating = $(this).data("rating");
+            {{-- alert(index);
+            alert(order_code);
+            alert(rating); --}}
+            var count = 1;
+            remove_background(order_code);
+
+            for(count = 1; count <= rating; count++){
+                $('#'+ order_code + '-' + count).css('color', '#ffcc00');
+            }
+        });
+
+    });
+    $(document).on('click', '.rating', function(){
+        var index = $(this).data("index");
+        var order_code = $(this).data('order_code');
         var _token = $('input[name="_token"]').val();
         $.ajax({
-            url: '{{url('/cancel-order')}}',
+            url: '{{url('/send-rating')}}',
             method: 'POST',
-            data:{order_code:order_code, reason:reason, _token:_token},
+            data:{index:index, _token:_token, order_code:order_code},
             success:function(data){
-              Swal.fire('Hủy đơn hàng thành công!', '', 'success');
             }
+
         });
         window.setTimeout(function(){
             location.reload();
           }, 1000);
-    };
-</script>
-<div id="fb-root"></div>
 
-<!-- Your Plugin chat code -->
-<div id="fb-customer-chat" class="fb-customerchat">
-</div>
-
-<script>
-  var chatbox = document.getElementById('fb-customer-chat');
-  chatbox.setAttribute("page_id", "188994957625440");
-  chatbox.setAttribute("attribution", "biz_inbox");
-</script>
-
-<!-- Your SDK code -->
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      xfbml            : true,
-      version          : 'v18.0'
     });
-  };
 
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 </script>
+<script>
+    $(document).ready(function(){
+        $('.choose').on('change', function(){
+            var action = $(this).attr('id');
+            var ma_tp = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            var result ='';
+            {{-- alert(action);
+            alert(matp);
+            alert(_token); --}}
+
+            if(action == 'city'){
+                result = 'district';
+            }else{
+                result = 'ward';
+            }
+            $.ajax({
+                url: '{{url('/select-delivery-checkout')}}',
+                method: 'POST',
+                data:{action:action, ma_tp:ma_tp, _token:_token},
+                success:function(data){
+                    $('#' + result).html(data);
+                }
+            });
+
+        });
+        $('.fee_ship_order').click(function(){
+            var ma_tp = $('.city').val();
+            var ma_qh = $('.district').val();
+            var ma_xp = $('.ward').val();
+            var _token = $('input[name="_token"]').val();
+            if(ma_tp == 0 && ma_qh == 0 && ma_xp){
+                alert('Hãy chọn để tính phí vận chuyển');
+            }else{
+                $.ajax({
+                    url: '{{url('/fee-ship-order')}}',
+                    method: 'POST',
+                    data:{ma_qh:ma_qh, ma_tp:ma_tp, ma_xp:ma_xp, _token:_token},
+                    success:function(){
+                        location.reload();
+                    }
+                });
+            }
+
+        });
+    });
+
+</script>
+<!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "188994957625440");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v18.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    <script type="text/javascript">
+        $('.add-addess').click(function(){
+            var id_customer = $('.id_customer').val();
+            var location = $('.location').val();
+            var name = $('.name').val();
+            var phone = $('.phone').val();
+            var address_count = $('.address_count').val();
+            var _token = $('input[name="_token"]').val();
+
+            //alert(address_count);
+            if(address_count > 10){
+                alert("Tổng số địa chỉ giao hàng đã vượt quá giới hạn, hãy xóa một số địa chỉ không khả dụng để thêm địa chỉ!!");
+            }else{
+                $.ajax({
+                    url: '{{url('/add-address')}}',
+                    method: 'POST',
+                    data:{id_customer:id_customer, name:name,phone:phone, location:location , _token:_token},
+                    success:function(data){
+                      Swal.fire('Thêm địa chỉ thành công!', '', 'success');
+                    }
+                });
+            }
+            window.setTimeout(function(){
+                location.reload();
+              }, 1000);
+        });
+    </script>

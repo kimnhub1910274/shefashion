@@ -114,14 +114,14 @@
                           @endforeach
                         </tbody>
                         <tr>
+                            <td colspan="10">TỔNG TIỀN HÀNG: {{ number_format($total) }} VNĐ</td>
+                        </tr>
+                        <tr>
                             <td > PHÍ VẬN CHUYỂN: </td>
-                            <td colspan="5">{{ number_format($ship_array['ship_fee']) }} VNĐ</td>
+                            <td colspan="10">{{ number_format($ship_array['ship_fee']) }} VNĐ</td>
                         </tr>
                         <tr>
-                            <td>TỔNG TIỀN HÀNG: {{ number_format($total) }} VNĐ</td>
-                        </tr>
-                        <tr>
-                            <td>TỔNG THANH TOÁN: <b>{{ number_format( $total + $ship_array['ship_fee'])}} VNĐ</b></td>
+                            <td colspan="10">TỔNG THANH TOÁN: <b>{{ number_format( $total + $ship_array['ship_fee'])}} VNĐ</b></td>
 
                         </tr>
                       </table>

@@ -63,6 +63,8 @@
 
             </tbody>
           </table>
+          <div>{{ $success_delivery->links() }}</div>
+
     </div>
     <div class="row">
         <div class="col text-center">

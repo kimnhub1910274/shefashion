@@ -24,7 +24,7 @@
         Session::pull('message', null);
     }
     ?>
-    <table class="table">
+    <table class="table ">
         <thead>
           <tr style="background-color: rgb(210, 226, 152)">
             <th scope="col">STT</th>
@@ -34,6 +34,8 @@
             <th scope="col">Ngày đặt</th>
             <th scope="col">Hiển thị</th>
             <th scope="col">Xác nhận</th>
+            <th scope="col">Xóa</th>
+
           </tr>
         </thead>
         <tbody>
@@ -83,6 +85,11 @@
                             </div>
 
                         @endif
+                    </td>
+                    <td>
+                        <a href="{{URL::to('/delete-order/'.$order->order_code)}}">
+                            <i class="delete_order fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

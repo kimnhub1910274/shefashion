@@ -64,6 +64,8 @@
 
             </tbody>
           </table>
+          <div>{{ $delivery_failed->links() }}</div>
+
     </div>
     <div class="row">
         <div class="col text-center">

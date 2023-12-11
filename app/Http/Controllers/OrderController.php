@@ -202,29 +202,33 @@ class OrderController extends Controller
              //$code = substr(md5(microtime()),rand(0,26),5);
              foreach($data['order_product_id'] as $key =>$product){
                  $product_mail = Product::find($product);
+                 $detail = OrderDetails::where('order_code', $order->order_code)->first();
                  foreach($data['quantity'] as $key2 => $qty){
                      if($key ==$key2){
                          $cart_array[] = array(
                              'product_name' => $product_mail['product_name'],
                              'product_price' => $product_mail['product_price'],
                              'product_qty' => $qty,
+                             'product_color' => $detail['product_color'],
+                            'product_size' => $detail['product_size'],
                         );
                     }
                 }
             }
-            $detail = OrderDetails::where('order_code', $order->order_code)->first();
             $ship = Ship::where('ship_id', $order->ship_id)->first();
             $ship_array = array(
                 'customer_name' => $customer->customer_name,
                 'ship_name' => $ship['ship_name'],
                 'ship_address' => $ship['ship_address'],
                 'ship_note' => $ship['ship_note'],
+                'ship_fee' => $ship['ship_fee'],
+                'payment_method' => $ship['payment_method'],
 
 
 
             );
             $ordercode_mail = array(
-                'order_code' => $order->order_codet,
+                'order_code' => $order->order_code,
                 'created_at' => $order->created_at,
                 'customer_email' => $customer->customer_email,
                 'customer_phone' => $customer->customer_phone,
@@ -437,38 +441,38 @@ class OrderController extends Controller
     public function ordered($customerId)
     {
         $get_order = Order::where('customer_id', Session::get('customer_id'))
-        ->orderBy('created_at', 'DESC')->get();
+        ->orderBy('created_at', 'DESC')->paginate(10);
         return view('customer.ordered')->with(compact('get_order'));
 
     }
     public function wait_pay($customerId)
     {
         $wait_pay =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '1')
-        ->orderBy('created_at', 'DESC')->get();
+        ->orderBy('created_at', 'DESC')->paginate(10);
             return view('customer.wait_pay')->with(compact('wait_pay'));
 }
     public function delivery($customerId)
         {
             $delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '2')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('customer.delivery')->with(compact('delivery'));
     }
     public function success_delivery($customerId)
         {
             $success_delivery =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '3')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('customer.success_delivery')->with(compact('success_delivery'));
     }
     public function cancel($customerId)
         {
             $cancel =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '4')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('customer.cancel')->with(compact('cancel'));
     }
     public function delivery_failed($customerId)
         {
             $delivery_failed =  Order::where('customer_id', Session::get('customer_id'))->where('order_status', '5')
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->paginate(10);
                 return view('customer.delivery_failed')->with(compact('delivery_failed'));
     }
     public function cancel_order(Request $request)
@@ -494,5 +498,13 @@ class OrderController extends Controller
         $order->save();
 
     }
+    public function delete_order($order_code )
+    {
+        Order::where('order_code', $order_code)->delete();
+        OrderDetails::where('order_code', $order_code)->delete();
+        return Redirect::to('manage-order');
+
+    }
+
 
 }

@@ -64,6 +64,7 @@
 
             </tbody>
           </table>
+          <div>{{ $cancel->links() }}</div>
     </div>
     <div class="row">
         <div class="col text-center">

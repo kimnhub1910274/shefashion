@@ -9,8 +9,8 @@ class Address extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'id_customer','name','phone', 'address',
+        'id_customer','name','phone', 'locate',
     ];
-    protected $primaryKey = 'address_id';
+    protected $primaryKey = 'id_address';
     protected $table = 'tbl_address';
 }

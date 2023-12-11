@@ -65,6 +65,8 @@
 
             </tbody>
           </table>
+          <div>{{ $delivery->links() }}</div>
+
     </div>
     <div class="row">
         <div class="col text-center">

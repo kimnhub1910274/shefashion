@@ -19,13 +19,12 @@ class CustomerController extends Controller
     }
     public function address()
     {
-        $get_address = DB::table('tbl_address')->where('id_customer', Session::get('customer_id'))
+        $get_address = Address::where('id_customer', Session::get('customer_id'))
         ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_address.id_customer')
 
         ->orderby('tbl_address.id_address')->paginate(5);
-
-        $address = view('customer.address')->with('get_address', $get_address);
-        return view('customer')->with('customer.address', $address);
+        $address_count = $get_address->count();
+        return view('customer.address')->with(compact('get_address', 'address_count'));
     }
     public function approve_customer(Request $request){
         $data = $request->all();
@@ -36,4 +35,19 @@ class CustomerController extends Controller
         Session::put('customer_id', null);
         Session::put('cart', null);
     }
+    public function add_address(Request $request){
+        $data = $request->all();
+        $address = new Address();
+        $address->id_customer = $data['id_customer'];
+        $address->name = $data['name'];
+        $address->phone = $data['phone'];
+        $address->locate = $data['location'];
+        $address->save();
+     }
+
+    public function delete_address($address_id){
+       Address::where('id_address', $address_id)->delete();
+       return Redirect::back();
+    }
+
 }

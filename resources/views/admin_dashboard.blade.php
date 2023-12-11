@@ -463,9 +463,9 @@
                         showCancalButtons: true,
                         confirmButtonClass: "btn btn-danger",
                     });
-                    {{-- window.setTimeout(function(){
+                    window.setTimeout(function(){
                         location.reload();
-                      }, 2000); --}}
+                      }, 2000);
 
                         //location.reload();
                     }

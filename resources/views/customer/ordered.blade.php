@@ -61,7 +61,7 @@
                                     </button>
 
                                     <!-- The Modal -->
-                                    <div class="modal" id="myModal" style="margin-top: 80px">
+                                    <div class="modal" id="myModal" style="margin-top: 100px">
                                     <div class="modal-dialog">
                                         <form action="">
                                             @csrf
@@ -97,6 +97,7 @@
 
             </tbody>
           </table>
+          <div>{{ $get_order->links() }}</div>
     </div>
     <div class="row">
         <div class="col text-center">

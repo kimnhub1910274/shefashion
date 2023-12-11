@@ -84,13 +84,12 @@
                             @endphp
                             @foreach($cart_array as $key => $cart)
                                 @php
-                                    $sub = $cart['product_quantity'] * $cart['product_price'];
+                                    $sub = $cart['product_qty'] * $cart['product_price'];
                                     $total = $total + $sub;
                                 @endphp
 
                                 <tr>
                                     <td>{{ $cart['product_name'] }}</td>
-                                    <td>{{ $cart['product_quantity'] }}</td>
                                     <td>{{ $cart['product_qty'] }}</td>
                                     <td>
                                         @if($cart['product_color'] == 1)
@@ -122,10 +121,17 @@
                                 </tr>
                           @endforeach
                         </tbody>
+
                         <tr>
-                            <td >{{ number_format($ship_array['ship_fee']) }} VNĐ</td>
-                            <td >{{ number_format($total) }} VNĐ</td>
-                            <td >TỔNG TIỀN: <b>{{ number_format( $total + $ship_array['ship_fee'])}} VNĐ</b></td>
+                            <td colspan="10">TỔNG TIỀN HÀNG: {{ number_format($total) }} VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td > PHÍ VẬN CHUYỂN: </td>
+                            <td colspan="10">{{ number_format($ship_array['ship_fee']) }} VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td colspan="10">TỔNG THANH TOÁN: <b>{{ number_format( $total + $ship_array['ship_fee'])}} VNĐ</b></td>
+
                         </tr>
                       </table>
                 </div>
