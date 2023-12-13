@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <div class="mb-3  justify-content-between">
                             <div class="row">
-                                <span class=" col-7 " >
+                                <span class=" col-7 " style="color: blue">
                                      @foreach ($order as $key => $valu)
                                         @if ($valu->order_status == 0)
                                             Chờ xác nhận
@@ -117,13 +117,17 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th scope="" colspan="5">Tổng tiền sản phẩm</th>
+                                    <td class="text-end">{{ $total }}</td>
+                                </tr>
+                                <tr>
                                     <th scope="" colspan="5">Phí vận chuyển</th>
-                                    <td class="text-end">0</td>
+                                    <td class="text-end">{{ $ship->ship_fee }}</td>
                                 </tr>
                                 <tr class="fw-bold">
                                     <td colspan="5">Tổng tiền</td>
                                     <td class="text-end">
-                                        {{ number_format($total)}}</td>
+                                        {{ number_format($total + $ship->ship_fee)}}</td>
                                 </tr>
                             </tfoot>
 
@@ -135,21 +139,27 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-4">
-                        <h3 class="h6">Phương thức thanh toán</h3>
-                        <p>Thanh toán khi nhận hàng<br>
+                            <h3 class="h6"><b>Phương thức thanh toán</b></h3>
+                            <p>
+                                @if($ship->payment_method == 1)
+                                Thanh toán khi nhận hàng
+                                @elseif ($ship->payment_method == 2)
+                                Thanh toán PayPal
+                                @endif
+                            </p>
                         </div>
                         <div class="col-lg-4">
-                        <h3 class="h6">Người đặt đơn</h3>
-                        <address>
-                            <strong>{{ $customer->customer_name}}</strong><br>
-                            {{ $customer->customer_address}}
-                        <br>
-                        {{ $customer->customer_email}} <br>
-                            <abbr title="Phone">{{ $customer->customer_phone}}</abbr>
-                        </address>
+                            <h3 class="h6"><b>Người đặt đơn</b></h3>
+                            <address>
+                                <strong>{{ $customer->customer_name}}</strong><br>
+                                {{ $customer->customer_address}}
+                            <br>
+                            {{ $customer->customer_email}} <br>
+                                <abbr title="Phone">{{ $customer->customer_phone}}</abbr>
+                            </address>
                         </div>
                         <div class="col-lg-4">
-                            <h3 class="h6">Ghi chú của khách hàng</h3>
+                            <h3 class="h6"><b>Ghi chú của khách hàng</b></h3>
                             <p>{{ $ship->ship_note}}</p>
                         </div>
                     </div>
@@ -161,26 +171,19 @@
           <div class="card mb-4">
             <!-- Shipping information -->
             <div class="card-body">
-              <h3 class="h6">Thông tin vận chuyển</h3>
+              <h3 class="h6"><b>Thông tin vận chuyển</b></h3>
               <address>
                 <strong>{{ $ship->ship_name}}</strong><br>
                 {{ $ship->ship_address}}<br>
-                <abbr title="Phone">P:</abbr> {{ $ship->ship_phone}}
               </address>
             </div>
           </div>
-          <div class="card mb-4">
-            <div class="card-body">
-            <h3 class="h6">Chat với người bán</h3>
-            <p></p>
-            </div>
-        </div>
           @foreach ($order as $key => $valu)
             @if ($valu->order_status == 3)
             <div class="card mb-4">
                 <!-- Shipping information -->
                 <div class="card-body">
-                    <h3 class="h6">Đánh giá đơn hàng</h3>
+                    <h3 class="h6"><b>Đánh giá đơn hàng</b></h3>
                     <form action="" method="post">
 
                         @csrf

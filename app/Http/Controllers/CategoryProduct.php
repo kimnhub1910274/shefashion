@@ -23,10 +23,9 @@ class CategoryProduct extends Controller
 
     public function list_category_product()
     {
-        $list = DB::table('tbl_cate_pro')->paginate(5);
-        $manager = view('admin.list_category_product')->with('list_category_product', $list);
+        $list_category_product = DB::table('tbl_cate_pro')->paginate(5);
 
-        return view('admin_dashboard')->with('admin.list_category_product', $manager);
+        return view('admin.list_category_product')->with(compact('list_category_product'));
     }
 
     public function save_category_product(Request $request)

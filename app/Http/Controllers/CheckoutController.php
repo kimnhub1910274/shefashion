@@ -223,7 +223,7 @@ class CheckoutController extends Controller
         }
 
         $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
-        $title_email = "Đơn hàng xác nhận ngày".' '.$now;
+        $title_email = "Bạn đã đặt đơn hàng".' '.$now;
         $customer = Customer::find(Session::get('customer_id'));
         $data['email'][] = $customer->customer_email;
 

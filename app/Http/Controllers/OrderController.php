@@ -161,18 +161,18 @@ class OrderController extends Controller
                 $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
 
                 foreach ($data['quantity'] as $key2 => $qty) {
-                  //  if ($key == $key2) {
+                    if ($key == $key2) {
                        // $product_remain = $product_quantity - $qty;
                       //  $product->product_quantity = $product_remain;
                        // $product->product_sold = $product_sold + $qty;
                         //$product->save();
                         //update statistical
-                        $quantity = $quantity + $qty;
-                        $total_order = $total_order + 1;
-                        $sale = $product_price * $qty;
+                        $quantity += $qty;
+                        $total_order += 1;
+                        $sale += $product_price * $qty;
                         $profit = $sale * 0.3;
 
-                   // }
+                    }
                 }
             }
             //order_date
@@ -496,6 +496,59 @@ class OrderController extends Controller
         $order = Order::where('order_code', $data['order_code'])->first();
         $order->order_status = 1;
         $order->save();
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+            $title_email = "Đơn hàng đã được xác nhận".' '.$now;
+            $customer = Customer::where('customer_id', $order->customer_id)->first();
+            $data['email'][] = $customer->customer_email;
+            foreach($data['order_product_id'] as $key =>$product_id){
+                $product = Product::find($product_id);
+                $product_mail = Product::find($product_id);
+                $detail = OrderDetails::where('order_code', $order->order_code)->first();
+                $product_quantity = $product->product_quantity;
+                $product_sold = $product->product_sold;
+                $product_price = $product->product_price;
+                $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+                foreach($data['quantity'] as $key2 => $qty){
+                    if($key ==$key2){
+                        $cart_array[] = array(
+                            'product_name' => $product_mail['product_name'],
+                            'product_price' => $product_mail['product_price'],
+                            'product_qty' => $qty,
+                            'product_color' => $detail['product_color'],
+                            'product_size' => $detail['product_size'],
+
+                       );
+                       $product_remain = $product_quantity - $qty;
+                        $product->product_quantity = $product_remain;
+                        $product->product_sold = $product_sold + $qty;
+                        $product->save();
+                   }
+               }
+           }
+           $ship = Ship::where('ship_id', $order->ship_id)->first();
+           $ship_array = array(
+               'customer_name' => $customer->customer_name,
+               'ship_name' => $ship['ship_name'],
+               'ship_address' => $ship['ship_address'],
+               'ship_note' => $ship['ship_note'],
+               'ship_fee' => $ship['ship_fee'],
+               'payment_method' => $ship['payment_method'],
+
+           );
+           $ordercode_mail = array(
+               'order_code' => $order->order_code,
+               'created_at' => $order->created_at,
+               'customer_email' => $customer->customer_email,
+               'customer_phone' => $customer->customer_phone,
+               'customer_address' => $customer->customer_address,
+           );
+
+           Mail::send('pages.mail.mail_order', ['cart_array' => $cart_array, 'ship_array' => $ship_array,
+                                               'ordercode_mail' => $ordercode_mail],
+               function($message) use ($title_email, $data){
+                   $message->to($data['email'])->subject($title_email);
+                   $message->from($data['email'], $title_email);
+               });
 
     }
     public function delete_order($order_code )

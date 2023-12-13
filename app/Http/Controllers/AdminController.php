@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Ship;
 
 use App\Models\OrderDetails;
 use Socialite;
@@ -74,13 +75,15 @@ class AdminController extends Controller
         $order_count = Order::where('order_status','0')->get();
         $customer_count = Customer::all()->count();
         $comment_count = Comment::where('comment_status','0')->get();
-
+        $statistc = Statistic::sum('sale');
         $product_view = Product::orderBy('product_view','DESC')->take(10)->get();
-
+        $payment_method_1 = Ship::where('payment_method', '1')->count();
+        $payment_method_2 = Ship::where('payment_method', '2')->count();
 
        return view('admin.dashboard')->with(compact('product_count', 'order_count', 'customer_count',
       'visitor_of_lastmonth_count', 'visitor_of_thismonth_count', 'visitor_count',
-       'visitor_of_year_count', 'visitor_total', 'comment_count', 'product_view'));
+       'visitor_of_year_count', 'visitor_total', 'comment_count', 'product_view', 'statistc',
+       'payment_method_1', 'payment_method_2'));
     }
 
     public function dashboard(Request $request)

@@ -2,7 +2,7 @@
 @section('customer')
 <title>Trang người dùng</title>
 <div class="" >
-    <div class="container" style="margin-top:0px; margin-bottom:100px;">
+    <div class="container" style="margin-top:-120px; margin-bottom:100px;">
         &nbsp;
         <?php
         $message = Session::get('message');
@@ -17,7 +17,7 @@
     </div>
     <hr>
     @foreach($get_customer as $c => $customer)
-        <form action="">
+        <form action="{{ URL::to('/edit-infor/'.$customer->customer_id) }}" method="post">
             @csrf
             <div class="row g-3 align-items-center">
                 <div class="col-2">
@@ -34,7 +34,7 @@
                     <label class="col-form-label">Email</label>
                 </div>
                 <div class="col-3">
-                    <input type="text" id="" class="form-control" value="{{ $customer->customer_email }}">
+                    <input type="text" name="email" class="  form-control" value="{{ $customer->customer_email }}">
                 </div>
             </div>
             <br>
@@ -43,7 +43,7 @@
                     <label class="col-form-label">Tên khách hàng</label>
                 </div>
                 <div class="col-3">
-                    <input type="text" id="" class="form-control" value="{{ $customer->customer_name }}">
+                    <input type="text" name="name" class="form-control name" value="{{ $customer->customer_name }}">
                 </div>
             </div>
             <br>
@@ -52,10 +52,16 @@
                     <label class="col-form-label">Số điện thoại</label>
                 </div>
                 <div class="col-3">
-                    <input type="text" id="" class="form-control" value="{{ $customer->customer_phone }}">
+                    <input type="text" name="phone" class="form-control phone" value="{{ $customer->customer_phone }}">
                 </div>
             </div>
-            <button type="button" class="btn btn-warning center">Lưu</button>
+            <br>
+            <input type="hidden" name="customer_id" id="" class="customer_id" value="{{ $customer->customer_id }}">
+            <div class="row g-3 align-items-center">
+                <div class="col-5">
+                    <button type="submit" class="form-control">Lưu</button>
+                </div>
+            </div>
         </form>
     @endforeach
 

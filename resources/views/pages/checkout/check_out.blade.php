@@ -9,7 +9,7 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Danh sách sản phẩm</h4>
+                        <h6>GIỎ HÀNG</h6>
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -130,46 +130,92 @@
                                 aria-label="" name="customer_id"
                                 aria-describedby="basic-addon1" value="{{ $customer_id }}">
                             </div>
-                           <div class="mb-3 input-group">
-                               <span class="input-group-text" id="basic-addon1">Địa chỉ</span>
-                           </div>
-                           <div class="mb-3 input-group">
-
+                            <p><b>Địa chỉ:</b></p>
+                            <div class="mb-3 input-group">
                                 <select name="" id="" class="form-control ship_address" style="height: 80px">
+                                    <option value="">Chọn</option>
                                     @foreach ($address as $k => $add)
-                                    <option value="{{ $add->name }}-{{ $add->phone }}-{{ $add->address }}">
-                                        {{ $add->name }}
+                                    <option value="{{ $add->name }}-{{ $add->phone }}-{{ $add->locate }}">
+                                        {{ $k+1 }}. {{ $add->name }}
                                         {{ $add->phone }}
-                                        {{ $add->address }}
+                                        {{ $add->locate }}
                                     </option>
                                     @endforeach
                                 </select>
-
                             </div>
-                           <div class="mb-3 input-group">
-                               <span class="input-group-text" id="basic-addon1">Ghi chú</span>
-                               <textarea type="text" class="form-control ship_note"
-                               placeholder="" name="ship_note"></textarea>
-                           </div>
-                           <div class="mb-3 input-group">
-                                <span class="input-group-text" id="basic-addon">Hình thức thanh toán</span>
-                           </div>
+                            <button type="button" class="btn btn-outline-primary col-5" onclick=""
+                                style="width:120px; font-size:12px"
+                                data-bs-toggle="modal" data-bs-target="#myModal">
+                                <span><i class="fas fa-plus-circle"></i></span> Thêm địa chỉ</button>
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal" style="margin-top: 100px">
+                                <div class="modal-dialog">
+                                    <form action="">
+                                        @csrf
+                                        <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h6 class="modal-title" style="text-align:center;" ><b>THÊM ĐỊA CHỈ GIAO HÀNG</b></h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <?php
+                                                $customer_id = Session::get('customer_id');
+
+                                            ?>
+                                            <input type="hidden" name="id_customer" value="{{ $customer_id}}"
+                                            class="id_customer ">
+                                            <input type="hidden" name="address_count" value=""
+                                            class="address_count ">
+                                            <div class="mb-3 input-group">
+                                                <span class="input-group-text" id="basic-addon1">Tên</span>
+                                                <input type="text" name="name" id="" class="name form-control" placeholder="Tên người nhận">
+                                            </div>
+                                            <div class="mb-3 input-group">
+                                                <span class="input-group-text" id="basic-addon1">Số điện thoại</span>
+                                                <input type="text" name="phone" id="" class="phone form-control" placeholder="Số điện thoại">
+                                            </div>
+                                            <div class="mb-3 input-group">
+                                                <span class="input-group-text" id="basic-addon1">Địa chỉ</span>
+                                                <textarea type="text" name="location" id=""
+                                                class="location form-control" placeholder="Địa chỉ nhận hàng"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Đóng</button>
+                                            <button type="button" id=""
+                                                class="btn btn-primary add-addess">Gửi</button>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                           <p><b>Hình thức thanh toán: </b></p>
                             <div class="mb-3 input-group">
                                 <select name="payment_method" id="" class="form-control payment_method">
                                     <option value="1">Thanh toán khi nhận hàng</option>
                                     <option value="2">Thanh toán PayPal</option>
                                 </select>
                             </div>
+                            <p><b>Ghi chú: </b></p>
+                            <div class="mb-3 input-group">
+                                <textarea type="text" class="form-control ship_note"
+                                placeholder="(Nếu có)" name="ship_note"></textarea>
+                            </div>
                             <input type="hidden" class="ship_fee" value="{{ $fee }}" name="" id="">
                         </div>
                            <?php
-                            if ($c && $fee) {
                                 ?>
                                 <input type="button" value="ĐẶT HÀNG" class="order btn"
                                 style="float: right; background-color: rgb(143, 10, 10);
                                  color:white;" name="order" ></input>
                                 <?php
-                            }
                            ?>
                        </form>
                     </div>
@@ -184,7 +230,9 @@
                         <div class="col" >
 
                             <div class="mb-3">
-                                <label  class="form-label"><b>Chọn tỉnh/thành phố</b></label>
+                                <label  class="form-label"><b>Chọn tỉnh/thành phố</b>
+                                    <span style="color: gray">(Hãy chọn để tính phí vận chuyển)</span>
+                                </label>
                                 <select class="form-select input-sm choose city" name="city" id="city">
                                     <option value="0">Chọn tỉnh/thành phố</option>
                                     @foreach ($city as $k => $c )
@@ -213,17 +261,7 @@
                                 value="Phí vận chuyển">
 
                         </div>
-                        <div class="col">
-                            <div>
-                                @php
-                                   $money_vn = $total / 24257;
-                                @endphp
-                                <div id="paypal-button-container">
-                                    <input type="hidden" id="money_vn" value="{{ round($money_vn, 2) }}">
-                                </div>
-                                <p id="result-message"></p>
-                            </div>
-                        </div>
+
                         <div class="col">
                             <div class="card" style="margin-top: ">
                                 <div class="card-header">
@@ -239,11 +277,25 @@
                                             <i class="fa fa-times"></i>
                                         </a>
                                         @elseif(!$fee)
-                                            0
+                                        {{ number_format(20000) }}
+                                        <a href="{{ url('/delete-fee') }}">
+                                            <i class="fa fa-times"></i>
+                                        </a>
                                         @endif
 
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div>
+                                @php
+                                   $money_vn = $total / 24257;
+                                @endphp
+                                <div id="paypal-button-container">
+                                    <input type="hidden" id="money_vn" value="{{ round($money_vn, 2) }}">
+                                </div>
+                                <p id="result-message"></p>
                             </div>
                         </div>
                     </div>

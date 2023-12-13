@@ -11,13 +11,15 @@ use App\Imports\ImportProduct;
 use App\Exports\ExportProduct;
 use App\Models\Product;
 use App\Models\Comment;
+use App\Models\CategoryProducts;
+
 session_start();
 
 class ProductController extends Controller
 {
     public function add_product()
     {
-        $cate_product = DB::table('tbl_cate_pro')->orderby('cate_id', 'desc')->get();
+        $cate_product = DB::table('tbl_cate_pro')->where('cate_status', '1')->orderby('cate_id', 'desc')->get();
         return view('admin.add_product')->with('cate_product', $cate_product);
     }
     public function save_product(Request $request)
@@ -41,15 +43,21 @@ class ProductController extends Controller
             $get_img->move('public/uploads/product', $new_img);
             $data['product_image'] = $new_img;
             DB::table('tbl_product')->insert($data);
+            $category = CategoryProducts::where('cate_id', $data['category_id'])->first();
+            $category->cate_quantity = $category->cate_quantity + 1;
             Session::put('message', 'Thêm thành công');
             return Redirect::to('add-product');
         }
         $data['product_image'] = '';
         DB::table('tbl_product')->insert($data);
+        $category = CategoryProducts::where('cate_id', $data['category_id'])->first();
+        $category->cate_quantity = $category->cate_quantity + 1;
         Session::put('message', 'Thêm thành công');
         return Redirect::to('add-product');
 
         DB::table('tbl_product')->insert($data);
+        $category = CategoryProducts::where('cate_id', $data['category_id'])->first();
+        $category->cate_quantity = $category->cate_quantity + 1;
         Session::put('message', 'Thêm thành công');
         return Redirect::to('add-product');
     }
@@ -122,9 +130,8 @@ class ProductController extends Controller
         ->join('tbl_cate_pro', 'tbl_cate_pro.cate_id', '=', 'tbl_product.category_id')
 
         ->orderby('tbl_product.product_id')->paginate(5);
-
-        $manager = view('admin.list_product')->with('list_product', $list_product);
-        return view('admin_dashboard')->with('admin.list_product', $manager);
+        $product_count = Product::count();
+        return view('admin.list_product')->with(compact('list_product', 'product_count'));
     }
     public function product_detail(Request $request, $product_id)
     {

@@ -3,7 +3,8 @@
 
 <div class="container-fluid card">
     &nbsp;
-    <h3>DANH SÁCH SẢN PHẨM</h3>
+    <h3>DANH SÁCH SẢN PHẨM </h3>
+    <p>Tổng sản phẩm: {{ $product_count }}</p>
     <?php
     $message = Session::get('message');
     if ($message) {

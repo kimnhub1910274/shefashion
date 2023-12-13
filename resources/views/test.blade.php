@@ -684,7 +684,6 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
       }(document, 'script', 'facebook-jssdk'));
     </script>
 
-//<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 <script>
     paypal.Buttons({
         env: 'sandbox',
@@ -712,7 +711,6 @@ src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v17.0"nonce="bkDS
         },
   }).render("#paypal-button-containere");
 
-// Example function to show a result to the user. Your site's UI library can be used instead.
 function resultMessage(message) {
   const container = document.querySelector("#result-message");
   container.innerHTML = message;
@@ -750,3 +748,34 @@ function resultMessage(message) {
 
     }).render('#paypal-button-container')
   </script>
+  <script type="text/javascript">
+    $('.add-addess').click(function(){
+        var id_customer = $('.id_customer').val();
+        var location = $('.location').val();
+        var name = $('.name').val();
+        var phone = $('.phone').val();
+        var address_count = $('.address_count').val();
+        var _token = $('input[name="_token"]').val();
+
+        //alert(address_count);
+        if(address_count > 10){
+            alert("Tổng số địa chỉ giao hàng đã vượt quá giới hạn, hãy xóa một số địa chỉ không khả dụng để thêm địa chỉ!!");
+        }else{
+            $.ajax({
+                url: '{{url('/add-address')}}',
+                method: 'POST',
+                data:{id_customer:id_customer, name:name,phone:phone, location:location , _token:_token},
+                success:function(data){
+                  Swal.fire('Thêm địa chỉ thành công!', '', 'success');
+                  location.reload();
+                }
+            });
+        }
+        window.setTimeout(function(){
+            location.reload();
+          }, 1000);
+
+    });
+
+
+</script>

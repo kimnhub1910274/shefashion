@@ -110,7 +110,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>1</h3>
+                <h3>{{ number_format($statistc) }}</h3>
 
                 <p>Tổng doanh thu</p>
               </div>
@@ -164,16 +164,27 @@
         </div>
         <div class="row">
             <p class="title"></p>
-                <ol class="list_product_view container">
-                    @foreach ($product_view as $k => $v)
-                    <li>
-                        <a target="_blank" href="{{ url('/product-detail/'.$v->product_id) }}" style="color: black">
-                            {{ $v->product_name }} | {{ $v->product_view }}
-                        </a>
-                    </li>
-                    @endforeach
-                </ol>
-
+                <div class="col">
+                    <ol class="list_product_view container ">
+                        @foreach ($product_view as $k => $v)
+                        <li>
+                            <a target="_blank" href="{{ url('/product-detail/'.$v->product_id) }}" style="color: black">
+                                {{ $v->product_name }} | {{ $v->product_view }}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ol>
+                </div>
+                <div class="col">
+                    <ol class="list_product_view container ">
+                        <li>
+                            Thanh toán khi nhận hàng | {{ $payment_method_1 }}
+                        </li>
+                        <li>
+                            Thanh toán Paypal | {{ $payment_method_2 }}
+                        </li>
+                    </ol>
+                </div>
         </div>
         <!-- /.row -->
         <!-- Main row -->

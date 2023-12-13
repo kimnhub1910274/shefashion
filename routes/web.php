@@ -176,6 +176,7 @@ Route::get('/customer/{customerId}', [CustomerController::class, 'customer']);
 Route::get('/address/{customerId}', [CustomerController::class, 'address']);
 Route::post('/approve-customer', [CustomerController::class, 'approve_customer']);
 Route::post('/add-address', [CustomerController::class, 'add_address']);
+Route::post('/edit-infor/{customer_id}', [CustomerController::class, 'edit_infor']);
 Route::get('/delete-address/{address_id}', [CustomerController::class, 'delete_address']);
 
 

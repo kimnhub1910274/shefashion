@@ -245,13 +245,13 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset('public/images/bannerhome3.jpg') }}" class="d-block w-100" alt="...">
+                        <img src="{{ asset('public/images/banner6.png') }}" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item Slide 2">
-                        <img src="{{ asset('public/images/bannerhome2.png') }}" class="d-block w-100" alt="...">
+                        <img src="{{ asset('public/images/banner7.png') }}" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item Slide 3">
-                        <img src="{{ asset('public/images/banner5.jpg') }}" class="d-block w-100" alt="...">
+                        <img src="{{ asset('public/images/bannerhome.png') }}" class="d-block w-100" alt="...">
                     </div>
                 </div>
 

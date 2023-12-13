@@ -3,12 +3,12 @@
 <title>Sản phẩm</title>
 <div class="container-fluid text-center">
     <div class="row">
-        <h4 class="text-center title col-8" style="margin-bottom: 20px; margin-top: 30px"><b>SẢN PHẨM MỚI</b></h4>
-        <div class="col" style="margin-left:-100px;">
+        <h4 class="text-center title col-8" style="margin-bottom: 20px; margin-top: 30px"><b>SẢN PHẨM</b></h4>
+        <div class="col" style="margin-left:-100px; float:right;">
             <h6 class="text-center title col" style="margin-bottom: 10px; margin-top: 20px; ">Sắp xếp theo</h6>
             <form action="">
                 @csrf
-                <select name="sort" id="sort" >
+                <select name="sort" id="sort" class="form-control" style="width:130px;margin-left:140px;">
                     <option  value="{{ Request::url() }}?sort_by=none">Lọc</option>
                     <option value="{{ Request::url() }}?sort_by=increase">Giá tăng dần</option>
                     <option value="{{ Request::url() }}?sort_by=reduce">Giá giảm dần</option>

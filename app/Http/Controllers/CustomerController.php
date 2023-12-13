@@ -46,8 +46,23 @@ class CustomerController extends Controller
      }
 
     public function delete_address($address_id){
+        $get_address = Address::where('id_customer', Session::get('customer_id'))
+        ->join('tbl_customers', 'tbl_customers.customer_id', '=', 'tbl_address.id_customer')
+
+        ->orderby('tbl_address.id_address')->paginate(5);
+        $address_count = $get_address->count();
        Address::where('id_address', $address_id)->delete();
-       return Redirect::back();
+       return view('customer.address')->with(compact('get_address', 'address_count'));
     }
+    public function edit_infor(Request $request, $customer_id){
+        $data = array();
+       // $customer = Customer::where('customer_id',$customer_id)->first();
+        $data['customer_email'] = $request->email;
+        $data['customer_name'] = $request->name;
+        $data['customer_phone'] = $request->phone;
+        Customer::where('customer_id',$customer_id)->update($data);
+        Session::put('message', 'Cập nhật thông tin thành công');
+        return Redirect::back();
+     }
 
 }

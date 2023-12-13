@@ -54,6 +54,7 @@ class DeliveryController extends Controller
                         <table class="table table-bordered">
                             <thread>
                                 <tr style="background-color:rgb(151, 151, 214);">
+                                    <th>STT</th>
                                     <th>Tên thành phố</th>
                                     <th>Tên quận/huyện</th>
                                     <th>Tên xã/phường</th>
@@ -65,6 +66,7 @@ class DeliveryController extends Controller
                         foreach($feeship as $k =>$fee){
         $output .= '
                                 <tr>
+                                    <td>'.$k.'</td>
                                     <td>'.$fee->city->city_name.'</td>
                                     <td>'.$fee->district->district_name.'</td>
                                     <td>'.$fee->ward->ward_name.'</td>

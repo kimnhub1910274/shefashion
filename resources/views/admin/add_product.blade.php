@@ -41,15 +41,17 @@
                             <div class="col">
                                 <label  class="form-label"><b>Danh mục sản phẩm</b></label>
                                 <select class="form-select input-sm" name="product_cate">
+                                    <option selected value="">Chọn</option>
                                     @foreach ($cate_product as $key => $cate)
-                                        <option selected value="{{ $cate->cate_id }}">{{ $cate->cate_name }}</option>
+                                        <option  value="{{ $cate->cate_id }}">{{ $cate->cate_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col mb">
                                 <label for=""><b>Hiển thị</b></label>
                                 <select class="form-select input-sm" name="product_status">
-                                    <option selected value="1">Hiển thị</option>
+                                    <option selected value="">Chọn</option>
+                                    <option  value="1">Hiển thị</option>
                                     <option value="0">Ẩn</option>
                                 </select>
                             </div>
